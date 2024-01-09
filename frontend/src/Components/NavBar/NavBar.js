@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CiMenuBurger, CiMenuKebab, CiSearch, CiShoppingCart } from "react-icons/ci";
 import './NavBar.css'
+import MenuBar from "../MenuBar/MenuBar";
 
 export default function NavBar() {
 
@@ -54,6 +55,7 @@ export default function NavBar() {
         </div>
 
       </div>
+      <MenuBar/>
     </>
   );
 }
