@@ -1,5 +1,6 @@
 @import url('https://fonts.cdnfonts.com/css/iranyekan');
 :root{
     --gray : #F3F4F6;
+    --gray-dark : #434343;
     --font :'IRANYekan', sans-serif;                                                
 }

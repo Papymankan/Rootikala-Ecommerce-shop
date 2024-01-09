@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { CiSearch } from "react-icons/ci";
+import { CiMenuKebab, CiSearch, CiShoppingCart } from "react-icons/ci";
 import './NavBar.css'
 
 export default function NavBar() {
@@ -20,8 +20,8 @@ export default function NavBar() {
             </div>
           </div>
           <div className="navBarActions">
-            <button></button>
-            <button></button>
+            <button><CiMenuKebab/></button>
+            <button><CiShoppingCart/></button>
           </div>
         </div>
       </div>
