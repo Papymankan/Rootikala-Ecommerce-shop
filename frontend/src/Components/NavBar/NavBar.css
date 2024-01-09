@@ -1,0 +1,59 @@
+.navBar {
+    width: 100%;
+    padding: 20px;
+    border: 1px solid red;
+    font-family: var(--font);
+}
+
+.navBarContainer {
+    /* border: 1px solid green; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navBarLogo {
+    width: 13%;
+}
+
+.navBarLogoLink {
+    display: flex;
+    align-items: center;
+}
+
+.navBarSearch {
+    width: 40%;
+    background-color: var(--gray);
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.navBarSearchGroup {
+    width: 95%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.navBarSearchGroup>button{
+    height: 100%;
+    background-color: rgba(250, 248, 247, 0);
+    border: none;
+    font-size: 35px;
+    display: flex;
+    align-items: center;
+}
+.navBarSearchGroup>input{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(250, 248, 247, 0);
+    border: none;
+    font-size: 20px;
+    /* font-family: var(--font); */
+}
+.navBarSearchGroup>input:focus{
+    outline: none;
+}
+
+/* .navBarLogoImg{} */
