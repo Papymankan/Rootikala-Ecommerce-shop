@@ -44,3 +44,11 @@ table {
 *{
 	direction: rtl;
 }
+a{
+	text-decoration: none !important;
+	color: #434343 !important;
+	transition: all .2s ease-in-out;
+}
+a:hover{
+	color: #10B981 !important;
+}
