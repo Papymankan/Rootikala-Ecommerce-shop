@@ -26,7 +26,7 @@
 /* ########################## style-seacrh ################ */
 
 .navBarSearch {
-    width: 40%;
+    width: 700px;
     background-color: var(--gray);
     height: 50px;
     border-radius: 10px;
@@ -72,4 +72,64 @@
     border: none;
     font-size: 27px;
     margin:  0 10px;
+}
+    /* ########################## style-action ################ */
+    /* ########################## style-action ################ */
+.navBarContainer2{
+    display: none;
+}
+.navBarUp{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+    /* ########################## style-action ################ */
+
+@media (max-width: 1100px) {
+    .navBarSearch {
+        width: 500px;
+    }
+    .navBarLogo {
+        width: 130px;
+    }
+}
+@media (max-width: 810px) {
+    .navBarSearch {
+        width: 350px;
+    }
+}
+@media (max-width: 670px) {
+    .navBarContainer2{
+        display: block;
+    }
+    .navBarContainer{
+        display: none;
+    }
+    .navBarLogo {
+        width: 200px;
+        padding-right: 20px;
+    }
+    .navBarSearch {
+        width: 100%;
+        height: 45px;
+        margin-top: 10px;
+    }
+    .navBarSearchGroup>button{
+        font-size: 30px;
+    }
+}
+@media (max-width: 410px) {
+    .navBarLogo {
+        width: 160px;
+        padding-right: 10px;
+    }
+    .navBarActions>button{
+        display: flex;
+        background:none;
+        border: none;
+        font-size: 23px;
+        margin:  0 5px;
+    }
 }
