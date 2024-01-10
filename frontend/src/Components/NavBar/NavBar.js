@@ -10,7 +10,7 @@ import MenuBar from "../MenuBar/MenuBar";
 export default function NavBar() {
 
   const [showMenu, setShowMenu] = useState(false)
-  const [showCart, setShowCart] = useState(true)
+  const [showCart, setShowCart] = useState(false)
 
 
   return (
@@ -79,7 +79,131 @@ export default function NavBar() {
                 <img src="/Images/p2.png" alt="" />
               </div>
               <div className="cartSlideItemDetail">
-                <span className="cartSlideItemTitle"></span>
+                <span className="cartSlideItemTitle">
+                  <Link>
+                    تیشرت اسپورت مردانه
+                  </Link>
+                </span>
+                <div>تعداد : 2  | سایز : 42</div>
+                <div>
+                  <span>{(1350000).toLocaleString()} تومان</span>
+                  <div className="quantity">
+                    <FaPlus />
+                    2
+                    <FaMinus />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="cartSlideItem">
+              <div className="cartSlideItemImg">
+                <div className="cartSlideCrossBtn">
+                  <LiaTimesSolid />
+                </div>
+                <img src="/Images/p2.png" alt="" />
+              </div>
+              <div className="cartSlideItemDetail">
+                <span className="cartSlideItemTitle">
+                  <Link>
+                    تیشرت اسپورت مردانه
+                  </Link>
+                </span>
+                <div>تعداد : 2  | سایز : 42</div>
+                <div>
+                  <span>{(1350000).toLocaleString()} تومان</span>
+                  <div className="quantity">
+                    <FaPlus />
+                    2
+                    <FaMinus />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="cartSlideItem">
+              <div className="cartSlideItemImg">
+                <div className="cartSlideCrossBtn">
+                  <LiaTimesSolid />
+                </div>
+                <img src="/Images/p2.png" alt="" />
+              </div>
+              <div className="cartSlideItemDetail">
+                <span className="cartSlideItemTitle">
+                  <Link>
+                    تیشرت اسپورت مردانه
+                  </Link>
+                </span>
+                <div>تعداد : 2  | سایز : 42</div>
+                <div>
+                  <span>{(1350000).toLocaleString()} تومان</span>
+                  <div className="quantity">
+                    <FaPlus />
+                    2
+                    <FaMinus />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="cartSlideItem">
+              <div className="cartSlideItemImg">
+                <div className="cartSlideCrossBtn">
+                  <LiaTimesSolid />
+                </div>
+                <img src="/Images/p2.png" alt="" />
+              </div>
+              <div className="cartSlideItemDetail">
+                <span className="cartSlideItemTitle">
+                  <Link>
+                    تیشرت اسپورت مردانه
+                  </Link>
+                </span>
+                <div>تعداد : 2  | سایز : 42</div>
+                <div>
+                  <span>{(1350000).toLocaleString()} تومان</span>
+                  <div className="quantity">
+                    <FaPlus />
+                    2
+                    <FaMinus />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="cartSlideItem">
+              <div className="cartSlideItemImg">
+                <div className="cartSlideCrossBtn">
+                  <LiaTimesSolid />
+                </div>
+                <img src="/Images/p2.png" alt="" />
+              </div>
+              <div className="cartSlideItemDetail">
+                <span className="cartSlideItemTitle">
+                  <Link>
+                    تیشرت اسپورت مردانه
+                  </Link>
+                </span>
+                <div>تعداد : 2  | سایز : 42</div>
+                <div>
+                  <span>{(1350000).toLocaleString()} تومان</span>
+                  <div className="quantity">
+                    <FaPlus />
+                    2
+                    <FaMinus />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="cartSlideItem">
+              <div className="cartSlideItemImg">
+                <div className="cartSlideCrossBtn">
+                  <LiaTimesSolid />
+                </div>
+                <img src="/Images/p2.png" alt="" />
+              </div>
+              <div className="cartSlideItemDetail">
+                <span className="cartSlideItemTitle">
+                  <Link>
+                    تیشرت اسپورت مردانه
+                  </Link>
+                </span>
                 <div>تعداد : 2  | سایز : 42</div>
                 <div>
                   <span>{(1350000).toLocaleString()} تومان</span>
