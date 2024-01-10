@@ -1,5 +1,5 @@
 import React from "react";
-import { CiMenuBurger } from "react-icons/ci";
+import { CiMenuBurger, CiSquareChevLeft } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import './MenuBar.css'
 
@@ -29,6 +29,30 @@ export default function MenuBar() {
                             سایر ...
                         </Link>
                     </div>
+                </div>
+            </div>
+            <div className="megaMenu">
+                <div className="megaMenuRow">
+                    <div className="megaMenuList">
+                        <ul>
+                            <li className="megaMenuListItems">
+                                مردانه <CiSquareChevLeft/>
+                            </li>
+                            <li className="megaMenuListItems">
+                                مردانه <CiSquareChevLeft/>
+                            </li>
+                            <li className="megaMenuListItems">
+                                مردانه <CiSquareChevLeft/>
+                            </li>
+                            <li className="megaMenuListItems">
+                                ارایشی و بهداشتی <CiSquareChevLeft/>
+                            </li>
+                            <li className="megaMenuListItems">
+                                مردانه <CiSquareChevLeft/>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="megaMenuItems"></div>
                 </div>
             </div>
         </>
