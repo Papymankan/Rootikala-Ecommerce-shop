@@ -111,6 +111,28 @@
     flex-direction: column;
     justify-content: space-between;
 }
+
+.cartSlideItem{
+    width: 100%;
+    display: flex;
+}
+.cartSlideItemImg{
+    border: 1px solid red;
+}
+.cartSlideItemImg>img{
+    width: 100px;
+}
+.cartSlideCrossBtn{
+    position: absolute;
+    display: flex;
+    padding: 5px;
+    border-radius: 50%;
+    color: red;
+    font-size: 23px;
+    background-color: var(--gray);
+    cursor: pointer;
+}
+
 .cartSlideActions {
     width: 100%;
     display: flex;

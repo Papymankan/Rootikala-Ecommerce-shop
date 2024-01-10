@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { CiMenuBurger, CiMenuKebab, CiSearch, CiShoppingCart } from "react-icons/ci";
+import { FaPlus, FaMinus } from "react-icons/fa";
+import { LiaTimesSolid } from "react-icons/lia";
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import './NavBar.css'
 import MenuBar from "../MenuBar/MenuBar";
@@ -28,7 +30,7 @@ export default function NavBar() {
           </div>
           <div className="navBarActions">
             <button><CiMenuKebab /></button>
-            <button onClick={()=>setShowCart(true)}><CiShoppingCart /></button>
+            <button onClick={() => setShowCart(true)}><CiShoppingCart /></button>
           </div>
         </div>
 
@@ -47,7 +49,7 @@ export default function NavBar() {
 
             <div className="navBarActions">
               <button><CiMenuKebab /></button>
-              <button onClick={()=>setShowCart(true)}><CiShoppingCart /></button>
+              <button onClick={() => setShowCart(true)}><CiShoppingCart /></button>
             </div>
 
           </div>
@@ -67,7 +69,30 @@ export default function NavBar() {
           <Offcanvas.Title>سبد خرید (5)</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body className="cartSlideBody">
-          <div className="cartSlideContainer"></div>
+
+          <div className="cartSlideContainer">
+            <div className="cartSlideItem">
+              <div className="cartSlideItemImg">
+                <div className="cartSlideCrossBtn">
+                  <LiaTimesSolid />
+                </div>
+                <img src="/Images/p2.png" alt="" />
+              </div>
+              <div className="cartSlideItemDetail">
+                <span className="cartSlideItemTitle"></span>
+                <div>تعداد : 2  | سایز : 42</div>
+                <div>
+                  <span>{(1350000).toLocaleString()} تومان</span>
+                  <div className="quantity">
+                    <FaPlus />
+                    2
+                    <FaMinus />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="cartSlideActions">
             <div>
               <span>مبلغ قابل پرداخت</span>
