@@ -14,17 +14,21 @@
     justify-content: space-between;
     align-items: center;
 }
+
 /* ########################## style-logo ################ */
 .navBarLogo {
     width: 12%;
 }
-.navBarLogoImg{
+
+.navBarLogoImg {
     width: 100%;
 }
+
 .navBarLogoLink {
     display: flex;
     align-items: center;
 }
+
 /* ########################## style-logo ################ */
 /* ########################## style-seacrh ################ */
 
@@ -43,99 +47,159 @@
     display: flex;
     align-items: center;
 }
-.navBarSearchGroup>button{
+
+.navBarSearchGroup>button {
     height: 100%;
-    background:none;
+    background: none;
     border: none;
     font-size: 35px;
     display: flex;
     align-items: center;
     color: var(--gray-dark);
 }
-.navBarSearchGroup>input{
+
+.navBarSearchGroup>input {
     width: 100%;
     height: 100%;
-    background:none;
+    background: none;
     border: none;
     font-size: 17px;
     color: var(--gray-dark);
 }
-.navBarSearchGroup>input:focus{
+
+.navBarSearchGroup>input:focus {
     outline: none;
 }
+
 /* ########################## style-seacrh ################ */
 /* ########################## style-action ################ */
 
-.navBarActions{
+.navBarActions {
     display: flex;
 }
-.navBarActions>button{
+
+.navBarActions>button {
     display: flex;
-    background:none;
+    background: none;
     border: none;
     font-size: 27px;
-    margin:  0 10px;
+    margin: 0 10px;
 }
-    /* ########################## style-action ################ */
-    /* ########################## style-action ################ */
-.navBarContainer2{
+
+/* ########################## style-action ################ */
+/* ########################## style-action ################ */
+.navBarContainer2 {
     display: none;
 }
-.navBarUp{
+
+.navBarUp {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
 }
 
-    /* ########################## style-action ################ */
+/* ########################## style-action ################ */
+/* ########################## style-action ################ */
+.cartSlideHeader {
+    display: flex;
+    flex-direction: row-reverse;
+    color: var(--gray-dark);
+}
+.cartSlideBody{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.cartSlideActions {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    border-top: 1px solid var(--gray);
+}
+
+.cartSlideActions>div:first-of-type {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cartSlideActions>div:first-of-type>span:nth-of-type(2) {
+    color: black;
+    font-size: 19px;
+    margin-top: 7px;
+}
+
+.cartSlideActions>div:nth-of-type(2)>button {
+    border: 0;
+    background-color: var(--green);
+    padding: 10px 8px;
+    font-size: 15px;
+    color: white;
+    border-radius: 7px;
+}
+
+
+/* ########################## style-action ################ */
 
 @media (max-width: 1100px) {
     .navBarSearch {
         width: 500px;
     }
+
     .navBarLogo {
         width: 130px;
     }
 }
+
 @media (max-width: 810px) {
     .navBarSearch {
         width: 350px;
     }
 }
+
 @media (max-width: 670px) {
-    .navBar{
+    .navBar {
         height: auto;
     }
-    .navBarContainer2{
+
+    .navBarContainer2 {
         display: block;
     }
-    .navBarContainer{
+
+    .navBarContainer {
         display: none;
     }
+
     .navBarLogo {
         width: 200px;
         padding-right: 20px;
     }
+
     .navBarSearch {
         width: 100%;
         height: 45px;
         margin-top: 10px;
     }
-    .navBarSearchGroup>button{
+
+    .navBarSearchGroup>button {
         font-size: 30px;
     }
 }
+
 @media (max-width: 410px) {
     .navBarLogo {
         width: 160px;
         padding-right: 10px;
     }
-    .navBarActions>button{
+
+    .navBarActions>button {
         display: flex;
-        background:none;
+        background: none;
         border: none;
         font-size: 23px;
-        margin:  0 5px;
+        margin: 0 5px;
     }
 }
