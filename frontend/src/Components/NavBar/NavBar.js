@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { CiMenuBurger, CiMenuKebab, CiSearch, CiShoppingCart } from "react-icons/ci";
 import './NavBar.css'
 import MenuBar from "../MenuBar/MenuBar";
 
 export default function NavBar() {
+
+  const [showMenu , setShowMenu] = useState(false)
 
   return (
     <>
@@ -31,7 +33,7 @@ export default function NavBar() {
         <div className="navBarContainer2">
           <div className="navBarUp">
             <div className="navBarActions">
-              <button><CiMenuBurger /></button>
+              <button onClick={()=>setShowMenu(true)}><CiMenuBurger /></button>
             </div>
 
             <div className="navBarLogo">
@@ -55,7 +57,7 @@ export default function NavBar() {
         </div>
 
       </div>
-      <MenuBar/>
+      <MenuBar showMenu={showMenu} setShowMenu={setShowMenu}/>
     </>
   );
 }

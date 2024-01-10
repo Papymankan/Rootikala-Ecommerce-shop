@@ -1,20 +1,23 @@
 import React, { useState } from "react";
-import { CiMenuBurger, CiSquareChevLeft } from "react-icons/ci";
+import { CiHome, CiMenuBurger, CiMenuKebab, CiShoppingBasket, CiSquareChevLeft } from "react-icons/ci";
+import { HiOutlineShoppingBag } from "react-icons/hi2";
+import { SlFire } from "react-icons/sl";
+import Offcanvas from 'react-bootstrap/Offcanvas';
 import { IoIosArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 import './MenuBar.css'
 
-export default function MenuBar() {
+export default function MenuBar({ showMenu, setShowMenu }) {
 
-    const [scroll , setScroll] = useState(0)
-    const [topBarShow , setTopBarShow] = useState(true)
+    const [scroll, setScroll] = useState(0)
+    const [topBarShow, setTopBarShow] = useState(true)
 
-    const ScrollHandler = ()=>{
-        if(window.scrollY > scroll){
-            if(topBarShow){
+    const ScrollHandler = () => {
+        if (window.scrollY > scroll) {
+            if (topBarShow) {
                 setTopBarShow(false)
             }
-        }else if(!topBarShow){
+        } else if (!topBarShow) {
             setTopBarShow(true)
         }
 
@@ -22,11 +25,11 @@ export default function MenuBar() {
 
     }
 
-    window.addEventListener('scroll' , ScrollHandler)
+    window.addEventListener('scroll', ScrollHandler)
 
     return (
         <>
-            <div className="topBar" style={topBarShow ? {'top':'98px'} : {'top': '45px'}}>
+            <div className="topBar" style={topBarShow ? { 'top': '98px' } : { 'top': '45px' }}>
                 <div className="topBarRow">
                     <div className="topBarItems">
                         <Link>
@@ -194,7 +197,38 @@ export default function MenuBar() {
                     </div>
                 </div>
             </div>
-            
+
+            <Offcanvas show={showMenu} placement='end' onHide={setShowMenu}>
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title>
+                        <Link to='/'>
+                            <img src="https://roti-preview.taymakz.ir/assets/images/logo.svg" className="SlideBarLogoImg" />
+                        </Link>
+                    </Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                    <ul className="SlideBarLinksList">
+                        <li className="SlideBarLinks">
+                            <Link><CiHome/> صفحه اصلی</Link>
+                        </li>
+                        <li className="SlideBarLinks">
+                            <Link><SlFire/> فروش ویژه</Link>
+                        </li>
+                        <li className="SlideBarLinks">
+                            <Link><CiShoppingBasket/> راهنمای خرید</Link>
+                        </li>
+                        <li className="SlideBarLinks">
+                            <Link><CiMenuKebab/> سایر ...</Link>
+                        </li>
+                    </ul>
+                    <div className="divider">
+                        <span></span>
+                        <HiOutlineShoppingBag />
+                        <span></span>
+                    </div>
+                </Offcanvas.Body>
+            </Offcanvas>
+
         </>
     );
 }
