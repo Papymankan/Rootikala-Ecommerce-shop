@@ -41,21 +41,32 @@
 
 /* ################ TopBar Menu ################## */
 /* ################ mega Menu Menu ################## */
-.megaMenu{
+.megaMenu {
+    display: none;
     width: 900px;
     height: 400px;
     font-family: var(--font);
     position: absolute;
+    right: 15px;
+    top: 50px;
+    border-radius: 0 0 15px 15px;
+
+    box-shadow: 1px 42px 31px -5px rgba(0,0,0,0.62);
+    -webkit-box-shadow: 1px 42px 31px -5px rgba(0,0,0,0.62);
+    -moz-box-shadow: 1px 42px 31px -5px rgba(0,0,0,0.62);
 }
-.megaMenuRow{
+
+.megaMenuRow {
     display: flex;
     width: 100%;
     height: 100%;
 }
-.megaMenuList{
+
+.megaMenuList {
     width: 22%;
 }
-.megaMenuList>ul{
+
+.megaMenuList>ul {
     width: 100%;
     height: 100%;
     padding: 0;
@@ -63,7 +74,8 @@
     background-color: var(--gray);
     border-radius: 0 0 15px 0;
 }
-.megaMenuListItems{
+
+.megaMenuListItems {
     width: 100%;
     padding: 14px 5px;
     font-size: 18px;
@@ -71,58 +83,70 @@
     display: flex;
     justify-content: space-between;
 }
-.megaMenuListItems:hover{
-    background-color: white;
-}
-.megaMenuActive{
+
+.megaMenuListItems:hover {
     background-color: white;
 }
 
-.megaMenuItems{
+.megaMenuActive {
+    background-color: white;
+}
+
+.megaMenuItems {
     background-color: white;
     width: 78%;
     overflow-y: auto;
-    border-radius: 0 0  0 15px;
+    border-radius: 0 0 0 15px;
     padding: 15px;
 }
-.megaMenuItemsUp{
+
+.megaMenuItemsUp {
     width: 100%;
     font-size: 16px;
 }
-.megaMenuItemsUp>a{
+
+.megaMenuItemsUp>a {
     color: var(--green) !important;
 }
-.megaMenuItemsDown{
+
+.megaMenuItemsDown {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
 }
-.subMenuItem{
+
+.subMenuItem {
     margin-top: 10px;
     margin-left: 30px;
 }
-.subMenuItemHead{
+
+.subMenuItemHead {
     font-size: 18px;
     display: flex;
     align-items: center;
 }
-.subMenuItemHead>span{
+
+.subMenuItemHead>span {
     display: block;
     height: 25px;
     margin-left: 5px;
     border-left: 3px solid var(--green);
 }
-.subMenuItemList{
+
+.subMenuItemList {
     margin-top: 10px;
 }
-.subMenuItemList>ul{
+
+.subMenuItemList>ul {
     width: 100%;
 }
-.subMenuItemList>ul>li{
+
+.subMenuItemList>ul>li {
     width: 100%;
     padding: 7px 0;
 }
-.subMenuItemList>ul>li>a{
+
+.subMenuItemList>ul>li>a {
     width: 100%;
     display: block;
 }
