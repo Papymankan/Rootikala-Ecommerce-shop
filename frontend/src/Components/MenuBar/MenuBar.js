@@ -209,16 +209,16 @@ export default function MenuBar({ showMenu, setShowMenu }) {
                 <Offcanvas.Body>
                     <ul className="SlideBarLinksList">
                         <li className="SlideBarLinks">
-                            <Link><CiHome/> صفحه اصلی</Link>
+                            <Link><CiHome /> صفحه اصلی</Link>
                         </li>
                         <li className="SlideBarLinks">
-                            <Link><SlFire/> فروش ویژه</Link>
+                            <Link><SlFire /> فروش ویژه</Link>
                         </li>
                         <li className="SlideBarLinks">
-                            <Link><CiShoppingBasket/> راهنمای خرید</Link>
+                            <Link><CiShoppingBasket /> راهنمای خرید</Link>
                         </li>
                         <li className="SlideBarLinks">
-                            <Link><CiMenuKebab/> سایر ...</Link>
+                            <Link><CiMenuKebab /> سایر ...</Link>
                         </li>
                     </ul>
                     <div className="divider">
@@ -226,6 +226,11 @@ export default function MenuBar({ showMenu, setShowMenu }) {
                         <HiOutlineShoppingBag />
                         <span></span>
                     </div>
+                    <ul className="SlideBarLinksList">
+                        <li className="SlideBarLinks">
+                            <Link><CiMenuBurger /> دسته بندی ها</Link>
+                        </li>
+                    </ul>
                 </Offcanvas.Body>
             </Offcanvas>
 
