@@ -104,6 +104,9 @@
     }
 }
 @media (max-width: 670px) {
+    .navBar{
+        height: auto;
+    }
     .navBarContainer2{
         display: block;
     }

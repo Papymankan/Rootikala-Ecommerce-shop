@@ -194,7 +194,7 @@ export default function MenuBar() {
                     </div>
                 </div>
             </div>
-
+            
         </>
     );
 }

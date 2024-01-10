@@ -5,7 +5,7 @@
     background-color: white;
     position: fixed;
     top: 98px;
-    transition: all .4s ease-in-out;
+    transition: all .2s ease-in-out;
     z-index: 1;
 }
 
@@ -44,7 +44,7 @@
 /* ################ TopBar Menu ################## */
 /* ################ mega Menu Menu ################## */
 .megaMenu {
-    display: none;
+    /* display: none; */
     width: 900px;
     height: 400px;
     font-family: var(--font);
@@ -154,12 +154,19 @@
 }
 
 
-
-
-
-
-
-
-
-
 /* ################ mega Menu Menu ################## */
+
+
+@media (max-width: 930px) {
+    .megaMenu{
+        width: 600px;
+    }
+}
+@media (max-width: 670px) {
+    .megaMenu{
+        display: none;
+    }
+    .topBar{
+        display: none;
+    }
+}
