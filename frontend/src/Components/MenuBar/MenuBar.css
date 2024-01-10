@@ -2,6 +2,9 @@
 .topBar {
     width: 100%;
     font-family: var(--font);
+    background-color: white;
+    position: fixed;
+    top: 98px;
 }
 
 .topBarRow {
@@ -68,17 +71,15 @@
     display: flex;
     justify-content: space-between;
 }
-.megaMenuListItems>svg{
-    font-size: 23px;
-    color: var(--green);
-}
 .megaMenuListItems:hover{
     background-color: white;
 }
-
+.megaMenuActive{
+    background-color: white;
+}
 
 .megaMenuItems{
-    border: 1px solid blue;
+    background-color: white;
     width: 78%;
     overflow-y: auto;
     border-radius: 0 0  0 15px;
@@ -114,8 +115,16 @@
 .subMenuItemList{
     margin-top: 10px;
 }
+.subMenuItemList>ul{
+    width: 100%;
+}
 .subMenuItemList>ul>li{
+    width: 100%;
     padding: 7px 0;
+}
+.subMenuItemList>ul>li>a{
+    width: 100%;
+    display: block;
 }
 
 

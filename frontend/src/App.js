@@ -11,7 +11,9 @@ function App() {
 
   return (
     <>
-    {router}
+      <div className="App">
+        {router}
+      </div>
     </>
   );
 }

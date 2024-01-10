@@ -38,7 +38,7 @@ export default function MenuBar() {
                                 <li className="megaMenuListItems">
                                     مردانه
                                 </li>
-                                <li className="megaMenuListItems">
+                                <li className="megaMenuListItems megaMenuActive">
                                     مردانه
                                 </li>
                                 <li className="megaMenuListItems">
