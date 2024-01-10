@@ -41,8 +41,8 @@
 .megaMenu{
     width: 900px;
     height: 400px;
-    border: 1px solid red;
     font-family: var(--font);
+    position: absolute;
 }
 .megaMenuRow{
     display: flex;
@@ -50,7 +50,6 @@
     height: 100%;
 }
 .megaMenuList{
-    border: 1px solid green;
     width: 22%;
 }
 .megaMenuList>ul{
@@ -59,6 +58,7 @@
     padding: 0;
     margin: 0;
     background-color: var(--gray);
+    border-radius: 0 0 15px 0;
 }
 .megaMenuListItems{
     width: 100%;
@@ -81,8 +81,42 @@
     border: 1px solid blue;
     width: 78%;
     overflow-y: auto;
+    border-radius: 0 0  0 15px;
+    padding: 15px;
 }
-
+.megaMenuItemsUp{
+    width: 100%;
+    font-size: 16px;
+}
+.megaMenuItemsUp>a{
+    color: var(--green) !important;
+}
+.megaMenuItemsDown{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.subMenuItem{
+    margin-top: 10px;
+    margin-left: 30px;
+}
+.subMenuItemHead{
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+.subMenuItemHead>span{
+    display: block;
+    height: 25px;
+    margin-left: 5px;
+    border-left: 3px solid var(--green);
+}
+.subMenuItemList{
+    margin-top: 10px;
+}
+.subMenuItemList>ul>li{
+    padding: 7px 0;
+}
 
 
 
