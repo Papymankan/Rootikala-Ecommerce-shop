@@ -18,7 +18,7 @@ export default function NavBar() {
           <div className="navBarSearch">
             <div className="navBarSearchGroup">
               <button><CiSearch /></button>
-              <input type="text" />
+              <input type="text" placeholder="جستجو کنید ..."/>
             </div>
           </div>
           <div className="navBarActions">
@@ -49,7 +49,7 @@ export default function NavBar() {
           <div className="navBarSearch">
             <div className="navBarSearchGroup">
               <button><CiSearch /></button>
-              <input type="text" />
+              <input type="text" placeholder="جستجو کنید ..."/>
             </div>
           </div>
         </div>

@@ -5,6 +5,8 @@
     background-color: white;
     position: fixed;
     top: 98px;
+    transition: all .4s ease-in-out;
+    z-index: 1;
 }
 
 .topBarRow {

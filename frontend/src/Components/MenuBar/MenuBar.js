@@ -1,13 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { CiMenuBurger, CiSquareChevLeft } from "react-icons/ci";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 import './MenuBar.css'
 
 export default function MenuBar() {
+
+    const [scroll , setScroll] = useState(0)
+    const [topBarShow , setTopBarShow] = useState(true)
+
+    const ScrollHandler = ()=>{
+        if(window.scrollY > scroll){
+            if(topBarShow){
+                setTopBarShow(false)
+            }
+        }else if(!topBarShow){
+            setTopBarShow(true)
+        }
+
+        setScroll(window.scrollY)
+
+    }
+
+    window.addEventListener('scroll' , ScrollHandler)
+
     return (
         <>
-            <div className="topBar">
+            <div className="topBar" style={topBarShow ? {'top':'98px'} : {'top': '45px'}}>
                 <div className="topBarRow">
                     <div className="topBarItems">
                         <Link>
