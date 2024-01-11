@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { CiMenuBurger, CiMenuKebab, CiSearch, CiShoppingCart } from "react-icons/ci";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
+import { HiOutlineShoppingBag } from "react-icons/hi2";
+import { IoIosArrowBack } from "react-icons/io";
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import './NavBar.css'
 import MenuBar from "../MenuBar/MenuBar";
@@ -31,6 +33,34 @@ export default function NavBar() {
           <div className="navBarActions">
             <button><CiMenuKebab /></button>
             <button onClick={() => setShowCart(true)}><CiShoppingCart /></button>
+
+            <div className="actionMenu">
+              <div className="actionMenuList">
+                <ul>
+                  <li>
+                    <Link>
+                      پارسا رستمی  <IoIosArrowBack />
+                    </Link>
+                  </li>
+                  <li>
+                    <Link>
+                      <HiOutlineShoppingBag />سفارش ها
+                    </Link>
+                  </li>
+                  <li>
+                    <Link>
+                      <HiOutlineShoppingBag />پیام ها
+                    </Link>
+                  </li>
+                  <li>
+                    <Link>
+                      <HiOutlineShoppingBag />خروج
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
           </div>
         </div>
 
