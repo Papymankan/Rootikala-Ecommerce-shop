@@ -1,0 +1,35 @@
+.LandingContainer{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    height: 460px;
+}
+.landingSwiper{
+    width: 66%;
+    height: 100%;
+}
+.landingSwiper>img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+.landingPicture{
+    width: 33%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.landingPicture>div{
+    width: 100%;
+    height: 48%;
+}
+.landingPicture>div:last-of-type{
+    /* margin-top: 10px; */
+}
+.landingPicture>div>img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}

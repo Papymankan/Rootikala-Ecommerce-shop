@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { CiMenuBurger, CiMenuKebab, CiSearch, CiShoppingCart } from "react-icons/ci";
+import Avatar from '@mui/material/Avatar';
+import { deepOrange, deepPurple } from '@mui/material/colors';
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
@@ -39,6 +41,7 @@ export default function NavBar() {
                 <ul>
                   <li>
                     <Link>
+                      <Avatar sx={{ bgcolor: '#10B981' , marginLeft:'10px' , width:30 , height:30 , display:"flex" , justifyContent:'center' , alignItems:'center'}}>P</Avatar>
                       پارسا رستمی  <IoIosArrowBack />
                     </Link>
                   </li>

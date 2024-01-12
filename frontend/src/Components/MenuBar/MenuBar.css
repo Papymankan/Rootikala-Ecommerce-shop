@@ -44,7 +44,7 @@
 /* ################ TopBar Menu ################## */
 /* ################ mega Menu Menu ################## */
 .megaMenu {
-    /* display: none; */
+    display: none;
     width: 900px;
     height: 400px;
     font-family: var(--font);

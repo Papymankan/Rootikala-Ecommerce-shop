@@ -226,6 +226,7 @@
 .actionMenu {
     position: absolute;
     top: 70px;
+    display: none;
     width: 200px;
     background-color: white;
     left: 30px;
