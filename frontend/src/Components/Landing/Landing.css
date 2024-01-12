@@ -1,35 +1,58 @@
-.LandingContainer{
+.LandingContainer {
     display: flex;
     align-items: center;
     width: 100%;
     justify-content: space-between;
     height: 460px;
 }
-.landingSwiper{
+
+.landingSwiper {
     width: 66%;
     height: 100%;
 }
-.landingSwiper>img{
+
+.landingSwiper>img {
     width: 100%;
     height: 100%;
-    border-radius: 10px;
 }
-.landingPicture{
+
+.landingPicture {
     width: 33%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
-.landingPicture>div{
+
+.landingPicture>div {
     width: 100%;
     height: 48%;
 }
-.landingPicture>div:last-of-type{
-    /* margin-top: 10px; */
-}
-.landingPicture>div>img{
+
+.landingPicture>div>img {
     width: 100%;
     height: 100%;
     border-radius: 10px;
+}
+
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    border-radius: 10px;
+    height: 100%;
 }
