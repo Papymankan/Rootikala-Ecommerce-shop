@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <NavBar />
-      <div className="container">
+      <div className="Container">
         <Landing />
       </div>
     </>
