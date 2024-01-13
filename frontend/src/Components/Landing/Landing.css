@@ -57,3 +57,27 @@
     border-radius: 10px;
     height: 100%;
 }
+
+@media (max-width: 1150px) {
+    .LandingContainer{
+        height: auto;
+        flex-direction: column;
+    }
+    .landingSwiper {
+        width: 100%;
+    }
+    .landingPicture {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+    .landingPicture>div {
+        width: 49%;
+    }
+}
+@media (max-width: 675px) {
+    .LandingContainer{
+        margin-top: 20px;
+    }
+}
