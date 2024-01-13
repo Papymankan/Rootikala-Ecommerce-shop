@@ -202,7 +202,7 @@ export default function MenuBar({ showMenu, setShowMenu }) {
                 <Offcanvas.Header closeButton>
                     <Offcanvas.Title>
                         <Link to='/'>
-                            <img src="https://roti-preview.taymakz.ir/assets/images/logo.svg" className="SlideBarLogoImg" />
+                        <img src="/Images/logo.svg" className="navBarLogoImg" />
                         </Link>
                     </Offcanvas.Title>
                 </Offcanvas.Header>

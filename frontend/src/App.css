@@ -8,8 +8,6 @@
 
 .Container {
     border: 1px solid red;
-    position: relative;
-    top: 150px;
     padding: 0 !important;
     width: 1350px;
     margin: 0 auto;

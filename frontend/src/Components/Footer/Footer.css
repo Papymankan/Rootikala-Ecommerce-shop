@@ -1,0 +1,87 @@
+.footer {
+    width: 100%;
+    background-color: white;
+    padding-top: 10px;
+    font-family: var(--font);
+}
+
+.footerContainer {
+    width: 100%;
+}
+
+/* ##########footerTop########################## */
+.footerTop {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.footerTop>div:first-of-type {
+    display: flex;
+}
+
+.footerTop>div:first-of-type>span:nth-of-type(2) {
+    padding: 0 10px;
+}
+
+.footerTop>div>button {
+    padding: 10px 15px;
+    background-color: white;
+    border: 1px solid var(--gray-dark);
+    border-radius: 10px;
+}
+
+/* ##########footerTop########################## */
+/* ##########footerEmail########################## */
+.footerEmail {
+    border-radius: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    background-color: var(--gray);
+}
+
+.footerEmail>div:first-of-type {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: white;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.footerEmail>div:first-of-type>input {
+    padding: 7px 10px;
+    border: 0;
+    width: 85%;
+}
+.footerEmail>div:first-of-type>input:focus {
+    outline: 0;
+}
+
+.footerEmail>div:first-of-type>button {
+    padding: 7px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    background-color: var(--green);
+    color: white;
+    border-radius: 5px;
+}
+
+.footerEmail>div:last-of-type {
+    width: 10%;
+    display: flex;
+    align-items: center;
+    font-size: 22px;
+}
+.footerEmail>div:last-of-type>svg {
+    margin: 0 10px;
+}
+/* ##########footerEmail########################## */

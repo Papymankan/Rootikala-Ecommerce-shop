@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { CiMenuBurger, CiMenuKebab, CiSearch, CiShoppingCart } from "react-icons/ci";
 import Avatar from '@mui/material/Avatar';
-import { deepOrange, deepPurple } from '@mui/material/colors';
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
@@ -23,7 +22,7 @@ export default function NavBar() {
         <div className="navBarContainer">
           <div className="navBarLogo">
             <Link to={'/'} className='navBarLogoLink'>
-              <img src="https://roti-preview.taymakz.ir/assets/images/logo.svg" className="navBarLogoImg" />
+              <img src="/Images/logo.svg" className="navBarLogoImg" />
             </Link>
           </div>
           <div className="navBarSearch">
@@ -76,7 +75,7 @@ export default function NavBar() {
 
             <div className="navBarLogo">
               <Link to={'/'} className='navBarLogoLink'>
-                <img src="https://roti-preview.taymakz.ir/assets/images/logo.svg" className="navBarLogoImg" />
+              <img src="/Images/logo.svg" className="navBarLogoImg" />
               </Link>
             </div>
 
