@@ -54,7 +54,9 @@ export default function Footer() {
                                 <img src="Images/etemad.png" alt="" />
                             </div>
                         </div>
-                        <div className="footerCopyRight"></div>
+                        <div className="footerCopyRight">
+                        کلیه حقوق این سایت متعلق به فروشگاه روتی کالا می‌باشد.
+                        </div>
                     </div>
                 </div>
             </div>
