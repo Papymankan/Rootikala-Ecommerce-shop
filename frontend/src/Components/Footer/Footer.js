@@ -3,6 +3,8 @@ import './Footer.css'
 import { IoIosArrowUp } from "react-icons/io";
 import { FaTelegram, FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import { Link } from "react-router-dom";
+
 
 export default function Footer() {
     return (
@@ -32,7 +34,26 @@ export default function Footer() {
                                 <FaTelegram />
                             </div>
                         </div>
-                        <div className="footerLinks"></div>
+                        <div className="footerLinks">
+                            <div>
+                                <div>
+                                    <h2>روتی کالا</h2>
+                                    <Link>شرایط مرجوعی</Link>
+                                    <Link>راهنمای خرید</Link>
+                                    <Link>قوانین</Link>
+                                </div>
+                                <div>
+                                    <h2>دسترسی سریع</h2>
+                                    <Link>پیگیری سفارسات</Link>
+                                    <Link>تماس با ما</Link>
+                                    <Link>درباره ما</Link>
+                                </div>
+                            </div>
+                            <div>
+                                <img src="Images/samandehi.webp" alt="" />
+                                <img src="Images/etemad.png" alt="" />
+                            </div>
+                        </div>
                         <div className="footerCopyRight"></div>
                     </div>
                 </div>
