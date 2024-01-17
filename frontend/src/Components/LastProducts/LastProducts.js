@@ -19,11 +19,6 @@ export default function LastProducts() {
                         <Swiper
                             slidesPerView={5.5}
                             spaceBetween={15}
-                            // centeredSlides={true}
-                            // pagination={{
-                            //     clickable: true,
-                            // }}
-                            // modules={[Pagination]}
                             className="myProductsSwiper"
                         >
                             <SwiperSlide className="productSlide">
@@ -31,64 +26,20 @@ export default function LastProducts() {
                                     <Link>
                                         <img src="/Images/p2.png" />
                                         <span>تیشرت اسپورت اسپورت اسپورت اسپورت اسپورت اسپورت مردانه</span>
+                                        <div>
+                                            <span>{(10000000).toLocaleString()}</span>
+                                            <span>
+                                                {(1350000).toLocaleString()} تومان
+                                                <span>
+                                                    50%
+                                                </span>
+                                            </span>
+                                        </div>
                                         <span>{(1350000).toLocaleString()} تومان</span>
                                     </Link>
                                 </div>
                             </SwiperSlide>
-                            <SwiperSlide className="productSlide">
-                                <div className="ProductCard">
-                                    <Link>
-                                        <img src="/Images/p2.png" />
-                                        <span>تیشرت اسپورت اسپورت اسپورت اسپورت اسپورت اسپورت مردانه</span>
-                                        <span>{(1350000).toLocaleString()} تومان</span>
-                                    </Link>
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide className="productSlide">
-                                <div className="ProductCard">
-                                    <Link>
-                                        <img src="/Images/p2.png" />
-                                        <span>تیشرت اسپورت اسپورت اسپورت اسپورت اسپورت اسپورت مردانه</span>
-                                        <span>{(1350000).toLocaleString()} تومان</span>
-                                    </Link>
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide className="productSlide">
-                                <div className="ProductCard">
-                                    <Link>
-                                        <img src="/Images/p2.png" />
-                                        <span>تیشرت اسپورت اسپورت اسپورت اسپورت اسپورت اسپورت مردانه</span>
-                                        <span>{(1350000).toLocaleString()} تومان</span>
-                                    </Link>
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide className="productSlide">
-                                <div className="ProductCard">
-                                    <Link>
-                                        <img src="/Images/p2.png" />
-                                        <span>تیشرت اسپورت اسپورت اسپورت اسپورت اسپورت اسپورت مردانه</span>
-                                        <span>{(1350000).toLocaleString()} تومان</span>
-                                    </Link>
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide className="productSlide">
-                                <div className="ProductCard">
-                                    <Link>
-                                        <img src="/Images/p2.png" />
-                                        <span>تیشرت اسپورت اسپورت اسپورت اسپورت اسپورت اسپورت مردانه</span>
-                                        <span>{(1350000).toLocaleString()} تومان</span>
-                                    </Link>
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide className="productSlide">
-                                <div className="ProductCard">
-                                    <Link>
-                                        <img src="/Images/p2.png" />
-                                        <span>تیشرت اسپورت اسپورت اسپورت اسپورت اسپورت اسپورت مردانه</span>
-                                        <span>{(1350000).toLocaleString()} تومان</span>
-                                    </Link>
-                                </div>
-                            </SwiperSlide>
+
                         </Swiper>
                     </div>
                 </div>
