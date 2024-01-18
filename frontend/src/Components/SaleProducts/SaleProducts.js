@@ -1,17 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
-import './LastProducts.css'
+// import './LastProducts.css'
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-export default function LastProducts() {
+export default function SaleProducts() {
     return (
         <>
             <div className="Container">
                 <div className="LastCoursesContainer">
                     <div className="LastCoursesHeader">
-                        <h2>جدیدترین محصولات</h2>
+                        <h2>محبوب ترین محصولات</h2>
                         <Link>مشاهده همه <IoIosArrowBack /></Link>
                     </div>
                     <div className="LastCoursesRow">
