@@ -90,7 +90,6 @@
 .ProductCard>a>span:last-of-type {
     text-align: end;
     color: var(--green);
-    display: none;
 }
 
 .productSlide {
@@ -107,9 +106,10 @@
 }
 
 .ProductCard>a>div {
+    display: none;
     text-align: end;
     width: 100%;
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
 }
 .ProductCard>a>div>span:first-of-type {

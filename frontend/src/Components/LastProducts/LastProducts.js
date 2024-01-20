@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import './LastProducts.css'
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import ProductCard from "../ProductCard/ProductCard";
 
-export default function LastProducts() {
+export default function LastProducts({products}) {
+    const [lastProducts, setLastProducts] = useState([])
+
+    useEffect(()=>{
+        setLastProducts(products)
+    } , [products])
+
     return (
         <>
             <div className="Container">
@@ -20,24 +27,14 @@ export default function LastProducts() {
                             spaceBetween={15}
                             className="myProductsSwiper"
                         >
-                            <SwiperSlide className="productSlide">
-                                <div className="ProductCard">
-                                    <Link>
-                                        <img src="/Images/p2.png" />
-                                        <span>تیشرت اسپورت اسپورت اسپورت اسپورت اسپورت اسپورت مردانه</span>
-                                        <div>
-                                            <span>{(10000000).toLocaleString()}</span>
-                                            <span>
-                                                {(1350000).toLocaleString()} تومان
-                                                <span>
-                                                    50%
-                                                </span>
-                                            </span>
-                                        </div>
-                                        <span>{(1350000).toLocaleString()} تومان</span>
-                                    </Link>
-                                </div>
-                            </SwiperSlide>
+                            {
+                                products.length >= 1 && products.map(product => (
+                                    <SwiperSlide className="productSlide" key={product.id}>
+                                        <ProductCard {...product}/>
+                                    </SwiperSlide>
+                                ))
+                            }
+
 
                         </Swiper>
                     </div>
