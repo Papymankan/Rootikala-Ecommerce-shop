@@ -1,23 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function ProductCard({title , thumbnail , variants}) {
+export default function ProductCard({ title, thumbnail, variants, collection }) {
     return (
         <>
             <div className="ProductCard">
                 <Link>
                     <img src={thumbnail} />
                     <span>{title}</span>
-                    <div>
-                        <span>{(10000000).toLocaleString()}</span>
-                        <span>
-                            {(1350000).toLocaleString()} تومان
-                            <span>
-                                50%
-                            </span>
-                        </span>
-                    </div>
-                    <span>{(variants[0].prices[0].amount).toLocaleString()} تومان</span>
+                    {
+                        collection && collection.id == 'pcol_01HMR5RCMZ4RCE58VJ59AWXA7V' && (
+                            <div>
+                                <span>{(variants[0].prices[0].amount).toLocaleString()}</span>
+                                <span>
+                                    {(variants[0].prices[0].amount * (100 - collection.metadata.percent) / 100).toLocaleString()} تومان
+                                    <span>
+                                        50%
+                                    </span>
+                                </span>
+                            </div>
+                        )
+                    }
+
+                    <span style={collection && collection.id == 'pcol_01HMR5RCMZ4RCE58VJ59AWXA7V' && {display : 'none'}}>{(variants[0].prices[0].amount).toLocaleString()} تومان</span>
                 </Link>
             </div>
         </>

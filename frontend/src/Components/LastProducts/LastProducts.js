@@ -28,7 +28,7 @@ export default function LastProducts({products}) {
                             className="myProductsSwiper"
                         >
                             {
-                                products.length >= 1 && products.map(product => (
+                                lastProducts.length >= 1 && lastProducts.map(product => (
                                     <SwiperSlide className="productSlide" key={product.id}>
                                         <ProductCard {...product}/>
                                     </SwiperSlide>

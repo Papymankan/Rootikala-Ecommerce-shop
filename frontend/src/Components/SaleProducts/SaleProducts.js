@@ -1,17 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 // import './LastProducts.css'
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import ProductCard from "../ProductCard/ProductCard";
 
-export default function SaleProducts() {
+export default function SaleProducts({products}) {
+
+    const [saleProducts, setSaleProducts] = useState([])
+
+    useEffect(()=>{
+        setSaleProducts(products.filter(product => product.collection_id == 'pcol_01HMR5RCMZ4RCE58VJ59AWXA7V'))
+    } , [products])
+
     return (
         <>
             <div className="Container">
                 <div className="LastCoursesContainer">
                     <div className="LastCoursesHeader">
-                        <h2>محبوب ترین محصولات</h2>
+                        <h2>فروش ویژه روز</h2>
                         <Link>مشاهده همه <IoIosArrowBack /></Link>
                     </div>
                     <div className="LastCoursesRow">
@@ -20,24 +28,13 @@ export default function SaleProducts() {
                             spaceBetween={15}
                             className="myProductsSwiper"
                         >
-                            <SwiperSlide className="productSlide">
-                                <div className="ProductCard">
-                                    <Link>
-                                        <img src="/Images/p2.png" />
-                                        <span>تیشرت اسپورت اسپورت اسپورت اسپورت اسپورت اسپورت مردانه</span>
-                                        <div>
-                                            <span>{(10000000).toLocaleString()}</span>
-                                            <span>
-                                                {(1350000).toLocaleString()} تومان
-                                                <span>
-                                                    50%
-                                                </span>
-                                            </span>
-                                        </div>
-                                        <span>{(1350000).toLocaleString()} تومان</span>
-                                    </Link>
-                                </div>
-                            </SwiperSlide>
+                            {
+                                saleProducts.length >= 1 && saleProducts.map(product => (
+                                    <SwiperSlide className="productSlide" key={product.id}>
+                                        <ProductCard {...product}/>
+                                    </SwiperSlide>
+                                ))
+                            }
 
                         </Swiper>
                     </div>

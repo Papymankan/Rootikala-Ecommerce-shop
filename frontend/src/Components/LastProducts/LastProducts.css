@@ -109,7 +109,7 @@
     display: none;
     text-align: end;
     width: 100%;
-    /* display: flex; */
+    display: flex;
     flex-direction: column;
 }
 .ProductCard>a>div>span:first-of-type {
