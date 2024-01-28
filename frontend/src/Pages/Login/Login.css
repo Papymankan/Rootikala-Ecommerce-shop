@@ -1,18 +1,18 @@
-.LoginSection{
+.LoginSection {
     width: 100%;
     margin-top: 65px;
-    border: 1px solid blue;
     font-family: var(--font);
 }
-.LoginRow{
+
+.LoginRow {
     width: 100%;
-    border: 1px solid red;
     padding: 30px 0;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.LoginCard{
+
+.LoginCard {
     width: 350px;
     background-color: white;
     padding: 10px;
@@ -21,10 +21,44 @@
     border-radius: 10px;
     align-items: center;
 }
-.LoginCard>img{
+
+.LoginCard>img {
     width: 250px;
     margin-top: 30px;
 }
-.LoginCard>span{
+
+.LoginCard>span {
     padding: 10px;
+}
+.LoginCard>span:first-of-type {
+    font-size: 17px;
+}
+.LoginCard>span:last-of-type {
+    font-size: 14px;
+    margin-top: 7px;
+}
+
+.LoginCard>input {
+    padding: 10px 10px;
+    width: 80%;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 0;
+    margin-top: 18px;
+    box-shadow: 0px 0px 11px -1px rgba(179,179,179,0.3);
+    -webkit-box-shadow: 0px 0px 11px -1px rgba(179,179,179,0.3);
+    -moz-box-shadow: 0px 0px 11px -1px rgba(179,179,179,0.3);
+}
+
+.LoginCard>input:focus {
+    outline: 0;
+}
+.LoginCard>button {
+    border: 0;
+    width: 80%;
+    background-color: var(--green);
+    padding: 10px;
+    color: white;
+    margin-top: 18px;
+    border-radius: 10px;
 }

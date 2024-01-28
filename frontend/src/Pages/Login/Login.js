@@ -14,8 +14,8 @@ export default function Login() {
                         <div className="LoginCard">
                             <img src="/Images/logo.svg" className="navBarLogoImg" />
                             <span>ورود به حساب کاربری</span>
-                            <input type="text" placeholder="ایمیل خود را وارد کنید"/>
-                            <input type="text" placeholder="رمز عبور خود را وارد کنید"/>
+                            <input type="text" placeholder="ایمیل"/>
+                            <input type="text" placeholder="رمز عبور"/>
                             <button>ورود</button>
                             <span>حساب کاربری ندارید؟  <Link>ثبت نام</Link></span>
                         </div>
