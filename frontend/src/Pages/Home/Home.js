@@ -20,7 +20,6 @@ export default function Home() {
       <Landing />
       <SaleProducts products={products}/>
       <LastProducts products={products}/>
-      <PopularProducts />
       <Footer />
     </>
   );

@@ -44,7 +44,6 @@
 /* ################ TopBar Menu ################## */
 /* ################ mega Menu Menu ################## */
 .megaMenu {
-    display: none;
     width: 900px;
     height: 400px;
     font-family: var(--font);
@@ -199,6 +198,7 @@
     font-size: 27px;
 }
 /* ################ Slide Bar Menu ################## */
+
 
 
 @media (max-width: 930px) {

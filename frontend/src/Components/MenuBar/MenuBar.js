@@ -11,6 +11,7 @@ export default function MenuBar({ showMenu, setShowMenu }) {
 
     const [scroll, setScroll] = useState(0)
     const [topBarShow, setTopBarShow] = useState(true)
+    const [showMegaMenu, setShowMegaMenu] = useState(false)
 
     const ScrollHandler = () => {
         if (window.scrollY > scroll) {
@@ -31,7 +32,7 @@ export default function MenuBar({ showMenu, setShowMenu }) {
         <>
             <div className="topBar" style={topBarShow ? { 'top': '98px' } : { 'top': '45px' }}>
                 <div className="topBarRow">
-                    <div className="topBarItems">
+                    <div className="topBarItems" onMouseEnter={() => setShowMegaMenu(true)} onMouseLeave={() => setShowMegaMenu(false)}>
                         <Link>
                             <CiMenuBurger />
                             دسته بندی ها
@@ -53,156 +54,160 @@ export default function MenuBar({ showMenu, setShowMenu }) {
                         </Link>
                     </div>
                 </div>
-                <div className="megaMenu">
-                    <div className="megaMenuRow">
-                        <div className="megaMenuList">
-                            <ul>
-                                <li className="megaMenuListItems">
-                                    مردانه
-                                </li>
-                                <li className="megaMenuListItems megaMenuActive">
-                                    مردانه
-                                </li>
-                                <li className="megaMenuListItems">
-                                    مردانه
-                                </li>
-                                <li className="megaMenuListItems">
-                                    ارایشی و بهداشتی
-                                </li>
-                                <li className="megaMenuListItems">
-                                    مردانه
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="megaMenuItems">
-                            <div className="megaMenuItemsUp">
-                                <Link>
-                                    مشاهده همه <IoIosArrowBack />
-                                </Link>
+
+                { showMegaMenu &&
+                    <div className="megaMenu" onMouseEnter={() => setShowMegaMenu(true)} onMouseLeave={() => setShowMegaMenu(false)}>
+                        <div className="megaMenuRow">
+                            <div className="megaMenuList">
+                                <ul>
+                                    <li className="megaMenuListItems">
+                                        مردانه
+                                    </li>
+                                    <li className="megaMenuListItems megaMenuActive">
+                                        مردانه
+                                    </li>
+                                    <li className="megaMenuListItems">
+                                        مردانه
+                                    </li>
+                                    <li className="megaMenuListItems">
+                                        ارایشی و بهداشتی
+                                    </li>
+                                    <li className="megaMenuListItems">
+                                        مردانه
+                                    </li>
+                                </ul>
                             </div>
-                            <div className="megaMenuItemsDown">
-                                <div className="subMenuItem">
-                                    <div className="subMenuItemHead">
-                                        <span></span>
-                                        <Link>
-                                            کیف و کفش مردانه <IoIosArrowBack />
-                                        </Link>
-                                    </div>
-                                    <div className="subMenuItemList">
-                                        <ul>
-                                            <li>
-                                                <Link>
-                                                    کفش
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link>
-                                                    کفش
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link>
-                                                    کفش
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link>
-                                                    کفش
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link>
-                                                    کفش
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                    </div>
+                            <div className="megaMenuItems">
+                                <div className="megaMenuItemsUp">
+                                    <Link>
+                                        مشاهده همه <IoIosArrowBack />
+                                    </Link>
                                 </div>
-                                <div className="subMenuItem">
-                                    <div className="subMenuItemHead">
-                                        <span></span>
-                                        <Link>
-                                            کیف و کفش مردانه <IoIosArrowBack />
-                                        </Link>
+                                <div className="megaMenuItemsDown">
+                                    <div className="subMenuItem">
+                                        <div className="subMenuItemHead">
+                                            <span></span>
+                                            <Link>
+                                                کیف و کفش مردانه <IoIosArrowBack />
+                                            </Link>
+                                        </div>
+                                        <div className="subMenuItemList">
+                                            <ul>
+                                                <li>
+                                                    <Link>
+                                                        کفش
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link>
+                                                        کفش
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link>
+                                                        کفش
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link>
+                                                        کفش
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link>
+                                                        کفش
+                                                    </Link>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div className="subMenuItemList">
-                                        <ul>
-                                            <li>
-                                                <Link>
-                                                    کفش
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link>
-                                                    کفش
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link>
-                                                    کفش
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link>
-                                                    کفش
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link>
-                                                    کفش
-                                                </Link>
-                                            </li>
-                                        </ul>
+                                    <div className="subMenuItem">
+                                        <div className="subMenuItemHead">
+                                            <span></span>
+                                            <Link>
+                                                کیف و کفش مردانه <IoIosArrowBack />
+                                            </Link>
+                                        </div>
+                                        <div className="subMenuItemList">
+                                            <ul>
+                                                <li>
+                                                    <Link>
+                                                        کفش
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link>
+                                                        کفش
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link>
+                                                        کفش
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link>
+                                                        کفش
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link>
+                                                        کفش
+                                                    </Link>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="subMenuItem">
-                                    <div className="subMenuItemHead">
-                                        <span></span>
-                                        <Link>
-                                            کیف و کفش مردانه <IoIosArrowBack />
-                                        </Link>
-                                    </div>
-                                    <div className="subMenuItemList">
-                                        <ul>
-                                            <li>
-                                                <Link>
-                                                    کفش
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link>
-                                                    کفش
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link>
-                                                    کفش
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link>
-                                                    کفش
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link>
-                                                    کفش
-                                                </Link>
-                                            </li>
-                                        </ul>
+                                    <div className="subMenuItem">
+                                        <div className="subMenuItemHead">
+                                            <span></span>
+                                            <Link>
+                                                کیف و کفش مردانه <IoIosArrowBack />
+                                            </Link>
+                                        </div>
+                                        <div className="subMenuItemList">
+                                            <ul>
+                                                <li>
+                                                    <Link>
+                                                        کفش
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link>
+                                                        کفش
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link>
+                                                        کفش
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link>
+                                                        کفش
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link>
+                                                        کفش
+                                                    </Link>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                }
+
             </div>
 
             <Offcanvas show={showMenu} placement='end' onHide={setShowMenu}>
                 <Offcanvas.Header closeButton>
                     <Offcanvas.Title>
                         <Link to='/'>
-                        <img src="/Images/logo.svg" className="navBarLogoImg" />
+                            <img src="/Images/logo.svg" className="navBarLogoImg" />
                         </Link>
                     </Offcanvas.Title>
                 </Offcanvas.Header>
