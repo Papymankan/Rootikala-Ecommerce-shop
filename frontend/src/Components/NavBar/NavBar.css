@@ -3,13 +3,13 @@
     padding: 20px 10px;
     font-family: var(--font);
     background-color: white;
-    position: fixed;
+    position: sticky;
+    top: 0;
     height: 98px;
     z-index: 10;
 }
 
 .navBarContainer {
-    /* border: 1px solid green; */
     display: flex;
     justify-content: space-between;
     align-items: center;
