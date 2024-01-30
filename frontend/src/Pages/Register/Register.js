@@ -8,9 +8,9 @@ import { toast } from 'react-toastify';
 import { requiredValidator, minValidator, maxValidator, emailValidator } from '../../Validation/rules'
 
 export default function Register() {
-    const notify = () => toast.error('🦄 Wow so easy!', {
+    const notify = (text) => toast.error(text, {
         position: "bottom-right",
-        autoClose: 2500,
+        autoClose: 25000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -19,9 +19,21 @@ export default function Register() {
         theme: "colored",
     });
 
-    useEffect(() => {
-        notify()
-    }, [])
+    // useEffect(() => {
+    //     notify()
+    // }, [])
+
+    const register = ()=>{
+        if(!formState.inputs.name.isValid){
+            notify('نام و نام خانوادگی باید حداقل 2 حرفی باشند')
+        }
+        if(!formState.inputs.email.isValid){
+            notify('ایمیل معتبر نیست')
+        }
+        if(!formState.inputs.password.isValid){
+            notify('رمز عبور باید حداقل 8 کاراکتر داشته باشد')
+        }
+    }
 
     const [formState, onInputHandler] = useForm(
         {
@@ -81,7 +93,7 @@ export default function Register() {
                                 onInputHandler={onInputHandler}
                                 type="password"
                             />
-                            <button>ثبت نام</button>
+                            <button onClick={register}>ثبت نام</button>
                             <span>حساب کاربری دارید؟  <Link to={`/login`}>ورود</Link></span>
                         </div>
                     </div>
