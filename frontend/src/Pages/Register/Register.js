@@ -13,7 +13,8 @@ export default function Register() {
                         <div className="LoginCard">
                             <img src="/Images/logo.svg" className="navBarLogoImg" />
                             <span>ساخت حساب کاربری</span>
-                            <input type="text" placeholder="نام کاربری"/>
+                            <input type="text" placeholder="نام"/>
+                            <input type="text" placeholder="نام خانوادگی"/>
                             <input type="text" placeholder="ایمیل"/>
                             <input type="text" placeholder="رمز عبور"/>
                             <button>ثبت نام</button>
