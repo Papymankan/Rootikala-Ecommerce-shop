@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../../Components/Footer/Footer";
 import Input from "../../Components/Input/Input";
 import NavBar from "../../Components/NavBar/NavBar";
 import { useForm } from "../../hooks/useForm";
-
+import { toast } from 'react-toastify';
 import { requiredValidator, minValidator, maxValidator, emailValidator } from '../../Validation/rules'
 
 export default function Register() {
+    const notify = () => toast.error('🦄 Wow so easy!', {
+        position: "bottom-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+    });
+
+    useEffect(() => {
+        notify()
+    }, [])
+
     const [formState, onInputHandler] = useForm(
         {
             name: {
