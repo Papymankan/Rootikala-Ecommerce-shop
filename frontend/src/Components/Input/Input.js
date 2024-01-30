@@ -1,4 +1,5 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
+import Validator from "../../Validation/Validators";
 
 const inputReducer = (state, action) => {
     switch (action.type) {
@@ -27,7 +28,7 @@ export default function Input(props) {
         props.onInputHandler(props.id, mainInput.value, mainInput.isValid)
     }, [mainInput.value])
 
-    const element = <input placeholder={props.placeholder} type={'text'} onChange={InputOnChange} value={mainInput.value} className={`${mainInput.isValid ? 'success' : 'error'}`}/>
+    const element = <input placeholder={props.placeholder} type={props.type == 'password' ? 'password' : 'text'} onChange={InputOnChange} value={mainInput.value} className={`${mainInput.isValid ? 'success' : 'error'}`}/>
 
 
 
