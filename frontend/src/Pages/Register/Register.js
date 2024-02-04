@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../../Components/Footer/Footer";
 import Input from "../../Components/Input/Input";
@@ -6,8 +6,14 @@ import NavBar from "../../Components/NavBar/NavBar";
 import { useForm } from "../../hooks/useForm";
 import { toast } from 'react-toastify';
 import { requiredValidator, minValidator, maxValidator, emailValidator } from '../../Validation/rules'
+import AuthContext from "../../Context/Context";
 
 export default function Register() {
+    const [user , setUser] = useState({})
+    const [token , setToken] = useState(null)
+
+    const authContext = useContext(AuthContext)
+
     const notify = (text) => toast.error(text, {
         position: "bottom-right",
         autoClose: 25000,
@@ -19,6 +25,19 @@ export default function Register() {
         theme: "colored",
     });
 
+    const getToken = () => {
+        let registeredUser = {
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value,
+        }
+        fetch(`http://localhost:9000/store/auth/token`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(registeredUser)
+        }).then(res => res.json()).then(data => setToken(data.access_token))
+    }
 
     const register = () => {
         if (!formState.inputs.name.isValid) {
@@ -40,14 +59,18 @@ export default function Register() {
                 email: formState.inputs.email.value,
                 password: formState.inputs.password.value,
             }
-
             fetch(`http://localhost:9000/store/customers`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(user)
-            }).then(res => res.json()).then(data => console.log(data))
+            }).then(res => res.json()).then(data => {
+                console.log(data)
+                setUser(data)
+                getToken()
+            })
+            authContext.login(user, token)
         }
     }
 
