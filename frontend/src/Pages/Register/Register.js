@@ -36,7 +36,9 @@ export default function Register() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(registeredUser)
-        }).then(res => res.json()).then(data => setToken(data.access_token))
+        }).then(res => res.json()).then(data =>{
+            console.log(data);
+            setToken(data.access_token)})
     }
 
     const register = () => {

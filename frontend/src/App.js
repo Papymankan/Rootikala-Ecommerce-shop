@@ -34,16 +34,16 @@ function App() {
   useEffect(() => {
     const localData = JSON.parse(localStorage.getItem('user'))
     if (localData) {
-      // fetch('http://localhost:4000/v1/auth/me', {
-      //   headers: {
-      //     'Authorization': `Bearer ${localData.token}`
-      //   }
-      // }).then(res => res.json())
-      //   .then(data => {
-      //     setIsloggedIn(true)
-      //     setToken(localData.token)
-      //     setUserInfos(data)
-      //   })
+      fetch('http://localhost:9000/store/auth', {
+        headers: {
+          'Authorization': `Bearer ${localData.token}`
+        }
+      }).then(res => res.json())
+        .then(data => {
+          setIsloggedIn(true)
+          setToken(localData.token)
+          setUserInfos(data)
+        })
     }
   }, [login])
 
