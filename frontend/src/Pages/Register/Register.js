@@ -19,19 +19,35 @@ export default function Register() {
         theme: "colored",
     });
 
-    // useEffect(() => {
-    //     notify()
-    // }, [])
 
-    const register = ()=>{
-        if(!formState.inputs.name.isValid){
-            notify('نام و نام خانوادگی باید حداقل 2 حرفی باشند')
+    const register = () => {
+        if (!formState.inputs.name.isValid) {
+            notify('نام و باید حداقل 2 حرفی باشند')
         }
-        if(!formState.inputs.email.isValid){
+        if (!formState.inputs.lastName.isValid) {
+            notify('نام خانوادگی باید حداقل 2 حرفی باشند')
+        }
+        if (!formState.inputs.email.isValid) {
             notify('ایمیل معتبر نیست')
         }
-        if(!formState.inputs.password.isValid){
+        if (!formState.inputs.password.isValid) {
             notify('رمز عبور باید حداقل 8 کاراکتر داشته باشد')
+        }
+        if (formState.inputs.name.isValid && formState.inputs.email.isValid && formState.inputs.password.isValid) {
+            let user = {
+                first_name: formState.inputs.name.value,
+                last_name: formState.inputs.lastName.value,
+                email: formState.inputs.email.value,
+                password: formState.inputs.password.value,
+            }
+
+            fetch(`http://localhost:9000/store/customers`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            }).then(res => res.json()).then(data => console.log(data))
         }
     }
 
@@ -84,8 +100,9 @@ export default function Register() {
                                 emailValidator()
                             ]}
                                 onInputHandler={onInputHandler}
+                                type='email'
                             />
-                            <Input placeholder="رمز عبور" id="lastName" validation={[
+                            <Input placeholder="رمز عبور" id="password" validation={[
                                 requiredValidator(),
                                 minValidator(8),
                                 maxValidator(16)
@@ -103,3 +120,7 @@ export default function Register() {
         </>
     );
 }
+
+
+// s%3AP9hpqIj1Pc-DNDU75fhQdMtT31GHK81Q.b8XGPyavR%2F2HG8npiwDxXnFE1LDWYR52%2BkvARUHOW84
+// s%3AP9hpqIj1Pc-DNDU75fhQdMtT31GHK81Q.b8XGPyavR%2F2HG8npiwDxXnFE1LDWYR52%2BkvARUHOW8
