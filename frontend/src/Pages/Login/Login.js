@@ -37,6 +37,16 @@ export default function Login() {
         progress: undefined,
         theme: "colored",
     });
+    const notify2 = (text) => toast.warning(text, {
+        position: "bottom-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+    });
 
     const getToken = (user) => {
         let registeredUser = {
@@ -84,6 +94,13 @@ export default function Login() {
                 console.log(data);
                 if(data != undefined){
                     getToken(data)
+                }
+            }).catch(res => {
+                if(res.status == 401){
+                    notify('چنین کاربری وجود ندارد')
+                    notify2('ایمیل و رمزعبور خود را مجدد بررسی کنید')
+                }else{
+                    notify('ورود با مشکل مواجه شد !')
                 }
             })
         }

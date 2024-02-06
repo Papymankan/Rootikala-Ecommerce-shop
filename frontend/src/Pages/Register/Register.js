@@ -82,7 +82,9 @@ export default function Register() {
             }).catch(res => {
                 if(res.status == 422){
                     notify('کاربری با چنین ایمیلی قبلا ثبت نام کرده است')
-                } 
+                } else{
+                    notify('ثبت نام با مشکل مواجه شد !')
+                }
             })
         }
     }
