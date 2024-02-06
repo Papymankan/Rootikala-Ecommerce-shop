@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../../Components/Footer/Footer";
 import Input from "../../Components/Input/Input";
 import NavBar from "../../Components/NavBar/NavBar";
@@ -9,14 +9,13 @@ import { requiredValidator, minValidator, maxValidator, emailValidator } from '.
 import AuthContext from "../../Context/Context";
 
 export default function Register() {
-    const [user , setUser] = useState({})
-    const [token , setToken] = useState(null)
-
     const authContext = useContext(AuthContext)
+
+    const navigate = useNavigate()
 
     const notify = (text) => toast.error(text, {
         position: "bottom-right",
-        autoClose: 25000,
+        autoClose: 2500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -25,7 +24,7 @@ export default function Register() {
         theme: "colored",
     });
 
-    const getToken = () => {
+    const getToken = (user) => {
         let registeredUser = {
             email: formState.inputs.email.value,
             password: formState.inputs.password.value,
@@ -36,9 +35,11 @@ export default function Register() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(registeredUser)
-        }).then(res => res.json()).then(data =>{
+        }).then(res => res.json()).then(data => {
             console.log(data);
-            setToken(data.access_token)})
+            authContext.login(user, data.access_token)
+            navigate('/')
+        })
     }
 
     const register = () => {
@@ -67,12 +68,22 @@ export default function Register() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(user)
-            }).then(res => res.json()).then(data => {
-                console.log(data)
-                setUser(data)
-                getToken()
+            }).then(res => {
+                console.log(res);
+                if (res.ok) {
+                    return res.json()
+                }
+                return Promise.reject(res)
+            }).then(data => {
+                if (data != undefined) {
+                    console.log(data)
+                    getToken(data)
+                }
+            }).catch(res => {
+                if(res.status == 422){
+                    notify('کاربری با چنین ایمیلی قبلا ثبت نام کرده است')
+                } 
             })
-            authContext.login(user, token)
         }
     }
 
