@@ -55,7 +55,7 @@ export default function Register() {
         if (!formState.inputs.password.isValid) {
             notify('رمز عبور باید حداقل 8 کاراکتر داشته باشد')
         }
-        if (formState.inputs.name.isValid && formState.inputs.email.isValid && formState.inputs.password.isValid) {
+        if (formState.inputs.name.isValid && formState.inputs.lastName.isValid &&formState.inputs.email.isValid && formState.inputs.password.isValid) {
             let user = {
                 first_name: formState.inputs.name.value,
                 last_name: formState.inputs.lastName.value,

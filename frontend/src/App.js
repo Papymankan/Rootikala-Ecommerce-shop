@@ -32,6 +32,7 @@ function App() {
   }, [])
 
   useEffect(() => {
+    console.log('APP');
     const localData = JSON.parse(localStorage.getItem('user'))
     if (localData) {
       fetch('http://localhost:9000/store/auth', {
