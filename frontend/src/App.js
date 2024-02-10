@@ -4,7 +4,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useLocation, useRoutes } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import './variables.css'
 import AuthContext from './Context/Context';
 import { useCallback, useEffect, useState } from 'react';
@@ -17,11 +17,24 @@ function App() {
 
   const router = useRoutes(routes)
 
+  const notify2 = (text) => toast.success(text, {
+    position: "bottom-right",
+    autoClose: 2500,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+});
+
   const login = useCallback((userInfo, token) => {
     setToken(token)
     setIsloggedIn(true)
     setUserInfos(userInfo)
     localStorage.setItem('user', JSON.stringify({ token }))
+    console.log(userInfo);
+    notify2(`${userInfos.customer.first_name + ' ' +userInfos.customer.last_name} خوش آمدید`)
   }, [])
 
   const logout = useCallback(() => {
@@ -29,6 +42,7 @@ function App() {
     setUserInfos({})
     setIsloggedIn(false)
     localStorage.removeItem('user')
+    notify2('با موفقیت خارج شدید')
   }, [])
 
   useEffect(() => {

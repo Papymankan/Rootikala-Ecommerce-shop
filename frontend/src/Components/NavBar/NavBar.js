@@ -55,7 +55,7 @@ export default function NavBar() {
                       <li>
                         <Link>
                           <Avatar sx={{ bgcolor: '#10B981', marginLeft: '10px', width: 30, height: 30, display: "flex", justifyContent: 'center', alignItems: 'center' }}>P</Avatar>
-                          پارسا رستمی  <IoIosArrowBack />
+                          {authContext.userInfos.customer.first_name + ' ' +authContext.userInfos.customer.last_name}  <IoIosArrowBack />
                         </Link>
                       </li>
                       <li>
@@ -69,7 +69,9 @@ export default function NavBar() {
                         </Link>
                       </li>
                       <li>
-                        <Link>
+                        <Link onClick={()=> {
+                          authContext.logout()
+                          }}>
                           <HiOutlineShoppingBag />خروج
                         </Link>
                       </li>
