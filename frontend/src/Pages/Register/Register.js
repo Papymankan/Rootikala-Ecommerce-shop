@@ -158,7 +158,3 @@ export default function Register() {
         </>
     );
 }
-
-
-// s%3AP9hpqIj1Pc-DNDU75fhQdMtT31GHK81Q.b8XGPyavR%2F2HG8npiwDxXnFE1LDWYR52%2BkvARUHOW84
-// s%3AP9hpqIj1Pc-DNDU75fhQdMtT31GHK81Q.b8XGPyavR%2F2HG8npiwDxXnFE1LDWYR52%2BkvARUHOW8

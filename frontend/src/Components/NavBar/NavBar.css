@@ -85,7 +85,32 @@
     font-size: 27px;
     margin: 0 10px;
 }
-
+.navBarRegisterBtn{
+    /* border: 1px solid var(--green) !important; */
+    font-size: 15px !important;
+    padding: 10px;
+    margin: 0 !important;
+    width: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.navBarRegisterBtn:first-of-type{
+    border-radius: 0 15px 15px 0;
+    background-color: var(--green);
+    color: white !important;
+}
+.navBarRegisterBtn:last-of-type{
+    border-radius: 15px 0 0 15px ;
+    background-color: var(--gray);
+    color: black !important;
+}
+.navBarRegisterBtn:first-of-type:hover{
+    background-color: var(--green) !important;
+}
+.navBarRegisterBtn:last-of-type:hover{
+    background-color: var(--gray) !important;
+}
 /* ########################## style-action ################ */
 /* ########################## style-action ################ */
 .navBarContainer2 {
@@ -226,7 +251,7 @@
 .actionMenu {
     position: absolute;
     top: 70px;
-    display: none;
+    /* display: none; */
     width: 200px;
     background-color: white;
     left: 30px;

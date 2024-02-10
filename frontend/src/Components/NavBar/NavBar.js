@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { CiMenuBurger, CiMenuKebab, CiSearch, CiShoppingCart } from "react-icons/ci";
 import Avatar from '@mui/material/Avatar';
@@ -9,11 +9,15 @@ import { IoIosArrowBack } from "react-icons/io";
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import './NavBar.css'
 import MenuBar from "../MenuBar/MenuBar";
+import AuthContext from "../../Context/Context";
 
 export default function NavBar() {
 
   const [showMenu, setShowMenu] = useState(false)
   const [showCart, setShowCart] = useState(false)
+  const [showActions, setShowActions] = useState(false)
+
+  const authContext = useContext(AuthContext)
 
 
   return (
@@ -32,36 +36,54 @@ export default function NavBar() {
             </div>
           </div>
           <div className="navBarActions">
-            <button><CiMenuKebab /></button>
-            <button onClick={() => setShowCart(true)}><CiShoppingCart /></button>
+            {authContext.isloggedIn ? (
+              <>
+                <button onClick={() => {
+                  if (showActions) {
+                    setShowActions(false)
+                  } else {
+                    setShowActions(true)
+                  }
+                }}>
+                  <CiMenuKebab />
+                </button>
+                <button onClick={() => setShowCart(true)}><CiShoppingCart /></button>
 
-            <div className="actionMenu">
-              <div className="actionMenuList">
-                <ul>
-                  <li>
-                    <Link>
-                      <Avatar sx={{ bgcolor: '#10B981' , marginLeft:'10px' , width:30 , height:30 , display:"flex" , justifyContent:'center' , alignItems:'center'}}>P</Avatar>
-                      پارسا رستمی  <IoIosArrowBack />
-                    </Link>
-                  </li>
-                  <li>
-                    <Link>
-                      <HiOutlineShoppingBag />سفارش ها
-                    </Link>
-                  </li>
-                  <li>
-                    <Link>
-                      <HiOutlineShoppingBag />پیام ها
-                    </Link>
-                  </li>
-                  <li>
-                    <Link>
-                      <HiOutlineShoppingBag />خروج
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
+                {showActions && <div className="actionMenu" onMouseLeave={() => setShowActions(false)}>
+                  <div className="actionMenuList">
+                    <ul>
+                      <li>
+                        <Link>
+                          <Avatar sx={{ bgcolor: '#10B981', marginLeft: '10px', width: 30, height: 30, display: "flex", justifyContent: 'center', alignItems: 'center' }}>P</Avatar>
+                          پارسا رستمی  <IoIosArrowBack />
+                        </Link>
+                      </li>
+                      <li>
+                        <Link>
+                          <HiOutlineShoppingBag />سفارش ها
+                        </Link>
+                      </li>
+                      <li>
+                        <Link>
+                          <HiOutlineShoppingBag />پیام ها
+                        </Link>
+                      </li>
+                      <li>
+                        <Link>
+                          <HiOutlineShoppingBag />خروج
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                </div>}
+              </>
+            ) : (
+              <>
+                <Link className="navBarRegisterBtn" to={'/login'}>ورود</Link>
+                <Link className="navBarRegisterBtn" to={'/register'}>ثبت نام</Link>
+              </>
+            )
+            }
 
           </div>
         </div>
@@ -75,7 +97,7 @@ export default function NavBar() {
 
             <div className="navBarLogo">
               <Link to={'/'} className='navBarLogoLink'>
-              <img src="/Images/logo.svg" className="navBarLogoImg" />
+                <img src="/Images/logo.svg" className="navBarLogoImg" />
               </Link>
             </div>
 
