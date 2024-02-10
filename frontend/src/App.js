@@ -34,7 +34,7 @@ function App() {
     setUserInfos(userInfo)
     localStorage.setItem('user', JSON.stringify({ token }))
     console.log(userInfo);
-    notify2(`${userInfos.customer.first_name + ' ' +userInfos.customer.last_name} خوش آمدید`)
+    notify2(`${userInfo.customer.first_name + ' ' + userInfo.customer.last_name} خوش آمدید`)
   }, [])
 
   const logout = useCallback(() => {

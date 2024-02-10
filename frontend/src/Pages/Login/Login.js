@@ -91,7 +91,6 @@ export default function Login() {
                 }
                 return Promise.reject(res)
             }).then(data => {
-                console.log(data);
                 if(data != undefined){
                     getToken(data)
                 }

@@ -5,6 +5,7 @@ import Avatar from '@mui/material/Avatar';
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
+import { GoSignIn } from "react-icons/go";
 import { IoIosArrowBack } from "react-icons/io";
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import './NavBar.css'
@@ -55,7 +56,7 @@ export default function NavBar() {
                       <li>
                         <Link>
                           <Avatar sx={{ bgcolor: '#10B981', marginLeft: '10px', width: 30, height: 30, display: "flex", justifyContent: 'center', alignItems: 'center' }}>P</Avatar>
-                          {authContext.userInfos.customer.first_name + ' ' +authContext.userInfos.customer.last_name}  <IoIosArrowBack />
+                          {authContext.userInfos.customer.first_name + ' ' + authContext.userInfos.customer.last_name}  <IoIosArrowBack />
                         </Link>
                       </li>
                       <li>
@@ -69,9 +70,9 @@ export default function NavBar() {
                         </Link>
                       </li>
                       <li>
-                        <Link onClick={()=> {
+                        <Link onClick={() => {
                           authContext.logout()
-                          }}>
+                        }}>
                           <HiOutlineShoppingBag />خروج
                         </Link>
                       </li>
@@ -104,8 +105,55 @@ export default function NavBar() {
             </div>
 
             <div className="navBarActions">
-              <button><CiMenuKebab /></button>
-              <button onClick={() => setShowCart(true)}><CiShoppingCart /></button>
+              {authContext.isloggedIn ? (
+                <>
+                  <button onClick={() => {
+                    if (showActions) {
+                      setShowActions(false)
+                    } else {
+                      setShowActions(true)
+                    }
+                  }}>
+                    <CiMenuKebab />
+                  </button>
+                  <button onClick={() => setShowCart(true)}><CiShoppingCart /></button>
+
+                  {showActions && <div className="actionMenu" onMouseLeave={() => setShowActions(false)}>
+                    <div className="actionMenuList">
+                      <ul>
+                        <li>
+                          <Link>
+                            <Avatar sx={{ bgcolor: '#10B981', marginLeft: '10px', width: 30, height: 30, display: "flex", justifyContent: 'center', alignItems: 'center' }}>P</Avatar>
+                            {authContext.userInfos.customer.first_name + ' ' + authContext.userInfos.customer.last_name}  <IoIosArrowBack />
+                          </Link>
+                        </li>
+                        <li>
+                          <Link>
+                            <HiOutlineShoppingBag />سفارش ها
+                          </Link>
+                        </li>
+                        <li>
+                          <Link>
+                            <HiOutlineShoppingBag />پیام ها
+                          </Link>
+                        </li>
+                        <li>
+                          <Link onClick={() => {
+                            authContext.logout()
+                          }}>
+                            <HiOutlineShoppingBag />خروج
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>}
+
+                </>
+              ) : (
+                <>
+                  <Link className="navBarRegisterBtn" id="navBarRegisterBtnS" to={'/login'}><GoSignIn/></Link>
+                </>
+              )}
             </div>
 
           </div>
