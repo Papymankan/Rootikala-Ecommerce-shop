@@ -8,10 +8,12 @@ import ProductCard from "../ProductCard/ProductCard";
 
 export default function LastProducts({products}) {
     const [lastProducts, setLastProducts] = useState([])
+    const [slidesPerViewNum , setSlidesPerViewNum] = useState(5.5)
 
     useEffect(()=>{
-        setLastProducts(products)
+        setLastProducts(products.slice(0 ,9))
     } , [products])
+
 
     return (
         <>
@@ -23,7 +25,7 @@ export default function LastProducts({products}) {
                     </div>
                     <div className="LastCoursesRow">
                         <Swiper
-                            slidesPerView={5.5}
+                            slidesPerView={'auto'}
                             spaceBetween={15}
                             className="myProductsSwiper"
                         >
@@ -34,29 +36,7 @@ export default function LastProducts({products}) {
                                     </SwiperSlide>
                                 ))
                             }
-                            {
-                                lastProducts.length >= 1 && lastProducts.map(product => (
-                                    <SwiperSlide className="productSlide" key={product.id}>
-                                        <ProductCard {...product}/>
-                                    </SwiperSlide>
-                                ))
-                            }
-                            {
-                                lastProducts.length >= 1 && lastProducts.map(product => (
-                                    <SwiperSlide className="productSlide" key={product.id}>
-                                        <ProductCard {...product}/>
-                                    </SwiperSlide>
-                                ))
-                            }
-                            {
-                                lastProducts.length >= 1 && lastProducts.map(product => (
-                                    <SwiperSlide className="productSlide" key={product.id}>
-                                        <ProductCard {...product}/>
-                                    </SwiperSlide>
-                                ))
-                            }
-
-
+                            
                         </Swiper>
                     </div>
                 </div>
