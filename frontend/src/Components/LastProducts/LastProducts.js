@@ -34,6 +34,27 @@ export default function LastProducts({products}) {
                                     </SwiperSlide>
                                 ))
                             }
+                            {
+                                lastProducts.length >= 1 && lastProducts.map(product => (
+                                    <SwiperSlide className="productSlide" key={product.id}>
+                                        <ProductCard {...product}/>
+                                    </SwiperSlide>
+                                ))
+                            }
+                            {
+                                lastProducts.length >= 1 && lastProducts.map(product => (
+                                    <SwiperSlide className="productSlide" key={product.id}>
+                                        <ProductCard {...product}/>
+                                    </SwiperSlide>
+                                ))
+                            }
+                            {
+                                lastProducts.length >= 1 && lastProducts.map(product => (
+                                    <SwiperSlide className="productSlide" key={product.id}>
+                                        <ProductCard {...product}/>
+                                    </SwiperSlide>
+                                ))
+                            }
 
 
                         </Swiper>
