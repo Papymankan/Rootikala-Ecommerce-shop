@@ -12,14 +12,14 @@ export default function Home() {
   useEffect(() => {
     fetch(`http://localhost:9000/store/products`, {
     }).then(res => res.json()).then(data => setProducts(data.products))
+    fetch(`http://localhost:9000/store/product-categories`, {
+    }).then(res => res.json()).then(data => console.log(data))
 
-    fetch(`http://localhost:9000/store/products?collection_id[]=${'pcol_01HMR5RCMZ4RCE58VJ59AWXA7V'}`, {
-    }).then(res => {
-      // console.log(res)
-      return res.json()
-    }).then(data => console.log(data))
+    // fetch(`http://localhost:9000/store/products?collection_id[]=${'pcol_01HMR5RCMZ4RCE58VJ59AWXA7V'}`, {
+    // }).then(res => {
+    //   return res.json()
+    // }).then(data => console.log(data))
 
-    // fetch('http://localhost:9000/store/collections').then(res => res.json()).then(data => console.log(data))
   }, [])
 
   return (
