@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CiHome, CiMenuBurger, CiMenuKebab, CiShoppingBasket, CiSquareChevLeft } from "react-icons/ci";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { SlFire } from "react-icons/sl";
@@ -13,6 +13,11 @@ export default function MenuBar({ showMenu, setShowMenu }) {
     const [topBarShow, setTopBarShow] = useState(true)
     const [showMegaMenu, setShowMegaMenu] = useState(false)
 
+    const [categories, setCategories] = useState([])
+    const [listedCats, setListedCats] = useState([])
+    const [activeCat, setActiveCat] = useState('')
+
+
     const ScrollHandler = () => {
         if (window.scrollY > scroll) {
             if (topBarShow) {
@@ -25,6 +30,38 @@ export default function MenuBar({ showMenu, setShowMenu }) {
         setScroll(window.scrollY)
 
     }
+
+    useEffect(() => {
+
+        fetch(`http://localhost:9000/store/product-categories`, {
+        }).then(res => res.json()).then(data => setCategories(data.product_categories))
+
+        // fetch(`http://localhost:9000/store/products?collection_id[]=${'pcol_01HMR5RCMZ4RCE58VJ59AWXA7V'}`, {
+        // }).then(res => {
+        //   return res.json()
+        // }).then(data => console.log(data))
+
+    }, [])
+
+    useEffect(() => {
+        let arrangedCategories = categories
+        if (arrangedCategories) {
+            let arr2 = []
+            arrangedCategories.map(category => {
+                if (!category.parent_category_id) {
+                    let arr = []
+                    category.category_children.map(child => {
+                        arrangedCategories.map(cat => {
+                            cat.id == child.id && arr.push(cat);
+                        })
+                    })
+                    category['childs'] = arr
+                    arr2.push(category)
+                }
+            })
+            setListedCats(arr2)
+        }
+    }, [categories])
 
     window.addEventListener('scroll', ScrollHandler)
 
@@ -55,26 +92,24 @@ export default function MenuBar({ showMenu, setShowMenu }) {
                     </div>
                 </div>
 
-                { showMegaMenu &&
-                    <div className="megaMenu" onMouseEnter={() => setShowMegaMenu(true)} onMouseLeave={() => setShowMegaMenu(false)}>
+                {showMegaMenu &&
+                    <div className="megaMenu"
+                        onMouseEnter={() => {
+                            setShowMegaMenu(true)
+                        }}
+                        onMouseLeave={() => {
+                            setShowMegaMenu(false)
+                        }}>
                         <div className="megaMenuRow">
                             <div className="megaMenuList">
                                 <ul>
-                                    <li className="megaMenuListItems">
-                                        مردانه
-                                    </li>
-                                    <li className="megaMenuListItems megaMenuActive">
-                                        مردانه
-                                    </li>
-                                    <li className="megaMenuListItems">
-                                        مردانه
-                                    </li>
-                                    <li className="megaMenuListItems">
-                                        ارایشی و بهداشتی
-                                    </li>
-                                    <li className="megaMenuListItems">
-                                        مردانه
-                                    </li>
+                                    {
+                                        listedCats.map(cat => (
+                                            <li className={`megaMenuListItems ${activeCat == cat.name && 'megaMenuActive'}`} onMouseEnter={() => setActiveCat(cat.name)}>
+                                                {cat.name}
+                                            </li>
+                                        ))
+                                    }
                                 </ul>
                             </div>
                             <div className="megaMenuItems">
@@ -84,117 +119,35 @@ export default function MenuBar({ showMenu, setShowMenu }) {
                                     </Link>
                                 </div>
                                 <div className="megaMenuItemsDown">
-                                    <div className="subMenuItem">
-                                        <div className="subMenuItemHead">
-                                            <span></span>
-                                            <Link>
-                                                کیف و کفش مردانه <IoIosArrowBack />
-                                            </Link>
-                                        </div>
-                                        <div className="subMenuItemList">
-                                            <ul>
-                                                <li>
-                                                    <Link>
-                                                        کفش
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link>
-                                                        کفش
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link>
-                                                        کفش
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link>
-                                                        کفش
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link>
-                                                        کفش
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div className="subMenuItem">
-                                        <div className="subMenuItemHead">
-                                            <span></span>
-                                            <Link>
-                                                کیف و کفش مردانه <IoIosArrowBack />
-                                            </Link>
-                                        </div>
-                                        <div className="subMenuItemList">
-                                            <ul>
-                                                <li>
-                                                    <Link>
-                                                        کفش
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link>
-                                                        کفش
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link>
-                                                        کفش
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link>
-                                                        کفش
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link>
-                                                        کفش
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div className="subMenuItem">
-                                        <div className="subMenuItemHead">
-                                            <span></span>
-                                            <Link>
-                                                کیف و کفش مردانه <IoIosArrowBack />
-                                            </Link>
-                                        </div>
-                                        <div className="subMenuItemList">
-                                            <ul>
-                                                <li>
-                                                    <Link>
-                                                        کفش
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link>
-                                                        کفش
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link>
-                                                        کفش
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link>
-                                                        کفش
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    <Link>
-                                                        کفش
-                                                    </Link>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    {
+                                        activeCat && listedCats.map(cat => cat.name == activeCat &&
+                                            (
+                                                cat.childs.map(child => (
+                                                    <div className="subMenuItem">
+                                                        <div className="subMenuItemHead">
+                                                            <span></span>
+                                                            <Link>
+                                                                {child.name} <IoIosArrowBack />
+                                                            </Link>
+                                                        </div>
+                                                        <div className="subMenuItemList">
+                                                            <ul>
+                                                                {
+                                                                    child.category_children.map(catChild => (
+                                                                        <li>
+                                                                            <Link>
+                                                                                {catChild.name}
+                                                                            </Link>
+                                                                        </li>
+                                                                    ))
+                                                                }
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                ))
+
+                                            ))
+                                    }
                                 </div>
                             </div>
                         </div>
