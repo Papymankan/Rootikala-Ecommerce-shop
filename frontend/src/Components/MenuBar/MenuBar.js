@@ -116,6 +116,7 @@ export default function MenuBar({ showMenu, setShowMenu }) {
                                 <div className="megaMenuItemsUp">
                                     <Link>
                                         مشاهده همه <IoIosArrowBack />
+                                        
                                     </Link>
                                 </div>
                                 <div className="megaMenuItemsDown">
