@@ -114,9 +114,8 @@ export default function MenuBar({ showMenu, setShowMenu }) {
                             </div>
                             <div className="megaMenuItems">
                                 <div className="megaMenuItemsUp">
-                                    <Link>
-                                        مشاهده همه <IoIosArrowBack />
-                                        
+                                    <Link to={'/store'}>
+                                        مشاهده همه <IoIosArrowBack />    
                                     </Link>
                                 </div>
                                 <div className="megaMenuItemsDown">
@@ -127,7 +126,7 @@ export default function MenuBar({ showMenu, setShowMenu }) {
                                                     <div className="subMenuItem">
                                                         <div className="subMenuItemHead">
                                                             <span></span>
-                                                            <Link>
+                                                            <Link to={`/category/${child.id}`}>
                                                                 {child.name} <IoIosArrowBack />
                                                             </Link>
                                                         </div>
@@ -136,7 +135,7 @@ export default function MenuBar({ showMenu, setShowMenu }) {
                                                                 {
                                                                     child.category_children.map(catChild => (
                                                                         <li>
-                                                                            <Link>
+                                                                            <Link to={`/category/${catChild.id}`}>
                                                                                 {catChild.name}
                                                                             </Link>
                                                                         </li>
