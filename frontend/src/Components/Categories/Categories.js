@@ -7,26 +7,41 @@ export default function Categories() {
         <>
             <div className="Container">
                 <div className="CategoriesRowContainer">
-                    <div className="CategoriesRow_Item">
-                        <Link>
+
+
+                    <Link>
+                        <div className="CategoriesRow_Item">
                             <img src="/Images/the-ian-ZCoqcrWp9GY-unsplash.jpg" alt="" />
-                        </Link>
-                    </div>
-                    <div className="CategoriesRow_Item">
-                        <Link>
-                            <img src="/Images/yixian-zhao-q7iZCOXGOWY-unsplash.jpg" alt="" />
-                        </Link>
-                    </div>
-                    <div className="CategoriesRow_Item">
-                        <Link>
-                            <img src="/Images/graham-mansfield-7jCYw6a2Wao-unsplash.jpg" alt="" />
-                        </Link>
-                    </div>
-                    <div className="CategoriesRow_Item">
-                        <Link>
+                            <span>
+                                مردانه
+                            </span>
+                        </div>
+                    </Link>
+                    <Link>
+                        <div className="CategoriesRow_Item">
                             <img src="/Images/the-ian-ZCoqcrWp9GY-unsplash.jpg" alt="" />
-                        </Link>
-                    </div>
+                            <span>
+                                مردانه
+                            </span>
+                        </div>
+                    </Link>
+                    <Link>
+                        <div className="CategoriesRow_Item">
+                            <img src="/Images/the-ian-ZCoqcrWp9GY-unsplash.jpg" alt="" />
+                            <span>
+                                مردانه
+                            </span>
+                        </div>
+                    </Link>
+                    <Link>
+                        <div className="CategoriesRow_Item">
+                            <img src="/Images/the-ian-ZCoqcrWp9GY-unsplash.jpg" alt="" />
+                            <span>
+                                مردانه
+                            </span>
+                        </div>
+                    </Link>
+
                 </div>
             </div>
         </>
