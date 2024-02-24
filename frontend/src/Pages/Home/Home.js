@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Categories from "../../Components/Categories/Categories";
 import Footer from "../../Components/Footer/Footer";
 import Landing from "../../Components/Landing/Landing";
 import LastProducts from "../../Components/LastProducts/LastProducts";
@@ -51,6 +52,7 @@ export default function Home() {
       <NavBar listedCats={listedCats}/>
       <Landing />
       <SaleProducts products={products} />
+      <Categories/>
       <LastProducts products={products} />
       <Footer />
     </>
