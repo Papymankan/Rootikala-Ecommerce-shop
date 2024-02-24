@@ -31,6 +31,7 @@ export default function Categories() {
                     </Link>
                     <Link to={'/category/pcat_01HQ2W1WCE60W6D3GWW71NSVRW'}>
                         <div className="CategoriesRow_Item">
+                            
                             <img src={`/Images/perf1.jpg`} alt="" />
                             <img src="/Images/perf2.jpg" alt="" />
                             <span>
