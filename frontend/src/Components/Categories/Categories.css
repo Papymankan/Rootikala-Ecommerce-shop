@@ -1,15 +1,15 @@
 .CategoriesRowContainer{
     width: 100%;
-    border: 1px solid red;
-    /* padding: 10px 0; */
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     align-items: center;
     font-family: var(--font);
+    margin-bottom: 30px;
 }
 .CategoriesRowContainer>a{
     width: 300px;
+    height: 450px;
     display: block;
 }
 .CategoriesRow_Item{
@@ -18,16 +18,38 @@
     border-radius: 10px;
     position: relative;
 }
+.CategoriesRowContainer>a:hover .CategoriesRow_Item>span{
+    opacity: 100%;
+}
+.CategoriesRowContainer>a:hover .CategoriesRow_Item>img:first-of-type{
+    opacity: 0%;
+}
+.CategoriesRowContainer>a:hover .CategoriesRow_Item>img:last-of-type{
+    opacity: 100%;
+}
+
+.CategoriesRow_Item>img:last-of-type{
+    opacity: 0%;
+    position: absolute;
+    top: 0px;
+}
+.CategoriesRow_Item>img:first-of-type{
+    opacity: 100%;
+}
+
 .CategoriesRow_Item>img{
+    display: flex;
+    transition: all .2s ease-in-out;
     border-radius: 10px;
     width: 100%;
+    height: 100%;
 }
 .CategoriesRow_Item>span{
-    transition: all .4s ease-in-out;
+    opacity: 0%;
+    transition: all .2s ease-in-out;
     width: 100%;
     position: absolute;
     bottom: 0px;
-    display: block;
     background-color: var(--green);
     padding: 8px 0;
     display: flex;
@@ -37,25 +59,26 @@
     font-size: 20px;
     border-radius: 0 0 10px 10px;
 }
-    
-
-
-
-
-
+.LastCoursesHeader{
+    font-family: var(--font);
+}
 
 @media (max-width: 1400px) {
     .CategoriesRowContainer>a{
         width: 250px;
+        height: 375px;
+        
     }
 }
 @media (max-width: 1150px) {
     .CategoriesRowContainer>a{
         width: 215px;
+        height: 322px;
     }
 }
 @media (max-width: 950px) {
     .CategoriesRowContainer>a{
+        height: 262px;
         width: 175px;
     }
     .CategoriesRow_Item>span{
@@ -66,6 +89,7 @@
     .CategoriesRowContainer>a{
         width: 250px;
         margin-top: 20px;
+        height: 375px;
     }
     .CategoriesRowContainer{
         justify-content: space-evenly;
@@ -73,6 +97,7 @@
 }
 @media (max-width: 675px) {
     .CategoriesRowContainer>a{
+        height: 360px;
         width: 240px;
     }
 }
