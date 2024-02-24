@@ -8,15 +8,15 @@ import SaleProducts from "../../Components/SaleProducts/SaleProducts";
 
 export default function Home() {
   const [products, setProducts] = useState([])
-  // const [categories, setCategories] = useState([])
-  // const [listedCats, setListedCats] = useState([])
+  const [categories, setCategories] = useState([])
+  const [listedCats, setListedCats] = useState([])
 
   useEffect(() => {
     fetch(`http://localhost:9000/store/products`, {
     }).then(res => res.json()).then(data => setProducts(data.products))
 
-    // fetch(`http://localhost:9000/store/product-categories`, {
-    // }).then(res => res.json()).then(data => setCategories(data.product_categories))
+    fetch(`http://localhost:9000/store/product-categories`, {
+    }).then(res => res.json()).then(data => setCategories(data.product_categories))
 
     // fetch(`http://localhost:9000/store/products?collection_id[]=${'pcol_01HMR5RCMZ4RCE58VJ59AWXA7V'}`, {
     // }).then(res => {
@@ -25,29 +25,30 @@ export default function Home() {
 
   }, [])
 
-  // useEffect(() => {
-  //   let arrangedCategories = categories
-  //   if (arrangedCategories) {
-  //     let arr2 = []
-  //     arrangedCategories.map(category => {
-  //       if (!category.parent_category_id) {
-  //         let arr = []
-  //         category.category_children.map(child => {
-  //           arrangedCategories.map(cat => {
-  //             cat.id == child.id && arr.push(cat);
-  //           })
-  //         })
-  //         category['childs'] = arr
-  //         arr2.push(category)
-  //       }
-  //     })
-  //     setListedCats(arr2)
-  //   }
-  // }, [categories])
+
+  useEffect(() => {
+    let arrangedCategories = categories
+    if (arrangedCategories) {
+        let arr2 = []
+        arrangedCategories.map(category => {
+            if (!category.parent_category_id) {
+                let arr = []
+                category.category_children.map(child => {
+                    arrangedCategories.map(cat => {
+                        cat.id == child.id && arr.push(cat);
+                    })
+                })
+                category['childs'] = arr
+                arr2.push(category)
+            }
+        })
+        setListedCats(arr2)
+    }
+}, [categories])
 
   return (
     <>
-      <NavBar />
+      <NavBar listedCats={listedCats}/>
       <Landing />
       <SaleProducts products={products} />
       <LastProducts products={products} />

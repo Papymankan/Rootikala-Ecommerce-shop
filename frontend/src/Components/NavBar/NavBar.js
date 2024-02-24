@@ -12,12 +12,11 @@ import './NavBar.css'
 import MenuBar from "../MenuBar/MenuBar";
 import AuthContext from "../../Context/Context";
 
-export default function NavBar() {
+export default function NavBar({ listedCats }) {
 
   const [showMenu, setShowMenu] = useState(false)
   const [showCart, setShowCart] = useState(false)
   const [showActions, setShowActions] = useState(false)
-
   const authContext = useContext(AuthContext)
 
 
@@ -151,7 +150,7 @@ export default function NavBar() {
                 </>
               ) : (
                 <>
-                  <Link className="navBarRegisterBtn" id="navBarRegisterBtnS" to={'/login'}><GoSignIn/></Link>
+                  <Link className="navBarRegisterBtn" id="navBarRegisterBtnS" to={'/login'}><GoSignIn /></Link>
                 </>
               )}
             </div>
@@ -166,7 +165,7 @@ export default function NavBar() {
         </div>
 
       </div>
-      <MenuBar showMenu={showMenu} setShowMenu={setShowMenu} />
+      <MenuBar showMenu={showMenu} setShowMenu={setShowMenu} listedCats={listedCats} />
 
       <Offcanvas show={showCart} onHide={setShowCart}>
         <Offcanvas.Header closeButton className="cartSlideHeader">

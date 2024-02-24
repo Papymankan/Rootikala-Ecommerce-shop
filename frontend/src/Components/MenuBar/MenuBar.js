@@ -7,15 +7,13 @@ import { IoIosArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 import './MenuBar.css'
 
-export default function MenuBar({ showMenu, setShowMenu }) {
+export default function MenuBar({ showMenu, setShowMenu  , listedCats}) {
 
     const [scroll, setScroll] = useState(0)
     const [topBarShow, setTopBarShow] = useState(true)
     const [showMegaMenu, setShowMegaMenu] = useState(false)
-
-    const [categories, setCategories] = useState([])
-    const [listedCats, setListedCats] = useState([])
-    const [activeCat, setActiveCat] = useState('')
+    const [listedCategories, setListedCats] = useState([])
+    const [activeCat, setActiveCat] = useState('مردانه')
 
 
     const ScrollHandler = () => {
@@ -31,37 +29,9 @@ export default function MenuBar({ showMenu, setShowMenu }) {
 
     }
 
-    useEffect(() => {
-
-        fetch(`http://localhost:9000/store/product-categories`, {
-        }).then(res => res.json()).then(data => setCategories(data.product_categories))
-
-        // fetch(`http://localhost:9000/store/products?collection_id[]=${'pcol_01HMR5RCMZ4RCE58VJ59AWXA7V'}`, {
-        // }).then(res => {
-        //   return res.json()
-        // }).then(data => console.log(data))
-
-    }, [])
-
-    useEffect(() => {
-        let arrangedCategories = categories
-        if (arrangedCategories) {
-            let arr2 = []
-            arrangedCategories.map(category => {
-                if (!category.parent_category_id) {
-                    let arr = []
-                    category.category_children.map(child => {
-                        arrangedCategories.map(cat => {
-                            cat.id == child.id && arr.push(cat);
-                        })
-                    })
-                    category['childs'] = arr
-                    arr2.push(category)
-                }
-            })
-            setListedCats(arr2)
-        }
-    }, [categories])
+    useEffect(() => { 
+        setListedCats(listedCats)
+    }, [listedCats])
 
     window.addEventListener('scroll', ScrollHandler)
 
@@ -104,7 +74,7 @@ export default function MenuBar({ showMenu, setShowMenu }) {
                             <div className="megaMenuList">
                                 <ul>
                                     {
-                                        listedCats.map(cat => (
+                                        listedCategories.map(cat => (
                                             <li className={`megaMenuListItems ${activeCat == cat.name && 'megaMenuActive'}`} onMouseEnter={() => setActiveCat(cat.name)}>
                                                 {cat.name}
                                             </li>
@@ -120,7 +90,7 @@ export default function MenuBar({ showMenu, setShowMenu }) {
                                 </div>
                                 <div className="megaMenuItemsDown">
                                     {
-                                        activeCat && listedCats.map(cat => cat.name == activeCat &&
+                                        activeCat && listedCategories.map(cat => cat.name == activeCat &&
                                             (
                                                 cat.childs.map(child => (
                                                     <div className="subMenuItem">
