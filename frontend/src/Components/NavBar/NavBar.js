@@ -12,13 +12,39 @@ import './NavBar.css'
 import MenuBar from "../MenuBar/MenuBar";
 import AuthContext from "../../Context/Context";
 
-export default function NavBar({ listedCats }) {
+export default function NavBar() {
 
   const [showMenu, setShowMenu] = useState(false)
   const [showCart, setShowCart] = useState(false)
   const [showActions, setShowActions] = useState(false)
+  const [categories, setCategories] = useState([])
+  const [listedCats, setListedCats] = useState([])
   const authContext = useContext(AuthContext)
 
+  useEffect(() => {
+    fetch(`http://localhost:9000/store/product-categories`, {
+    }).then(res => res.json()).then(data => setCategories(data.product_categories))
+  }, [])
+
+  useEffect(() => {
+    let arrangedCategories = categories
+    if (arrangedCategories) {
+      let arr2 = []
+      arrangedCategories.map(category => {
+        if (!category.parent_category_id) {
+          let arr = []
+          category.category_children.map(child => {
+            arrangedCategories.map(cat => {
+              cat.id == child.id && arr.push(cat);
+            })
+          })
+          category['childs'] = arr
+          arr2.push(category)
+        }
+      })
+      setListedCats(arr2)
+    }
+  }, [categories])
 
   return (
     <>

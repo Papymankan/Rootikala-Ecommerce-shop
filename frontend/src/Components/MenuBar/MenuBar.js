@@ -74,7 +74,7 @@ export default function MenuBar({ showMenu, setShowMenu  , listedCats}) {
                             <div className="megaMenuList">
                                 <ul>
                                     {
-                                        listedCategories.map(cat => (
+                                        listedCategories && listedCategories.map(cat => (
                                             <li className={`megaMenuListItems ${activeCat == cat.name && 'megaMenuActive'}`} onMouseEnter={() => setActiveCat(cat.name)}>
                                                 {cat.name}
                                             </li>

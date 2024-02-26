@@ -16,9 +16,6 @@ export default function Home() {
     fetch(`http://localhost:9000/store/products`, {
     }).then(res => res.json()).then(data => setProducts(data.products))
 
-    fetch(`http://localhost:9000/store/product-categories`, {
-    }).then(res => res.json()).then(data => setCategories(data.product_categories))
-
     // fetch(`http://localhost:9000/store/products?collection_id[]=${'pcol_01HMR5RCMZ4RCE58VJ59AWXA7V'}`, {
     // }).then(res => {
     //   return res.json()
@@ -49,7 +46,7 @@ export default function Home() {
 
   return (
     <>
-      <NavBar listedCats={listedCats}/>
+      <NavBar/>
       <Landing />
       <SaleProducts products={products} />
       <Categories/>
