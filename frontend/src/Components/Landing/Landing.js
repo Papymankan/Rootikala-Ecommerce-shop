@@ -1,24 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './Landing.css'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import AOS from 'aos';
+import 'aos/dist/aos.css'
 import { Pagination, Autoplay } from 'swiper/modules';
 
 export default function Landing() {
+    useEffect(() => {
+        AOS.init();
+    }, [])
+
     return (
         <>
             <div className="Container">
 
                 <div className="LandingContainer">
-                    <div className="landingSwiper">
+                    <div className="landingSwiper" data-aos="fade-left" data-aos-delay="50" data-aos-duration='800'>
 
                         <Swiper
                             pagination={{
                                 dynamicBullets: true,
                             }}
                             modules={[Pagination, Autoplay]}
-                            className="mySwiper"
+                            className="mySwiper"    
                             loop={true}
                             autoplay={{
                                 delay: 3000,
@@ -36,7 +42,7 @@ export default function Landing() {
                             </SwiperSlide>
                         </Swiper>
                     </div>
-                    <div className="landingPicture">
+                    <div className="landingPicture" data-aos="fade-right" data-aos-delay="50" data-aos-duration='800'>
                         <div>
                             <img src="/Images/main-banner-top.jpg" alt="landPic" />
                         </div>
