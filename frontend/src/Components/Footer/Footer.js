@@ -50,8 +50,8 @@ export default function Footer() {
                                 </div>
                             </div>
                             <div>
-                                <img src="Images/samandehi.webp" alt="" />
-                                <img src="Images/etemad.png" alt="" />
+                                <img src="/Images/samandehi.webp" alt="" />
+                                <img src="/Images/etemad.png" alt="" />
                             </div>
                         </div>
                         <div className="footerCopyRight">
