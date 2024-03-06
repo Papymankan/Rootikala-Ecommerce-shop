@@ -3,16 +3,28 @@ import { IoIosArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 import './BreadCrumb.css'
 
-export default function BreadCrumb({links}) {
+export default function BreadCrumb({ categoryDetails }) {
     return (
         <>
             <div className="Container" id="breadCrumb">
                 <div className="breadCrumbContainer">
-                    <Link>خانه</Link>
+                    <Link to={'/'}>خانه</Link>
                     <span><IoIosArrowBack /></span>
-                    <Link>مردانه</Link>
-                    <span><IoIosArrowBack /></span>
-                    <Link>لباس مردانه</Link>
+                    {
+                        categoryDetails.parent_category && (
+                            <>
+                                <Link to={`/category/${categoryDetails.parent_category.id}`}>{categoryDetails.parent_category.name}</Link>
+                                <span><IoIosArrowBack /></span>
+                            </>
+                        )
+                    }
+                    {
+                        categoryDetails && (
+                            <>
+                                <Link to={`/category/${categoryDetails.id}`}>{categoryDetails.name}</Link>
+                            </>
+                        )
+                    }
                 </div>
             </div>
         </>
