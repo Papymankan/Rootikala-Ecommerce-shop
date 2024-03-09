@@ -4,8 +4,8 @@ import NavBar from "../../Components/NavBar/NavBar";
 import BreadCrumb from "../../Components/BreadCrumb/BreadCrumb";
 import Footer from "../../Components/Footer/Footer";
 import { useParams } from "react-router-dom";
-import { alpha, styled } from '@mui/material/styles';
-import { pink } from '@mui/material/colors';
+import Slider from '@mui/material/Slider';
+import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import { FormControlLabel } from "@mui/material";
 
@@ -78,6 +78,25 @@ export default function Category() {
   const [justAvailable, setjustAvailable] = React.useState(false);
   const [justSale, setJustSale] = React.useState(false);
 
+  const [value, setValue] = React.useState([0, 50000000]);
+
+  const minDistance = 1000000;
+
+  const handleChange = (event, newValue , activeThumb) => {
+    setValue(newValue);
+    // if (!Array.isArray(newValue)) {
+    //   return;
+    // }
+    // console.log(newValue);
+    // console.log(activeThumb);
+
+    // if (activeThumb === 0) {
+    //   setValue([Math.min(newValue[0], value[1] - minDistance), value[1]]);
+    // } else {
+    //   setValue([value[0], Math.max(newValue[1], value[0] + minDistance)]);
+    // }
+  };
+
   return (
     <>
       <NavBar />
@@ -89,15 +108,26 @@ export default function Category() {
             <a>حذف همه</a>
           </div>
           <div className="priceRange">
-
+            <div>محدوده قیمت</div>
+            <Slider
+              getAriaLabel={() => 'Temperature range'}
+              value={value}
+              onChange={handleChange}
+              disableSwap
+              sx={{ color: '#10B981'}}
+            />
+            <div className="priceRange_prices">
+              <span>{(10000000).toLocaleString()}<sub>تومان</sub> </span>
+              <span>{(10000000).toLocaleString()}<sub>تومان</sub> </span>
+            </div>
           </div>
-          <div>
+          <div className="FilterToggles">
             <span>فقط کالا های موجود</span>
             <FormControlLabel
               control={<IOSSwitch sx={{ m: 1 }} defaultChecked onChange={(event) => { setjustAvailable(event.target.checked); }} checked={justAvailable} />}
             />
           </div>
-          <div>
+          <div className="FilterToggles">
             <span>فقط کالا های دارای تخفیف</span>
             <FormControlLabel
               control={<IOSSwitch sx={{ m: 1 }} defaultChecked onChange={(event) => { setJustSale(event.target.checked); }} checked={justSale} />}
