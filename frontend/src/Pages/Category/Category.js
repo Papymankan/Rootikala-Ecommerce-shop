@@ -9,6 +9,7 @@ import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import { FormControlLabel } from "@mui/material";
 import { BsSortUpAlt } from "react-icons/bs";
+import ProductCard from "../../Components/ProductCard/ProductCard";
 
 export default function Category() {
 
@@ -20,6 +21,11 @@ export default function Category() {
     if (id) {
       fetch(`http://localhost:9000/store/product-categories/${id}`, {
       }).then(res => res.json()).then(data => setCategoryDetails(data.product_category))
+
+      fetch(`http://localhost:9000/store/products?category_id[]=${id}`, {
+      }).then(res => {
+        return res.json()
+      }).then(data => setAllProducts(data.products))
     }
   }, [id])
 
@@ -79,7 +85,8 @@ export default function Category() {
   const [justAvailable, setjustAvailable] = useState(false);
   const [justSale, setJustSale] = useState(false);
   const [value, setValue] = useState([0, 100]);
-  const [sortFilter , setSortFilter] = useState('new')
+  const [sortFilter, setSortFilter] = useState('new')
+  const [allProducts , setAllProducts] = useState([])
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -102,7 +109,7 @@ export default function Category() {
               value={value}
               onChange={handleChange}
               disableSwap
-              sx={{ color: '#10B981'}}
+              sx={{ color: '#10B981' }}
             />
             <div className="priceRange_prices">
               <span>{(value[1] / 100 * 50000000).toLocaleString()}<sub>تومان</sub> </span>
@@ -124,11 +131,17 @@ export default function Category() {
         </div>
         <div className="Products_container">
           <div className="SortFilters">
-            <div><BsSortUpAlt/> مرتب سازی بر اساس</div>
-            <div className={sortFilter == 'new' && `sortFilter_active`} onClick={()=> setSortFilter('new')}>جدیدترین</div>
-            <div className={sortFilter == 'old' && `sortFilter_active`} onClick={()=> setSortFilter('old')}>قدیمی ترین</div>
-            <div className={sortFilter == 'h_price' && `sortFilter_active`} onClick={()=> setSortFilter('h_price')}>گران ترین</div>
-            <div className={sortFilter == 'l_price' && `sortFilter_active`} onClick={()=> setSortFilter('l_price')}>ارزان ترین</div>
+            <div><BsSortUpAlt /> مرتب سازی بر اساس</div>
+            <div className={sortFilter == 'new' && `sortFilter_active`} onClick={() => setSortFilter('new')}>جدیدترین</div>
+            <div className={sortFilter == 'old' && `sortFilter_active`} onClick={() => setSortFilter('old')}>قدیمی ترین</div>
+            <div className={sortFilter == 'h_price' && `sortFilter_active`} onClick={() => setSortFilter('h_price')}>گران ترین</div>
+            <div className={sortFilter == 'l_price' && `sortFilter_active`} onClick={() => setSortFilter('l_price')}>ارزان ترین</div>
+          </div>
+          <div className="Products">
+            {
+              allProducts.length >= 1 && allProducts.map(product => (<ProductCard {...product}/>))
+            }
+            
           </div>
         </div>
       </div>
