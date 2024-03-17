@@ -8,6 +8,7 @@ import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import { FormControlLabel } from "@mui/material";
+import { BsSortUpAlt } from "react-icons/bs";
 
 export default function Category() {
 
@@ -75,26 +76,13 @@ export default function Category() {
     },
   }));
 
-  const [justAvailable, setjustAvailable] = React.useState(false);
-  const [justSale, setJustSale] = React.useState(false);
+  const [justAvailable, setjustAvailable] = useState(false);
+  const [justSale, setJustSale] = useState(false);
+  const [value, setValue] = useState([0, 100]);
+  const [sortFilter , setSortFilter] = useState('new')
 
-  const [value, setValue] = React.useState([0, 50000000]);
-
-  const minDistance = 1000000;
-
-  const handleChange = (event, newValue , activeThumb) => {
+  const handleChange = (event, newValue) => {
     setValue(newValue);
-    // if (!Array.isArray(newValue)) {
-    //   return;
-    // }
-    // console.log(newValue);
-    // console.log(activeThumb);
-
-    // if (activeThumb === 0) {
-    //   setValue([Math.min(newValue[0], value[1] - minDistance), value[1]]);
-    // } else {
-    //   setValue([value[0], Math.max(newValue[1], value[0] + minDistance)]);
-    // }
   };
 
   return (
@@ -117,8 +105,8 @@ export default function Category() {
               sx={{ color: '#10B981'}}
             />
             <div className="priceRange_prices">
-              <span>{(10000000).toLocaleString()}<sub>تومان</sub> </span>
-              <span>{(10000000).toLocaleString()}<sub>تومان</sub> </span>
+              <span>{(value[1] / 100 * 50000000).toLocaleString()}<sub>تومان</sub> </span>
+              <span>{(value[0] / 100 * 50000000).toLocaleString()}<sub>تومان</sub> </span>
             </div>
           </div>
           <div className="FilterToggles">
@@ -135,7 +123,13 @@ export default function Category() {
           </div>
         </div>
         <div className="Products_container">
-
+          <div className="SortFilters">
+            <div><BsSortUpAlt/> مرتب سازی بر اساس</div>
+            <div className={sortFilter == 'new' && `sortFilter_active`} onClick={()=> setSortFilter('new')}>جدیدترین</div>
+            <div className={sortFilter == 'old' && `sortFilter_active`} onClick={()=> setSortFilter('old')}>قدیمی ترین</div>
+            <div className={sortFilter == 'h_price' && `sortFilter_active`} onClick={()=> setSortFilter('h_price')}>گران ترین</div>
+            <div className={sortFilter == 'l_price' && `sortFilter_active`} onClick={()=> setSortFilter('l_price')}>ارزان ترین</div>
+          </div>
         </div>
       </div>
       <Footer />
