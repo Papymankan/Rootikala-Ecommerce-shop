@@ -10,6 +10,7 @@ import Switch from '@mui/material/Switch';
 import { FormControlLabel } from "@mui/material";
 import { BsSortUpAlt } from "react-icons/bs";
 import ProductCard from "../../Components/ProductCard/ProductCard";
+import AllProductsCard from "../../Components/AllProductsCard/AllProductsCard";
 
 export default function Category() {
 
@@ -139,7 +140,7 @@ export default function Category() {
           </div>
           <div className="Products">
             {
-              allProducts.length >= 1 && allProducts.map(product => (<ProductCard {...product}/>))
+              allProducts.length >= 1 && allProducts.map(product => (<AllProductsCard {...product}/>))
             }
             
           </div>
