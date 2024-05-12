@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import './AllProductsCard.css'
 export default function AllProductsCard({ title, thumbnail, variants, collection }) {
-  return (
-    <>
-         <div className="AllProductsCard">
+    return (
+        <>
+            <div className="AllProductsCard">
                 <Link>
                     <img src={thumbnail} />
                     <span>{title}</span>
@@ -22,9 +22,11 @@ export default function AllProductsCard({ title, thumbnail, variants, collection
                         )
                     }
 
-                    <span style={collection && collection.id == 'pcol_01HMR5RCMZ4RCE58VJ59AWXA7V' && {display : 'none'}}>{(variants[0].prices[0].amount).toLocaleString()} تومان</span>
+                    <div  style={collection && collection.id == 'pcol_01HMR5RCMZ4RCE58VJ59AWXA7V' && { display: 'none' }} className={'AllProductsCard_price'}>
+                        <span>{(variants[0].prices[0].amount).toLocaleString()} تومان</span>
+                    </div>
                 </Link>
             </div>
-    </>
-  );
+        </>
+    );
 }

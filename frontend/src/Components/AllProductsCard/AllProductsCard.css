@@ -9,9 +9,11 @@
     background-color: white;
     border-radius: 10px;
     border: 3px solid white;
-    margin: 10px 0;
+    margin: 7px 4px;
     transition: all .2s ease-in-out;
+
 }
+
 .AllProductsCard:hover {
     border: 3px solid var(--green);
     scale: 1.034;
@@ -33,7 +35,7 @@
     /* width: 206px; */
     padding: 10px 0;
     font-size: 17px;
-    color: var(--gray-dark);
+    color: var(--gray-dark) !important;
     text-align: start;
     display: inline-block;
     overflow: hidden;
@@ -41,23 +43,24 @@
     text-overflow: ellipsis;
 }
 
-.AllProductsCard>a>span:last-of-type {
-    text-align: end;
-    color: var(--green);
-}
-
 .AllProductsCard>a>div {
-    display: none;
     text-align: end;
     width: 100%;
     display: flex;
+    justify-content: center;
     flex-direction: column;
+    padding: 3px 0;
+    height: 56px;
 }
 
 .AllProductsCard>a>div>span:first-of-type {
     font-size: 14px;
     text-decoration: line-through;
     text-decoration-color: red;
+}
+
+.AllProductsCard_price>span {
+    text-decoration: none !important;
 }
 
 .AllProductsCard>a>div>span:last-of-type {
@@ -76,4 +79,36 @@
     font-size: 15px;
     padding: 3px 5px;
     border-radius: 10px;
+}
+
+@media (max-width: 1150px) {
+    .AllProductsCard {
+        width: 32%;
+    }
+}
+
+@media (max-width: 950px) {
+    .AllProductsCard {
+        width: 31%;
+    }
+
+    .AllProductsCard>a>span {
+        font-size: 15px;
+    }
+
+    .AllProductsCard>a>div>span:first-of-type {
+        font-size: 12px;
+    }
+
+    .AllProductsCard>a>div>span:last-of-type {
+        font-size: 15px;
+    }
+
+    .AllProductsCard>a>div>span:last-of-type>span {
+        font-size: 12px;
+    }
+
+    .AllProductsCard>a>div {
+        height: 46px;
+    }
 }
