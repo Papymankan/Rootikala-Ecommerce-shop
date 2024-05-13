@@ -141,3 +141,16 @@
     }
         
 }
+@media (max-width: 800px){
+    .Filters{
+        display: none;
+    }        
+    .Products_container{
+        width: 100%;
+    }
+}
+@media (max-width: 675px){
+    .SortFilters{
+        font-size: 12px;
+    }
+}

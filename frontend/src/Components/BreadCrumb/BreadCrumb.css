@@ -29,3 +29,9 @@
         margin-top: 20px;
     }
 }
+@media (max-width: 675px){
+    .breadCrumbContainer {
+        padding: 12px 6px;
+        font-size: 15px;
+    }
+}

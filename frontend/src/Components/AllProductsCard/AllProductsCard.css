@@ -112,3 +112,24 @@
         height: 46px;
     }
 }
+
+@media (max-width: 675px){
+    .AllProductsCard>a>div>span:first-of-type {
+        font-size: 11px;
+    }
+
+    .AllProductsCard>a>div>span:last-of-type {
+        font-size: 14px;
+    }
+
+    .AllProductsCard>a>div>span:last-of-type>span {
+        font-size: 11px;
+        padding: 2px 3px;
+        border-radius: 5px;
+    }
+
+    .AllProductsCard>a>span {
+        padding: 10px 0;
+        font-size: 15px;
+    }
+}
