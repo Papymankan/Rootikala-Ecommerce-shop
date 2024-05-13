@@ -90,6 +90,7 @@
 @media (max-width: 950px) {
     .AllProductsCard {
         width: 31%;
+        padding: 5px;
     }
 
     .AllProductsCard>a>span {
@@ -115,7 +116,7 @@
 
 @media (max-width: 675px){
     .AllProductsCard>a>div>span:first-of-type {
-        font-size: 11px;
+        font-size: 10px;
     }
 
     .AllProductsCard>a>div>span:last-of-type {
@@ -131,5 +132,39 @@
     .AllProductsCard>a>span {
         padding: 10px 0;
         font-size: 15px;
+    }
+}
+@media (max-width: 540px){
+    .AllProductsCard>a>span {
+        padding: 6px 0;
+        font-size: 12px;
+    }
+    .AllProductsCard>a>div>span:last-of-type {
+        font-size: 12px;
+    }
+    .AllProductsCard>a>div>span:last-of-type>span {
+        font-size: 11px;
+        padding: 2px 2px;
+        border-radius: 5px;
+    }
+}
+@media (max-width: 470px){
+    .AllProductsCard {
+        width: 47%;
+    }
+    .AllProductsCard>a>span {
+        padding: 4px 0;
+        font-size: 14px;
+    }
+    .AllProductsCard>a>div>span:last-of-type {
+        font-size: 13px;
+    }
+    .AllProductsCard>a>div>span:last-of-type>span {
+        font-size: 12px;
+        padding: 2px 2px;
+        border-radius: 5px;
+    }
+    .AllProductsCard_price {
+        height: 32px;
     }
 }

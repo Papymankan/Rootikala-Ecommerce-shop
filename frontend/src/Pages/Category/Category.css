@@ -5,6 +5,17 @@
     font-family: var(--font);
 }
 
+.BreadCrumbArea{
+    width: 100%;
+}
+.BreadCrumbArea>div{
+    display: flex !important;
+}
+
+.HeaderFliters{
+    display: none;
+}
+
 .Filters {
     width: 24%;
     padding: 15px;
@@ -147,6 +158,13 @@
     }        
     .Products_container{
         width: 100%;
+    }
+    .BreadCrumbArea>div{
+        justify-content: space-between;
+    }
+    .HeaderFliters{
+        display: flex;
+        align-items: flex-end;
     }
 }
 @media (max-width: 675px){

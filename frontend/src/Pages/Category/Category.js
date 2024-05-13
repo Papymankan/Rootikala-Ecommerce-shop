@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
-import { FormControlLabel } from "@mui/material";
+import { Button, Drawer, FormControlLabel } from "@mui/material";
 import { BsSortUpAlt } from "react-icons/bs";
 import ProductCard from "../../Components/ProductCard/ProductCard";
 import AllProductsCard from "../../Components/AllProductsCard/AllProductsCard";
@@ -87,16 +87,53 @@ export default function Category() {
   const [justSale, setJustSale] = useState(false);
   const [value, setValue] = useState([0, 100]);
   const [sortFilter, setSortFilter] = useState('new')
-  const [allProducts , setAllProducts] = useState([])
+  const [allProducts, setAllProducts] = useState([])
+  const [drawerOpen, setDrawerOpen] = useState(false)
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  const toggleDrawer = (open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setDrawerOpen(open)
+  };
+
   return (
     <>
       <NavBar />
-      <BreadCrumb categoryDetails={categoryDetails} />
+      <div className="BreadCrumbArea">
+        <div className="Container">
+          <BreadCrumb categoryDetails={categoryDetails} />
+
+          <div className="HeaderFliters">
+            <React.Fragment key={'bottom'}>
+              <button onClick={toggleDrawer(true)}>{'bottom'}</button>
+              <Drawer
+                anchor={'bottom'}
+                open={drawerOpen}
+                onClose={toggleDrawer(false)}
+              >
+                fssgdfgfdgdf
+              </Drawer>
+            </React.Fragment>
+            {/* <select name="order" onChange={(e) => {
+              console.log(e);
+            }}>
+              <option value="new">جدیدترین</option>
+              <option value="old">قدیمی ترین</option>
+              <option value="h_price">گران ترین</option>
+              <option value="l_price">ارزان ترین</option>
+            </select> */}
+          </div>
+        </div>
+      </div>
+
+
+
+
       <div className="Container" id="Category_container">
         <div className="Filters">
           <div>
@@ -140,9 +177,9 @@ export default function Category() {
           </div>
           <div className="Products">
             {
-              allProducts.length >= 1 && allProducts.map(product => (<AllProductsCard {...product}/>))
+              allProducts.length >= 1 && allProducts.map(product => (<AllProductsCard {...product} />))
             }
-            
+
           </div>
         </div>
       </div>
