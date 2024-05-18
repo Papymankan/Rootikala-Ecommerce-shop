@@ -11,6 +11,7 @@ import { Button, Drawer, FormControlLabel } from "@mui/material";
 import { BsSortUpAlt } from "react-icons/bs";
 import FilterAltIcon from '@mui/icons-material/FilterAltRounded';
 import AllProductsCard from "../../Components/AllProductsCard/AllProductsCard";
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function Category() {
 
@@ -95,11 +96,54 @@ export default function Category() {
   };
 
   const toggleDrawer = (open) => (event) => {
+    console.log('clicked');
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
     setDrawerOpen(open)
   };
+
+  const DrawerFilter = () => {
+    return (
+      <div className="Container">
+        <button onClick={toggleDrawer(false)} id='filterDrawer_Close'>
+          <CloseIcon   />
+        </button>
+        <div className="DrawerFilters">
+          <div>
+            <h2>فیلتر ها</h2>
+            <a>حذف همه</a>
+          </div>
+          <div className="priceRange">
+            <div>محدوده قیمت</div>
+            <Slider
+              getAriaLabel={() => 'Temperature range'}
+              value={value}
+              onChange={handleChange}
+              disableSwap
+              sx={{ color: '#10B981' }}
+            />
+            <div className="priceRange_prices">
+              <span>{(value[1] / 100 * 50000000).toLocaleString()}<sub>تومان</sub> </span>
+              <span>{(value[0] / 100 * 50000000).toLocaleString()}<sub>تومان</sub> </span>
+            </div>
+          </div>
+          <div className="FilterToggles">
+            <span>فقط کالا های موجود</span>
+            <FormControlLabel
+              control={<IOSSwitch sx={{ m: 1 }} defaultChecked onChange={(event) => { setjustAvailable(event.target.checked); }} checked={justAvailable} />}
+            />
+          </div>
+          <div className="FilterToggles">
+            <span>فقط کالا های دارای تخفیف</span>
+            <FormControlLabel
+              control={<IOSSwitch sx={{ m: 1 }} defaultChecked onChange={(event) => { setJustSale(event.target.checked); }} checked={justSale} />}
+            />
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <>
@@ -111,13 +155,47 @@ export default function Category() {
 
           <div className="HeaderFliters">
             <React.Fragment key={'bottom'}>
-              <button onClick={toggleDrawer(true)}> <FilterAltIcon/> {'فیلتر ها'}  </button>
+              <button onClick={toggleDrawer(true)}> <FilterAltIcon /> {'فیلتر ها'}  </button>
               <Drawer
                 anchor={'bottom'}
                 open={drawerOpen}
                 onClose={toggleDrawer(false)}
               >
-                fssgdfgfdgdf
+                {/* {<div className="Container">
+                  <div className="Filters">
+                    <div>
+                      <h2>فیلتر ها</h2>
+                      <a>حذف همه</a>
+                    </div>
+                    <div className="priceRange">
+                      <div>محدوده قیمت</div>
+                      <Slider
+                        getAriaLabel={() => 'Temperature range'}
+                        value={value}
+                        onChange={handleChange}
+                        disableSwap
+                        sx={{ color: '#10B981' }}
+                      />
+                      <div className="priceRange_prices">
+                        <span>{(value[1] / 100 * 50000000).toLocaleString()}<sub>تومان</sub> </span>
+                        <span>{(value[0] / 100 * 50000000).toLocaleString()}<sub>تومان</sub> </span>
+                      </div>
+                    </div>
+                    <div className="FilterToggles">
+                      <span>فقط کالا های موجود</span>
+                      <FormControlLabel
+                        control={<IOSSwitch sx={{ m: 1 }} defaultChecked onChange={(event) => { setjustAvailable(event.target.checked); }} checked={justAvailable} />}
+                      />
+                    </div>
+                    <div className="FilterToggles">
+                      <span>فقط کالا های دارای تخفیف</span>
+                      <FormControlLabel
+                        control={<IOSSwitch sx={{ m: 1 }} defaultChecked onChange={(event) => { setJustSale(event.target.checked); }} checked={justSale} />}
+                      />
+                    </div>
+                  </div>
+                </div>} */}
+                {DrawerFilter()}
               </Drawer>
             </React.Fragment>
             {/* <select name="order" onChange={(e) => {
