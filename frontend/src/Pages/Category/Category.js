@@ -9,7 +9,7 @@ import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import { Button, Drawer, FormControlLabel } from "@mui/material";
 import { BsSortUpAlt } from "react-icons/bs";
-import ProductCard from "../../Components/ProductCard/ProductCard";
+import FilterAltIcon from '@mui/icons-material/FilterAltRounded';
 import AllProductsCard from "../../Components/AllProductsCard/AllProductsCard";
 
 export default function Category() {
@@ -104,13 +104,14 @@ export default function Category() {
   return (
     <>
       <NavBar />
+
       <div className="BreadCrumbArea">
         <div className="Container">
           <BreadCrumb categoryDetails={categoryDetails} />
 
           <div className="HeaderFliters">
             <React.Fragment key={'bottom'}>
-              <button onClick={toggleDrawer(true)}>{'bottom'}</button>
+              <button onClick={toggleDrawer(true)}> <FilterAltIcon/> {'فیلتر ها'}  </button>
               <Drawer
                 anchor={'bottom'}
                 open={drawerOpen}
@@ -120,19 +121,16 @@ export default function Category() {
               </Drawer>
             </React.Fragment>
             {/* <select name="order" onChange={(e) => {
-              console.log(e);
-            }}>
-              <option value="new">جدیدترین</option>
-              <option value="old">قدیمی ترین</option>
-              <option value="h_price">گران ترین</option>
-              <option value="l_price">ارزان ترین</option>
-            </select> */}
+    console.log(e);
+  }}>
+    <option value="new">جدیدترین</option>
+    <option value="old">قدیمی ترین</option>
+    <option value="h_price">گران ترین</option>
+    <option value="l_price">ارزان ترین</option>
+  </select> */}
           </div>
         </div>
       </div>
-
-
-
 
       <div className="Container" id="Category_container">
         <div className="Filters">
