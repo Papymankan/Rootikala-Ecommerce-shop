@@ -40,4 +40,8 @@
     #breadCrumb {
         margin-top: 10px;
     }
+    .breadCrumbContainer {
+        padding: 10px 5px;
+        font-size: 13px;
+    }
 }

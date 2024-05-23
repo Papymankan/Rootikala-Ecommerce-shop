@@ -254,6 +254,11 @@
         font-size: 12px;
     }
 }
+@media (max-width: 670px) {
+    .BreadCrumbArea {
+        margin-top: 10px;
+    }
+}
 
 @media (max-width: 540px) {
     #Category_container {
@@ -262,5 +267,12 @@
 
     .SortFilters {
         display: none;
+    }
+    .HeaderFliters {
+        padding: 10px 5px;
+        font-size: 14px;
+    }
+    .HeaderFliters>button>svg {
+        font-size: 20px;
     }
 }
