@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
-import { Button, Drawer, FormControlLabel } from "@mui/material";
+import { Box, Button, Drawer, FormControl, FormControlLabel, InputLabel, MenuItem, Select } from "@mui/material";
 import { BsSortUpAlt } from "react-icons/bs";
 import FilterAltIcon from '@mui/icons-material/FilterAltRounded';
 import AllProductsCard from "../../Components/AllProductsCard/AllProductsCard";
@@ -107,7 +107,7 @@ export default function Category() {
     return (
       <div className="Container">
         <button onClick={toggleDrawer(false)} id='filterDrawer_Close'>
-          <CloseIcon   />
+          <CloseIcon />
         </button>
         <div className="DrawerFilters">
           <div>
@@ -154,7 +154,7 @@ export default function Category() {
           <BreadCrumb categoryDetails={categoryDetails} />
 
           <div className="HeaderFliters">
-            <React.Fragment key={'bottom'}>
+            <React.Fragment>
               <button onClick={toggleDrawer(true)}> <FilterAltIcon /> {'فیلتر ها'}  </button>
               <Drawer
                 anchor={'bottom'}
@@ -198,6 +198,29 @@ export default function Category() {
                 {DrawerFilter()}
               </Drawer>
             </React.Fragment>
+
+            <Box sx={{ minWidth: 120 , marginLeft : '10px' }} id='SortingHeader'>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">مرتب سازی</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={sortFilter}
+                  // displayEmpty
+                  label="مرتب سازی"
+                  onChange={(event) => {
+                    setSortFilter(event.target.value)
+                  }}
+                >
+                  <MenuItem value="new">جدیدترین</MenuItem>
+                  <MenuItem value="old">قدیمی ترین</MenuItem>
+                  <MenuItem value="h_price">گران ترین</MenuItem>
+                  <MenuItem value="l_price">ارزان ترین</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+
+
             {/* <select name="order" onChange={(e) => {
     console.log(e);
   }}>

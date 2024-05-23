@@ -41,6 +41,16 @@
     color: gray;
 }
 
+#demo-simple-select{
+    font-size: 15px !important;
+    padding: 3px 4px !important;
+    direction: ltr;
+    font-family: var(--font);
+}
+
+#SortingHeader{
+    display: none;
+}
 
 .Filters {
     width: 24%;
@@ -261,6 +271,11 @@
 }
 
 @media (max-width: 540px) {
+
+    .BreadCrumbArea>div {
+        flex-direction: column;
+    }
+
     #Category_container {
         margin-top: 10px !important;
     }
@@ -269,10 +284,15 @@
         display: none;
     }
     .HeaderFliters {
+        margin-top: 10px;
         padding: 10px 5px;
         font-size: 14px;
+        justify-content: space-evenly;
     }
     .HeaderFliters>button>svg {
         font-size: 20px;
+    }
+    #SortingHeader{
+        display: flex;
     }
 }
