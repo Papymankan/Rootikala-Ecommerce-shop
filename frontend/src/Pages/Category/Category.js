@@ -87,7 +87,7 @@ export default function Category() {
   const [value, setValue] = useState([0, 100]);
   const [sortFilter, setSortFilter] = useState('new')
   const [allProducts, setAllProducts] = useState([])
-  const [showProducts , setShowProducts] = useState([])
+  const [showProducts, setShowProducts] = useState([])
   const [drawerOpen, setDrawerOpen] = useState(false)
 
   const handleChange = (event, newValue) => {
@@ -144,9 +144,32 @@ export default function Category() {
     )
   }
 
-  useEffect(()=>{
-    switch(sortFilter){
-      case 'new' : {
+  const SortInHighPrice = () => {
+    let arr = [allProducts[0]]
+    allProducts.map((product, index) => {
+      if (index == 0) {
+        return
+      }
+      // variants[0].prices[0].amount
+      var didPlaced = arr.some((arrProducts, index) => {
+        if (arrProducts.variants[0].prices[0].amount <= product.variants[0].prices[0].amount) {
+          console.log(product, arrProducts);
+          arr.splice(index, 0, product)
+          return true
+        } else {
+          return false
+        }
+      })
+      if (!didPlaced) {
+        arr.push(product)
+      }
+    })
+    return arr
+  }
+
+  useEffect(() => {
+    switch (sortFilter) {
+      case 'new': {
         setShowProducts(allProducts)
         break
       }
@@ -155,20 +178,15 @@ export default function Category() {
         break
       }
       case 'h_price': {
-        let arr = []
-        allProducts.map(product => {
-          // variants[0].prices[0].amount
-          arr.some(arrProducts => {
-            if(arrProducts.variants[0].prices[0].amount <= product.variants[0].prices[0].amount){
-              
-            }
-          })
-
-        })
+        setShowProducts(SortInHighPrice())
+        break
+      }
+      case 'l_price': {
+        setShowProducts(SortInHighPrice().reverse())
         break
       }
     }
-  } , [sortFilter , allProducts])
+  }, [sortFilter, allProducts])
 
   return (
     <>
@@ -190,7 +208,7 @@ export default function Category() {
               </Drawer>
             </React.Fragment>
 
-            <Box sx={{ minWidth: 120 , marginLeft : '10px' }} id='SortingHeader'>
+            <Box sx={{ minWidth: 120, marginLeft: '10px' }} id='SortingHeader'>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">مرتب سازی</InputLabel>
                 <Select
