@@ -31,8 +31,6 @@ export default function Category() {
     }
   }, [id])
 
-  const label = { inputProps: { 'aria-label': 'Color switch demo' } };
-
   const IOSSwitch = styled((props) => (
     <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
   ))(({ theme }) => ({
@@ -89,6 +87,7 @@ export default function Category() {
   const [value, setValue] = useState([0, 100]);
   const [sortFilter, setSortFilter] = useState('new')
   const [allProducts, setAllProducts] = useState([])
+  const [showProducts , setShowProducts] = useState([])
   const [drawerOpen, setDrawerOpen] = useState(false)
 
   const handleChange = (event, newValue) => {
@@ -145,6 +144,32 @@ export default function Category() {
     )
   }
 
+  useEffect(()=>{
+    switch(sortFilter){
+      case 'new' : {
+        setShowProducts(allProducts)
+        break
+      }
+      case 'old': {
+        setShowProducts([...allProducts].reverse())
+        break
+      }
+      case 'h_price': {
+        let arr = []
+        allProducts.map(product => {
+          // variants[0].prices[0].amount
+          arr.some(arrProducts => {
+            if(arrProducts.variants[0].prices[0].amount <= product.variants[0].prices[0].amount){
+              
+            }
+          })
+
+        })
+        break
+      }
+    }
+  } , [sortFilter , allProducts])
+
   return (
     <>
       <NavBar />
@@ -161,40 +186,6 @@ export default function Category() {
                 open={drawerOpen}
                 onClose={toggleDrawer(false)}
               >
-                {/* {<div className="Container">
-                  <div className="Filters">
-                    <div>
-                      <h2>فیلتر ها</h2>
-                      <a>حذف همه</a>
-                    </div>
-                    <div className="priceRange">
-                      <div>محدوده قیمت</div>
-                      <Slider
-                        getAriaLabel={() => 'Temperature range'}
-                        value={value}
-                        onChange={handleChange}
-                        disableSwap
-                        sx={{ color: '#10B981' }}
-                      />
-                      <div className="priceRange_prices">
-                        <span>{(value[1] / 100 * 50000000).toLocaleString()}<sub>تومان</sub> </span>
-                        <span>{(value[0] / 100 * 50000000).toLocaleString()}<sub>تومان</sub> </span>
-                      </div>
-                    </div>
-                    <div className="FilterToggles">
-                      <span>فقط کالا های موجود</span>
-                      <FormControlLabel
-                        control={<IOSSwitch sx={{ m: 1 }} defaultChecked onChange={(event) => { setjustAvailable(event.target.checked); }} checked={justAvailable} />}
-                      />
-                    </div>
-                    <div className="FilterToggles">
-                      <span>فقط کالا های دارای تخفیف</span>
-                      <FormControlLabel
-                        control={<IOSSwitch sx={{ m: 1 }} defaultChecked onChange={(event) => { setJustSale(event.target.checked); }} checked={justSale} />}
-                      />
-                    </div>
-                  </div>
-                </div>} */}
                 {DrawerFilter()}
               </Drawer>
             </React.Fragment>
@@ -276,7 +267,7 @@ export default function Category() {
           </div>
           <div className="Products">
             {
-              allProducts.length >= 1 && allProducts.map(product => (<AllProductsCard {...product} />))
+              showProducts.length >= 1 && showProducts.map(product => (<AllProductsCard {...product} />))
             }
 
           </div>
