@@ -144,9 +144,9 @@ export default function Category() {
     )
   }
 
-  const SortInHighPrice = () => {
-    let arr = [allProducts[0]]
-    allProducts.map((product, index) => {
+  const SortInHighPrice = (products) => {
+    let arr = [products[0]]
+    products.map((product, index) => {
       if (index == 0) {
         return
       }
@@ -166,27 +166,42 @@ export default function Category() {
     })
     return arr
   }
-
-  useEffect(() => {
+  const SortProducts = (products) => {
     switch (sortFilter) {
       case 'new': {
-        setShowProducts(allProducts)
+        setShowProducts([...products])
         break
       }
       case 'old': {
-        setShowProducts([...allProducts].reverse())
+        setShowProducts([...products].reverse())
         break
       }
       case 'h_price': {
-        setShowProducts(SortInHighPrice())
+        setShowProducts(SortInHighPrice(products))
         break
       }
       case 'l_price': {
-        setShowProducts(SortInHighPrice().reverse())
+        setShowProducts(SortInHighPrice(products).reverse())
         break
       }
     }
-  }, [sortFilter, allProducts])
+  }
+
+  useEffect(() => {
+    setShowProducts(allProducts)
+  }, [allProducts])
+
+  useEffect(() => {
+    var arr = [...allProducts]
+    if (justAvailable) {
+      arr = arr.filter(product => product.variants[0].inventory_quantity > 0)
+    }
+    if (justSale) {
+      arr = arr.filter(product => product.collection != null)
+    }
+    SortProducts(arr)
+
+  }, [justAvailable, justSale, value ,sortFilter])
 
   return (
     <>
