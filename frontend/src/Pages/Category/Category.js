@@ -12,6 +12,7 @@ import { BsSortUpAlt } from "react-icons/bs";
 import FilterAltIcon from '@mui/icons-material/FilterAltRounded';
 import AllProductsCard from "../../Components/AllProductsCard/AllProductsCard";
 import CloseIcon from '@mui/icons-material/Close';
+import { FaBullseye } from "react-icons/fa";
 
 export default function Category() {
 
@@ -194,11 +195,18 @@ export default function Category() {
   useEffect(() => {
     var arr = [...allProducts]
     if (justAvailable) {
-      arr = arr.filter(product => product.variants[0].inventory_quantity > 0)
+      arr = arr.filter(product => {
+        // product.variants[0].inventory_quantity > 0
+        let res = product.variants.some(variant => variant.inventory_quantity > 0)
+        return res
+      })
     }
     if (justSale) {
       arr = arr.filter(product => product.collection != null)
     }
+
+    arr = arr.filter(product => (product.variants[0].prices[0].amount >= (value[0]/100*50_000_000) && product.variants[0].prices[0].amount <= (value[1]/100*50_000_000) ))
+    console.log(arr);
     SortProducts(arr)
 
   }, [justAvailable, justSale, value ,sortFilter])
@@ -261,7 +269,11 @@ export default function Category() {
         <div className="Filters">
           <div>
             <h2>فیلتر ها</h2>
-            <a>حذف همه</a>
+            <a onClick={()=>{
+              setjustAvailable(false)
+              setJustSale(false)
+              setValue([0 , 100])
+            }}>حذف همه</a>
           </div>
           <div className="priceRange">
             <div>محدوده قیمت</div>
@@ -273,8 +285,8 @@ export default function Category() {
               sx={{ color: '#10B981' }}
             />
             <div className="priceRange_prices">
-              <span>{(value[1] / 100 * 50000000).toLocaleString()}<sub>تومان</sub> </span>
-              <span>{(value[0] / 100 * 50000000).toLocaleString()}<sub>تومان</sub> </span>
+              <span>{(value[1] / 100 * 50000000).toLocaleString()} <sub>تومان</sub> </span>
+              <span>{(value[0] / 100 * 50000000).toLocaleString()} <sub>تومان</sub> </span>
             </div>
           </div>
           <div className="FilterToggles">
