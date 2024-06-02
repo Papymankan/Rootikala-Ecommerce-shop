@@ -13,6 +13,7 @@ import FilterAltIcon from '@mui/icons-material/FilterAltRounded';
 import AllProductsCard from "../../Components/AllProductsCard/AllProductsCard";
 import CloseIcon from '@mui/icons-material/Close';
 import { FaBullseye } from "react-icons/fa";
+import Loader from "../../Components/Loader/Loader";
 
 export default function Category() {
 
@@ -28,7 +29,11 @@ export default function Category() {
       fetch(`http://localhost:9000/store/products?category_id[]=${id}`, {
       }).then(res => {
         return res.json()
-      }).then(data => setAllProducts(data.products))
+      }).then(data => {
+        setAllProducts(data.products)
+        setFetchComplete(true)
+      })
+
     }
   }, [id])
 
@@ -90,6 +95,7 @@ export default function Category() {
   const [allProducts, setAllProducts] = useState([])
   const [showProducts, setShowProducts] = useState([])
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [fetchComplete, setFetchComplete] = useState(false)
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -196,7 +202,6 @@ export default function Category() {
     var arr = [...allProducts]
     if (justAvailable) {
       arr = arr.filter(product => {
-        // product.variants[0].inventory_quantity > 0
         let res = product.variants.some(variant => variant.inventory_quantity > 0)
         return res
       })
@@ -205,11 +210,11 @@ export default function Category() {
       arr = arr.filter(product => product.collection != null)
     }
 
-    arr = arr.filter(product => (product.variants[0].prices[0].amount >= (value[0]/100*50_000_000) && product.variants[0].prices[0].amount <= (value[1]/100*50_000_000) ))
-    console.log(arr);
+    arr = arr.filter(product => (product.variants[0].prices[0].amount >= (value[0] / 100 * 50_000_000) && product.variants[0].prices[0].amount <= (value[1] / 100 * 50_000_000)))
+
     SortProducts(arr)
 
-  }, [justAvailable, justSale, value ,sortFilter])
+  }, [justAvailable, justSale, value, sortFilter])
 
   return (
     <>
@@ -269,10 +274,10 @@ export default function Category() {
         <div className="Filters">
           <div>
             <h2>فیلتر ها</h2>
-            <a onClick={()=>{
+            <a onClick={() => {
               setjustAvailable(false)
               setJustSale(false)
-              setValue([0 , 100])
+              setValue([0, 100])
             }}>حذف همه</a>
           </div>
           <div className="priceRange">
@@ -312,7 +317,12 @@ export default function Category() {
           </div>
           <div className="Products">
             {
-              showProducts.length >= 1 && showProducts.map(product => (<AllProductsCard {...product} />))
+              fetchComplete ? (showProducts.length >= 1 ? showProducts.map(product => (<AllProductsCard {...product} />)) : (
+                <div className="NoProductFound">
+                  <img src="/Images/download.svg" />
+                  <span>عجیبه! محصولی یافت نشد</span>
+                </div>
+              )) : <Loader />
             }
 
           </div>
