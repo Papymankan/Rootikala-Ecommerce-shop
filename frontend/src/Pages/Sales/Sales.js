@@ -13,11 +13,11 @@ import AllProductsCard from "../../Components/AllProductsCard/AllProductsCard";
 import CloseIcon from '@mui/icons-material/Close';
 import Loader from "../../Components/Loader/Loader";
 
-export default function Store() {
+export default function Sales() {
   const { id } = useParams()
 
   useEffect(() => {
-    fetch(`http://localhost:9000/store/products`, {
+    fetch(`http://localhost:9000/store/products?collection_id[]=${'pcol_01HMR5RCMZ4RCE58VJ59AWXA7V'}`, {
     }).then(res => {
       return res.json()
     }).then(data => {
@@ -211,8 +211,6 @@ export default function Store() {
 
       <div className="BreadCrumbArea">
         <div className="Container">
-          {/* <BreadCrumb categoryDetails={categoryDetails} /> */}
-
           <div className="HeaderFliters">
             <React.Fragment>
               <button onClick={toggleDrawer(true)}> <FilterAltIcon /> {'فیلتر ها'}  </button>

@@ -41,6 +41,27 @@
     margin-left: 5px;
 }
 
+.Blinking_Spot{
+    width: 15px;
+    height: 15px;
+    background-color: var(--green);
+    border-radius: 10px;
+    margin-left: 5px;
+    animation: blink 1s ease-out infinite;
+}
+
+@keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    40% {
+      opacity: .2;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
 /* ################ TopBar Menu ################## */
 /* ################ mega Menu Menu ################## */
 .megaMenu {

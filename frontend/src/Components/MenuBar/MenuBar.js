@@ -46,8 +46,8 @@ export default function MenuBar({ showMenu, setShowMenu  , listedCats}) {
                         </Link>
                     </div>
                     <div className="topBarItems">
-                        <Link>
-                            فروش ویژه
+                        <Link to={'/sales'}>
+                        <span className="Blinking_Spot"></span> فروش ویژه
                         </Link>
                     </div>
                     <div className="topBarItems">

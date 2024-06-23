@@ -20,7 +20,7 @@ export default function SaleProducts({products}) {
                 <div className="LastCoursesContainer">
                     <div className="LastCoursesHeader">
                         <h2>فروش ویژه روز</h2>
-                        <Link>مشاهده همه <IoIosArrowBack /></Link>
+                        <Link to={'/sales'}>مشاهده همه <IoIosArrowBack /></Link>
                     </div>
                     <div className="LastCoursesRow">
                         <Swiper
