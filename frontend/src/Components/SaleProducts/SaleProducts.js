@@ -6,7 +6,9 @@ import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import ProductCard from "../ProductCard/ProductCard";
 
+
 export default function SaleProducts({products}) {
+
 
     const [saleProducts, setSaleProducts] = useState([])
 
@@ -17,7 +19,7 @@ export default function SaleProducts({products}) {
     return (
         <>
             <div className="Container">
-                <div className="LastCoursesContainer">
+                <div className="LastCoursesContainer" >
                     <div className="LastCoursesHeader">
                         <h2>فروش ویژه روز</h2>
                         <Link to={'/sales'}>مشاهده همه <IoIosArrowBack /></Link>

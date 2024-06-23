@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import EntoFa from "../../funcs/EntoFa/EntoFa";
 import './AllProductsCard.css'
+
 export default function AllProductsCard({ title, thumbnail, variants, collection }) {
+    
+  
     return (
         <>
             <div className="AllProductsCard">
