@@ -22,11 +22,17 @@ export default function AllProductsCard({ title, thumbnail, variants, collection
                         )
                     }
 
-                    <div  style={collection && collection.id == 'pcol_01HMR5RCMZ4RCE58VJ59AWXA7V' && { display: 'none' }} className={'AllProductsCard_price'}>
-                        <span>{(variants[0].prices[0].amount).toLocaleString()} تومان</span>
+                    <div style={collection && collection.id == 'pcol_01HMR5RCMZ4RCE58VJ59AWXA7V' && { display: 'none' }} className={'AllProductsCard_price'}>
+                        <span>{variants.some(variant => variant.inventory_quantity > 0) ?
+                            (<>{(variants[0].prices[0].amount).toLocaleString()} تومان</>)
+                            : (<>موجود نیست</>)
+                        }</span>
                     </div>
                 </Link>
             </div>
         </>
     );
 }
+
+
+// {(variants[0].prices[0].amount).toLocaleString()} 'تومان'
