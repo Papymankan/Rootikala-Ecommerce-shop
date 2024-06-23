@@ -7,12 +7,11 @@ import { useParams } from "react-router-dom";
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
-import { Box, Button, Drawer, FormControl, FormControlLabel, InputLabel, MenuItem, Select } from "@mui/material";
+import { Box,Drawer, FormControl, FormControlLabel, InputLabel, MenuItem, Select } from "@mui/material";
 import { BsSortUpAlt } from "react-icons/bs";
 import FilterAltIcon from '@mui/icons-material/FilterAltRounded';
 import AllProductsCard from "../../Components/AllProductsCard/AllProductsCard";
 import CloseIcon from '@mui/icons-material/Close';
-import { FaBullseye } from "react-icons/fa";
 import Loader from "../../Components/Loader/Loader";
 
 export default function Category() {

@@ -4,6 +4,7 @@ import { IoIosArrowUp } from "react-icons/io";
 import { FaTelegram, FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import EntoFa from "../../funcs/EntoFa/EntoFa";
 
 
 export default function Footer() {
@@ -14,12 +15,12 @@ export default function Footer() {
                     <div className="footerContainer">
                         <div className="footerTop">
                             <div>
-                                <span>تلفن پشتیبانی 0000000 - 021</span>
+                                <span>{('تلفن پشتیبانی 0000000 - 021').EntoFa()}</span>
                                 <span>|</span>
                                 <span>۷ روز هفته، ۲۴ ساعته پاسخگوی شما هستیم</span>
                             </div>
                             <div>
-                                <button>برگشت به بالا <IoIosArrowUp /></button>
+                                <button onClick={()=>{window.scrollTo(0, 0)}}>برگشت به بالا <IoIosArrowUp /></button>
                             </div>
                         </div>
                         <div className="footerEmail">
