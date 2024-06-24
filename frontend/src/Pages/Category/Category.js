@@ -13,7 +13,7 @@ import FilterAltIcon from '@mui/icons-material/FilterAltRounded';
 import AllProductsCard from "../../Components/AllProductsCard/AllProductsCard";
 import CloseIcon from '@mui/icons-material/Close';
 import Loader from "../../Components/Loader/Loader";
-
+import EntoFa from "../../funcs/EntoFa/EntoFa";
 export default function Category() {
 
   const { id } = useParams()
@@ -256,15 +256,6 @@ export default function Category() {
               </FormControl>
             </Box>
 
-
-            {/* <select name="order" onChange={(e) => {
-    console.log(e);
-  }}>
-    <option value="new">جدیدترین</option>
-    <option value="old">قدیمی ترین</option>
-    <option value="h_price">گران ترین</option>
-    <option value="l_price">ارزان ترین</option>
-  </select> */}
           </div>
         </div>
       </div>
@@ -289,8 +280,8 @@ export default function Category() {
               sx={{ color: '#10B981' }}
             />
             <div className="priceRange_prices">
-              <span>{(value[1] / 100 * 50000000).toLocaleString()} <sub>تومان</sub> </span>
-              <span>{(value[0] / 100 * 50000000).toLocaleString()} <sub>تومان</sub> </span>
+              <span>{(value[1] / 100 * 50000000).toLocaleString().EntoFa()} <sub>تومان</sub> </span>
+              <span>{(value[0] / 100 * 50000000).toLocaleString().EntoFa()} <sub>تومان</sub> </span>
             </div>
           </div>
           <div className="FilterToggles">
