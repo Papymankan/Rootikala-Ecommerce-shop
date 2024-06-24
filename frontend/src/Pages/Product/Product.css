@@ -31,6 +31,36 @@
     align-items: center;
     justify-content: center;
 }
+.Images_Container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+.Images_Container>div{
+    width: 80px;
+    height: 80px;
+    border: 2px solid var(--gray);
+    padding: 5px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+.Images_Container>div>span{
+    position: relative;
+    right: 30%;
+    bottom: 95%;
+    z-index: 5;
+    font-size: 27px;
+    font-weight: bolder;
+}
+.LastImageBlur>img{
+    filter: blur(5px);
+    opacity: .7;
+}
+.Images_Container>div>img{
+    width: 100%;
+    height: 100%;
+}
 
 .ProductVariants_Container {
     width: 70%;

@@ -18,7 +18,16 @@ export default function Product() {
                         <span><MdShare /></span>
                     </div>
                     <div className="Tumbnail_Container">
+                        <img src="http://localhost:9000/uploads/1708421712623-503a50201bfdeca14002b8bd006ac2f1cee7c661_1662029535.webp" />
+                    </div>
+                    <div className="Images_Container">
+                        <div>
                             <img src="http://localhost:9000/uploads/1708421712623-503a50201bfdeca14002b8bd006ac2f1cee7c661_1662029535.webp" />
+                        </div>
+                        <div className="LastImageBlur">
+                            <img src="http://localhost:9000/uploads/1708421712623-503a50201bfdeca14002b8bd006ac2f1cee7c661_1662029535.webp" />
+                            <span>...</span>
+                        </div>
                     </div>
                 </div>
                 <div className="ProductVariants_Container">
