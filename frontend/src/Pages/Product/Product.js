@@ -3,7 +3,7 @@ import Footer from "../../Components/Footer/Footer";
 import NavBar from "../../Components/NavBar/NavBar";
 import { MdShare, MdCompare } from "react-icons/md";
 import { IoMdHeartEmpty } from "react-icons/io";
-
+import { AiOutlineLike } from "react-icons/ai";
 import './Product.css'
 import { Link, useParams } from "react-router-dom";
 // prod_01HQ2XX2RNYZGD98W5YMHHZ46B
@@ -59,7 +59,10 @@ export default function Product() {
                     </div>
                     <div className="ProductSpecs_Container">
                         <div className="ProductSpecs">
-
+                            <span>
+                            <AiOutlineLike/> 80%  از خریداران، خرید این کالا را پیشنهاد کرده‌اند 
+                            </span>
+                            <h4>ویژگی های محصول</h4>
                         </div>
                         <div className="ProductVariants">
 

@@ -95,3 +95,28 @@
     width: 50%;
     border: 1px solid rgb(34, 0, 255);
 }
+.ProductSpecs{
+    width: 100%;
+}
+.ProductSpecs>span{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.ProductSpecs>span:first-of-type{
+    color: gray;
+    font-size: 13px;
+    /* font-weight: lighter; */
+}
+.ProductSpecs>span:first-of-type>svg{
+    font-size: 20px;
+    color: var(--green);
+    margin-left: 5px;
+}
+.ProductSpecs>h4{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 17px;
+    margin-top: 15px;
+}
