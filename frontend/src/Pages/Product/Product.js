@@ -5,6 +5,7 @@ import { MdShare, MdCompare } from "react-icons/md";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { AiOutlineLike } from "react-icons/ai";
 import './Product.css'
+import EntoFa from "../../funcs/EntoFa/EntoFa";
 import { Link, useParams } from "react-router-dom";
 // prod_01HQ2XX2RNYZGD98W5YMHHZ46B
 
@@ -90,6 +91,20 @@ export default function Product() {
                                     <div className="Color">
                                         <span></span>
                                         <span>مشکی</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="SizeSelect_Container">
+                                <span>انتخاب سایز</span>
+                                <div>
+                                    <div className="Size SelectColor_Active">
+                                        <span>{('44').EntoFa()}</span>
+                                    </div>
+                                    <div className="Size">
+                                        <span>{('44').EntoFa()}</span>
+                                    </div>
+                                    <div className="Size">
+                                        <span>{('44').EntoFa()}</span>
                                     </div>
                                 </div>
                             </div>
