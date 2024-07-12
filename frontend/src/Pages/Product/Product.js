@@ -11,17 +11,17 @@ import { Link, useParams } from "react-router-dom";
 export default function Product() {
     const { id } = useParams()
     useEffect(() => {
-        if (id) {  
-          fetch(`http://localhost:9000/store/products/${id}`, {
-          }).then(res => {
-            return res.json()
-          }).then(data => {
-            setProduct(data)
-          })
+        if (id) {
+            fetch(`http://localhost:9000/store/products/${id}`, {
+            }).then(res => {
+                return res.json()
+            }).then(data => {
+                setProduct(data)
+            })
         }
-      }, [id])
+    }, [id])
 
-      const [product , setProduct] = useState({})
+    const [product, setProduct] = useState({})
 
     return (
         <>
@@ -60,12 +60,39 @@ export default function Product() {
                     <div className="ProductSpecs_Container">
                         <div className="ProductSpecs">
                             <span>
-                            <AiOutlineLike/> 80%  از خریداران، خرید این کالا را پیشنهاد کرده‌اند 
+                                <AiOutlineLike /> 80%  از خریداران، خرید این کالا را پیشنهاد کرده‌اند
                             </span>
                             <h4>ویژگی های محصول</h4>
+                            <ul className="ProductAttributes_List">
+                                <li>
+                                    <span>جنس</span> : <span>پارچه</span>
+                                </li>
+                                <li>
+                                    <span>جنس زیره</span> : <span>لاستیک</span>
+                                </li>
+                                <li>
+                                    <span>نحوه بسته شدن کفش</span> : <span>بندی</span>
+                                </li>
+                            </ul>
                         </div>
                         <div className="ProductVariants">
-
+                            <div className="ColorSelect_Container">
+                                <span>انتخاب رنگ</span>
+                                <div>
+                                    <div className="Color SelectColor_Active">
+                                        <span></span>
+                                        <span>مشکی</span>
+                                    </div>
+                                    <div className="Color">
+                                        <span></span>
+                                        <span>مشکی</span>
+                                    </div>
+                                    <div className="Color">
+                                        <span></span>
+                                        <span>مشکی</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -13,7 +13,8 @@ import FilterAltIcon from '@mui/icons-material/FilterAltRounded';
 import AllProductsCard from "../../Components/AllProductsCard/AllProductsCard";
 import CloseIcon from '@mui/icons-material/Close';
 import Loader from "../../Components/Loader/Loader";
-import EntoFa from "../../funcs/EntoFa/EntoFa";
+
+
 export default function Category() {
 
   const { id } = useParams()

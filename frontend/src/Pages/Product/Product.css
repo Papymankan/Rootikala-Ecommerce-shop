@@ -64,6 +64,7 @@
 
 .ProductVariants_Container {
     width: 70%;
+    height: 100%;
     border: 1px solid red;
     font-family: var(--font);
 }
@@ -117,6 +118,65 @@
     width: 100%;
     display: flex;
     align-items: center;
-    font-size: 17px;
+    font-size: 16px;
     margin-top: 15px;
+    font-weight: bolder;
+}
+.ProductAttributes_List{
+    width: 100%;
+    margin-top: 8px;
+}
+.ProductAttributes_List>li{
+    width: 100%;
+    padding: 3px 0;
+}
+.ProductAttributes_List>li>span:first-of-type{
+    color: gray;
+}
+.ProductAttributes_List>li>span:last-of-type{
+    font-weight: bold;
+}
+.ProductVariants{
+    
+}
+.ColorSelect_Container{
+    width: 100%;
+}
+.ColorSelect_Container>span{
+    width: 100%;
+    font-size: 15px;
+    color: gray;
+}
+.ColorSelect_Container>div{
+    width: 100%;
+    display: flex;
+    padding: 15px 0;
+}
+.Color{
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 0px 30px -12px rgba(0, 0, 0, 0.338);
+    -webkit-box-shadow: 0px 0px 30px -12px rgba(0, 0, 0, 0.338);
+    -moz-box-shadow: 0px 0px 30px -12px rgba(0, 0, 0, 0.338);
+    border: 1px solid rgb(171, 171, 171);
+    padding: 7px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all .2s ease;
+    margin-left: 5px;
+}
+.Color:hover{
+    /* box-shadow: none; */
+    border: 1px solid rgb(228, 228, 228);
+}
+.SelectColor_Active{
+    border: 2px solid var(--green) !important;
+}
+.Color>span:first-of-type{
+    display: block;
+    margin-left: 5px;
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 10px;
+    background-color: black;
 }
