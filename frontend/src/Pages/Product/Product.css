@@ -1,6 +1,6 @@
 #ProductDetail_Container {
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     justify-content: space-evenly;
     padding: 20px !important;
     background-color: white;
@@ -13,7 +13,9 @@
 
 .ProductImg_Container {
     width: 30%;
-    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .Product_Actions{
     display: flex;
@@ -65,7 +67,6 @@
 .ProductVariants_Container {
     width: 70%;
     height: 100%;
-    border: 1px solid red;
     font-family: var(--font);
 }
 .ProductTitle_Container{
@@ -90,14 +91,24 @@
 .ProductSpecs_Container{
     width: 100%;
     display: flex;
-    align-items: center;
 }
 .ProductSpecs_Container>div{
     width: 50%;
-    border: 1px solid rgb(34, 0, 255);
 }
 .ProductSpecs{
     width: 100%;
+    /* margin-top: 10px; */
+}
+.ProductSpecs>div{
+    padding: 15px 0;
+}
+.ProductSpecs>div>span{
+    font-size: 14px;
+    margin-left: 10px;
+    color: var(--green);
+}
+.ProductSpecs>div>span:nth-of-type(2){
+    color: gray;
 }
 .ProductSpecs>span{
     width: 100%;
@@ -208,4 +219,46 @@
 }
 .Size:hover{
     border: 1px solid rgb(228, 228, 228);
+}
+.HealthGuarantee{
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    color: var(--green);
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #0dfaab32;
+    border-radius: 8px;
+    padding: 15px 8px;
+}
+.HealthGuarantee>svg{
+    font-size: 19px;
+    margin-left: 4px;
+}
+.AddToCart_Container{
+    margin-top: 20px;
+}
+.Quantity_Container{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+.Quantity_Container>span{
+    font-size: 19px;
+    font-weight: bolder;
+    color: var(--green);
+}
+.AddToCart_Button{
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: var(--green);
+    font-size: 17px;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: none;
 }

@@ -6,6 +6,8 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { AiOutlineLike } from "react-icons/ai";
 import './Product.css'
 import EntoFa from "../../funcs/EntoFa/EntoFa";
+import { FaPlus, FaMinus } from "react-icons/fa";
+import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import { Link, useParams } from "react-router-dom";
 // prod_01HQ2XX2RNYZGD98W5YMHHZ46B
 
@@ -60,6 +62,12 @@ export default function Product() {
                     </div>
                     <div className="ProductSpecs_Container">
                         <div className="ProductSpecs">
+                            <div>
+                            {/* کد کالا 6457#  |  20 دیدگاه */}
+                            <span>کد کالا {('6457').EntoFa()}#</span>
+                            <span>|</span>
+                            <span>{('20').EntoFa()} دیدگاه</span>
+                            </div>
                             <span>
                                 <AiOutlineLike /> 80%  از خریداران، خرید این کالا را پیشنهاد کرده‌اند
                             </span>
@@ -108,6 +116,20 @@ export default function Product() {
                                     </div>
                                 </div>
                             </div>
+                            <div className="HealthGuarantee">
+                                <IoShieldCheckmarkOutline /> تضمین سلامت فیزیکی و اصالت کالا
+                            </div>
+                            <div className="AddToCart_Container">
+                                <div className="Quantity_Container">
+                                    <div className="quantity">
+                                        <FaPlus />
+                                        {('2').EntoFa()}
+                                        <FaMinus />
+                                    </div>
+                                    <span>{(1800000).toLocaleString().EntoFa()} تومان</span>
+                                </div>
+                            </div>
+                            <button className="AddToCart_Button">افزودن به سبد خرید</button>
                         </div>
                     </div>
                 </div>
