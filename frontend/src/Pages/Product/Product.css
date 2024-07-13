@@ -321,18 +321,105 @@
     justify-content: space-between;
     align-items: center;
     font-family: var(--font);
+    flex-wrap: wrap;
 }
-.Service{
+
+.Service {
     display: flex;
     font-size: 14px;
     align-items: center;
     padding: 18px 5px;
-    border: 2px solid rgba(128, 128, 128, 0.597);
+    border: 1px solid rgba(128, 128, 128, 0.597);
     color: gray;
     border-radius: 8px;
     width: 24%;
 }
-.Service>svg{
+
+.Service>svg {
     font-size: 20px !important;
     margin-left: 5px;
+}
+
+@media (max-width: 1150px) {
+    .Service {
+        width: 49%;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 950px) {
+    #ProductDetail_Container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .ProductImg_Container {
+        width: 100%;
+        align-items: center;
+    }
+
+    .Tumbnail_Container {
+        width: 60%;
+    }
+
+    .Product_Actions {
+        align-self: flex-start;
+    }
+
+    .ProductVariants_Container {
+        width: 100%;
+    }
+
+    .ProductTitle_Container {
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 675px) {
+    .Service {
+        font-size: 12px;
+    }
+    .ProductSpecs_Container {
+        flex-direction: column-reverse;
+    }
+    .ProductSpecs_Container>div {
+        width: 100%;
+    }
+}
+@media (max-width: 670px) {
+    #ProductDetail{
+        margin-top: 20px;
+    }
+}
+@media (max-width: 540px) {
+    .ProductName{
+        font-size: 17px;
+    }
+    .ProductTags>span {
+        font-size: 14px;
+        
+    }
+    .ColorSelect_Container>span {
+        font-size: 13px;
+    }
+    .Color {
+        font-size: 14px;
+    }
+    .SizeSelect_Container>span {
+        font-size: 13px;
+    }
+    .Size {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 470px) {
+    .Service {
+        font-size: 13px;
+        padding: 15px 6px;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+
 }
