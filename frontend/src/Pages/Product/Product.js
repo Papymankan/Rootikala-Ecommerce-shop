@@ -22,12 +22,20 @@ export default function Product() {
             }).then(res => {
                 return res.json()
             }).then(data => {
-                setProduct(data)
+                setProduct(data.product)
             })
         }
     }, [id])
 
+
     const [product, setProduct] = useState({})
+    const [thumbnail, setThumbnail] = useState('')
+
+    useEffect(() => {
+        if (product.thumbnail) {
+            setThumbnail(product.thumbnail)
+        }
+    }, [product])
 
     return (
         <>
@@ -41,11 +49,11 @@ export default function Product() {
                             <span><MdShare /></span>
                         </div>
                         <div className="Tumbnail_Container">
-                            <img src="http://localhost:9000/uploads/1708421712623-503a50201bfdeca14002b8bd006ac2f1cee7c661_1662029535.webp" />
+                            <img src={thumbnail} />
                         </div>
                         <div className="Images_Container">
                             <div>
-                                <img src="http://localhost:9000/uploads/1708421712623-503a50201bfdeca14002b8bd006ac2f1cee7c661_1662029535.webp" />
+                                <img src={thumbnail} />
                             </div>
                             <div className="LastImageBlur">
                                 <img src="http://localhost:9000/uploads/1708421712623-503a50201bfdeca14002b8bd006ac2f1cee7c661_1662029535.webp" />
@@ -56,12 +64,12 @@ export default function Product() {
                     <div className="ProductVariants_Container">
                         <div className="ProductTitle_Container">
                             <div className="ProductTags">
-                                <span><Link to={''}>کفش</Link></span>
-                                <span><Link to={''}>کفش پیاده روی</Link></span>
-                                <span><Link to={''}>کفش</Link></span>
+                                {product.tags && product.tags.map(tag =>
+                                (<span><Link to={`/tag/${tag.id}`}>{tag.value}</Link></span>)
+                                )}
                             </div>
                             <div className="ProductName">
-                                کفش پیاده روی مردانه نیو بالانس مدل Mdrftlm2
+                                {product.title}
                             </div>
                         </div>
                         <div className="ProductSpecs_Container">

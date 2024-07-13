@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import EntoFa from "../../funcs/EntoFa/EntoFa";
 
-export default function ProductCard({ title, thumbnail, variants, collection }) {
+export default function ProductCard({ title, thumbnail, variants, collection , id}) {
 
 
     return (
         <>
             <div className="ProductCard">
-                <Link>
+                <Link to={`/product/${id}`}>
                     <img src={thumbnail} />
                     <span>{title}</span>
                     {

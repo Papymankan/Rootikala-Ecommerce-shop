@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import EntoFa from "../../funcs/EntoFa/EntoFa";
 import './AllProductsCard.css'
 
-export default function AllProductsCard({ title, thumbnail, variants, collection }) {
+export default function AllProductsCard({ title, thumbnail, variants, collection , id}) {
     
   
     return (
         <>
             <div className="AllProductsCard">
-                <Link>
+                <Link to={`/product/${id}`}>
                     <img src={thumbnail} />
                     <span>{title.EntoFa()}</span>
                     {
