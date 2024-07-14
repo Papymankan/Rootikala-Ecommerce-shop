@@ -104,7 +104,7 @@ export default function Product() {
                                             product.variants && product.variants.map(variant => (
                                                 <button className={colorSelected == variant.id ? 'Color SelectColor_Active' : 'Color'} onClick={() => setColorSelected(variant.id)} disabled={variant.inventory_quantity == 0 && true}>
                                                     <span style={{ background: `${variant.metadata.color}` }}></span>
-                                                    <span>{variant.title}</span>
+                                                    <span>{variant.title.EntoFa()}</span>
                                                 </button>
                                             ))
                                         }
@@ -144,6 +144,49 @@ export default function Product() {
                     <div className="Service">
                         <CiDeliveryTruck />
                         تحویل اکسپرس در تهران, کرج
+                    </div>
+                </div>
+            </div>
+            <div className="Container" id="ProductText">
+                <div className="ProductText_Header">
+                    <a href="#Introduce_Container">معرفی</a>
+                    <a href="#Attributes_Container">مشخصات</a>
+                </div>
+                <div id="Introduce_Container">
+                    <h3>معرفی</h3>
+                    <p>
+                        چه در حال تمرین و چه در زندگی روزمره، این کفش‌های اورجبنال نیوبالانس طوری طراحی شده‌اند که در هر نوع حرکت با شما همراه باشند. جزئیات متمرکز بر عملکرد مانند زیره میانی DynaSoft و زیره لاستیکی بادوام به این کفش وزن سبک و واکنش پذیری بالایی می بخشد که performance ورزشی شما را افزایش می دهد. ترکیب رنگی این کفش جذابیت و شادابی دو چندانی را به استایل اسپورت شما می بخشد.
+                    </p>
+                    <p>
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری
+                    </p>
+                    <img src={thumbnail} />
+                </div>
+                <div id="Attributes_Container">
+                    <h3>مشخصات</h3>
+                    <div className="Attributes">
+                        <div className="Attribute">
+                            <div className="Attribute_Key">جنس</div>
+                            <div className="Attribute_Value">
+                                <span>پارچه</span>
+                            </div>
+                        </div>
+                        <div className="Attribute">
+                            <div className="Attribute_Key">جنس زیره</div>
+                            <div className="Attribute_Value">
+                                <span>لاستیک</span>
+                            </div>
+                        </div>
+                        <div className="Attribute">
+                            <div className="Attribute_Key">ویژگی‌های زیره</div>
+                            <div className="Attribute_Value">
+                                <span>انعطاف پذیر</span>
+                                <span>دارای بالشتک هوا</span>
+                                <span>قابلیت ارتجاعی</span>
+                                <span>قابلیت گردش هوا</span>
+                                <span>کاهش فشار وارده</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

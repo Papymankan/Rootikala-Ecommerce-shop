@@ -307,6 +307,105 @@
     margin-left: 5px;
 }
 
+#ProductText {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 30px -12px rgba(0, 0, 0, 0.68);
+    -webkit-box-shadow: 0px 0px 30px -12px rgba(0, 0, 0, 0.68);
+    -moz-box-shadow: 0px 0px 30px -12px rgba(0, 0, 0, 0.68);
+    padding: 20px !important;
+    margin-top: 30px;
+    font-family: var(--font);
+}
+
+.ProductText_Header {
+    width: 100%;
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.486);
+}
+
+.ProductText_Header>a {
+    margin-left: 25px;
+    font-size: 18px;
+    display: block;
+    font-weight: bolder;
+}
+
+#Introduce_Container {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.486);
+}
+
+#Introduce_Container>h3 {
+    font-size: 24px !important;
+    border-bottom: 5px solid var(--green);
+    align-self: flex-start;
+    padding-bottom: 7px;
+}
+
+#Introduce_Container>p:first-of-type {
+    margin-top: 40px;
+}
+
+#Introduce_Container>img {
+    width: 50%;
+    align-self: center;
+}
+
+#Attributes_Container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+}
+
+#Attributes_Container>h3 {
+    font-size: 24px !important;
+    border-bottom: 5px solid var(--green);
+    align-self: flex-start;
+    padding-bottom: 7px;
+}
+
+.Attributes {
+    margin: 40px 0;
+    width: 100%;
+}
+
+.Attributes>div:last-of-type>div:last-of-type {
+    border: 0;
+}
+
+.Attribute {
+    width: 100%;
+    display: flex;
+    padding: 12px 0;
+}
+
+.Attribute_Key {
+    padding: 10px 0;
+    font-size: 14px;
+    width: 12%;
+    color: gray;
+    height: 100%;
+}
+
+.Attribute_Value {
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 8px;
+    width: 88%;
+    height: 100%;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.486);
+}
+
+.Attribute_Value>span {
+    margin-bottom: 15px;
+}
+
 @media (max-width: 1150px) {
     .Service {
         width: 49%;
@@ -346,35 +445,44 @@
     .Service {
         font-size: 12px;
     }
+
     .ProductSpecs_Container {
         flex-direction: column-reverse;
     }
+
     .ProductSpecs_Container>div {
         width: 100%;
     }
 }
+
 @media (max-width: 670px) {
-    #ProductDetail{
+    #ProductDetail {
         margin-top: 20px;
     }
 }
+
 @media (max-width: 540px) {
-    .ProductName{
+    .ProductName {
         font-size: 17px;
     }
+
     .ProductTags>span {
         font-size: 14px;
-        
+
     }
+
     .ColorSelect_Container>span {
         font-size: 13px;
     }
+
     .Color {
         font-size: 14px;
     }
+
     .SizeSelect_Container>span {
         font-size: 13px;
     }
+
     .Size {
         font-size: 14px;
     }
