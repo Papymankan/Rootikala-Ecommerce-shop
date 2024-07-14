@@ -210,6 +210,8 @@
     cursor: pointer;
     transition: all .2s ease;
     margin-left: 5px;
+    margin-top: 5px;
+    background-color: white;
 }
 
 .Color:hover {
@@ -217,7 +219,7 @@
 }
 
 .SelectColor_Active {
-    border: 2px solid var(--green) !important;
+    border: 3px solid var(--green) !important;
 }
 
 .Color>span:first-of-type {
@@ -226,44 +228,9 @@
     width: 20px !important;
     height: 20px !important;
     border-radius: 10px;
-    background-color: black;
+    /* background-color: black; */
 }
 
-.SizeSelect_Container {
-    width: 100%;
-    margin-top: 10px;
-}
-
-.SizeSelect_Container>span {
-    width: 100%;
-    font-size: 15px;
-    color: gray;
-}
-
-.SizeSelect_Container>div {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 10px 0;
-}
-
-.Size {
-    display: flex;
-    align-items: center;
-    box-shadow: 0px 0px 30px -12px rgba(0, 0, 0, 0.338);
-    -webkit-box-shadow: 0px 0px 30px -12px rgba(0, 0, 0, 0.338);
-    -moz-box-shadow: 0px 0px 30px -12px rgba(0, 0, 0, 0.338);
-    border: 1px solid rgb(171, 171, 171);
-    padding: 7px 10px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all .2s ease;
-    margin-left: 5px;
-}
-
-.Size:hover {
-    border: 1px solid rgb(228, 228, 228);
-}
 
 .HealthGuarantee {
     margin-top: 30px;

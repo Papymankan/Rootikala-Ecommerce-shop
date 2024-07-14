@@ -30,7 +30,7 @@ export default function Product() {
 
     const [product, setProduct] = useState({})
     const [thumbnail, setThumbnail] = useState('')
-
+    const [colorSelected, setColorSelected] = useState('')
     useEffect(() => {
         if (product.thumbnail) {
             setThumbnail(product.thumbnail)
@@ -65,7 +65,7 @@ export default function Product() {
                         <div className="ProductTitle_Container">
                             <div className="ProductTags">
                                 {product.tags && product.tags.map(tag =>
-                                (<span><Link to={`/tag/${tag.id}`}>{tag.value}</Link></span>)
+                                    (<span><Link to={`/tag/${tag.id}`}>{tag.value}</Link></span>)
                                 )}
                             </div>
                             <div className="ProductName">
@@ -98,34 +98,16 @@ export default function Product() {
                             </div>
                             <div className="ProductVariants">
                                 <div className="ColorSelect_Container">
-                                    <span>انتخاب رنگ</span>
+                                    <span>انتخاب رنگ و سایز</span>
                                     <div>
-                                        <div className="Color SelectColor_Active">
-                                            <span></span>
-                                            <span>مشکی</span>
-                                        </div>
-                                        <div className="Color">
-                                            <span></span>
-                                            <span>مشکی</span>
-                                        </div>
-                                        <div className="Color">
-                                            <span></span>
-                                            <span>مشکی</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="SizeSelect_Container">
-                                    <span>انتخاب سایز</span>
-                                    <div>
-                                        <div className="Size SelectColor_Active">
-                                            <span>{('44').EntoFa()}</span>
-                                        </div>
-                                        <div className="Size">
-                                            <span>{('44').EntoFa()}</span>
-                                        </div>
-                                        <div className="Size">
-                                            <span>{('44').EntoFa()}</span>
-                                        </div>
+                                        {
+                                            product.variants && product.variants.map(variant => (
+                                                <button className={colorSelected == variant.id ? 'Color SelectColor_Active' : 'Color'} onClick={() => setColorSelected(variant.id)} disabled={variant.inventory_quantity == 0 && true}>
+                                                    <span style={{ background: `${variant.metadata.color}` }}></span>
+                                                    <span>{variant.title}</span>
+                                                </button>
+                                            ))
+                                        }
                                     </div>
                                 </div>
                                 <div className="HealthGuarantee">
