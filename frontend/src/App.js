@@ -14,6 +14,7 @@ function App() {
   const [isloggedIn, setIsloggedIn] = useState(false)
   const [token, setToken] = useState(null)
   const [userInfos, setUserInfos] = useState({})
+  const [userCart, setUserCart] = useState('')
 
   const router = useRoutes(routes)
 
@@ -26,7 +27,7 @@ function App() {
     draggable: true,
     progress: undefined,
     theme: "colored",
-});
+  });
 
   const login = useCallback((userInfo, token) => {
     setToken(token)
@@ -45,6 +46,17 @@ function App() {
     notify2('با موفقیت خارج شدید')
   }, [])
 
+  const createCart = useCallback(() => {
+    fetch(`http://localhost:9000/store/carts`, {
+      'method': 'POST'
+    })
+      .then(res => res.json())
+      .then(data => {
+        setUserCart(data.cart)
+        localStorage.setItem('cartID', JSON.stringify(data.cart.id))
+      })
+  }, [])
+
   useEffect(() => {
     console.log('APP');
     const localData = JSON.parse(localStorage.getItem('user'))
@@ -59,6 +71,12 @@ function App() {
           setToken(localData.token)
           setUserInfos(data)
         })
+    }
+    const cartID = JSON.parse(localStorage.getItem('cartID'))
+    if (cartID) {
+      fetch(`http://localhost:9000/store/carts/${cartID}`)
+        .then(res => res.json())
+        .then(data => setUserCart(data.cart))
     }
   }, [login])
 
@@ -78,6 +96,8 @@ function App() {
             isloggedIn,
             token,
             userInfos,
+            userCart,
+            createCart,
             login,
             logout
           }}
