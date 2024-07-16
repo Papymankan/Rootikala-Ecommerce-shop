@@ -214,6 +214,9 @@
     align-items: center;
     justify-content: space-between;
     color: var(--gray-dark);
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 
 .quantity>svg:first-of-type {

@@ -23,13 +23,7 @@ export default function Product() {
                 return res.json()
             }).then(data => {
                 setProduct(data.product)
-                data.product.variants.some(variant =>{
-                    if(variant.inventory_quantity != 0){
-                        setColorSelected(variant.id)
-                        return true
-                    }
-                    return false
-                })
+
             })
         }
     }, [id])
@@ -37,10 +31,20 @@ export default function Product() {
 
     const [product, setProduct] = useState({})
     const [thumbnail, setThumbnail] = useState('')
-    const [colorSelected, setColorSelected] = useState('')
+    const [colorSelected, setColorSelected] = useState({})
+    const [quantity, setQuantity] = useState(1)
     useEffect(() => {
         if (product.thumbnail) {
             setThumbnail(product.thumbnail)
+        }
+        if (product.variants) {
+            product.variants.some(variant => {
+                if (variant.inventory_quantity != 0) {
+                    setColorSelected(variant)
+                    return true
+                }
+                return false
+            })
         }
     }, [product])
 
@@ -110,7 +114,7 @@ export default function Product() {
                                         {
                                             product.variants && product.variants.map((variant) => {
                                                 return (
-                                                    <button className={colorSelected == variant.id ? 'Color SelectColor_Active' : 'Color'} onClick={() => setColorSelected(variant.id)} disabled={variant.inventory_quantity == 0 && true}>
+                                                    <button className={colorSelected.id == variant.id ? 'Color SelectColor_Active' : 'Color'} onClick={() => setColorSelected(variant)} disabled={variant.inventory_quantity == 0 && true}>
                                                         <span style={{ background: `${variant.metadata.color}` }}></span>
                                                         <span>{variant.title.EntoFa()}</span>
                                                     </button>
@@ -122,19 +126,24 @@ export default function Product() {
                                 <div className="HealthGuarantee">
                                     <IoShieldCheckmarkOutline /> تضمین سلامت فیزیکی و اصالت کالا
                                 </div>
-                                <div className="AddToCart_Container">
-                                    <div className="Quantity_Container">
-                                        <div className="quantity">
-                                            <FaPlus />
-                                            {('2').EntoFa()}
-                                            <FaMinus />
+                                {
+                                    Object.keys(colorSelected).length != 0 ? (
+                                        <div className="AddToCart_Container">
+                                            <div className="Quantity_Container">
+                                                <div className="quantity">
+                                                    <FaPlus onClick={() => setQuantity(quantity + 1)} />
+                                                    {(quantity + '').EntoFa()}
+                                                    <FaMinus onClick={quantity > 1 ? () => setQuantity(quantity - 1) : () => { }} />
+                                                </div>
+                                                <span>{(Object.keys(colorSelected).length != 0 && colorSelected.prices[0].amount * quantity).toLocaleString().EntoFa()} تومان</span>
+                                            </div>
                                         </div>
-                                        <span>{(1800000).toLocaleString().EntoFa()} تومان</span>
-                                    </div>
-                                </div>
-                                <button className={colorSelected.length == 0 ? 'AddToCart_Button AddToCart_Button_disabled' : 'AddToCart_Button'} disabled={colorSelected.length == 0}>
+                                    ) : (<></>)
+                                }
+
+                                <button className={Object.keys(colorSelected).length == 0 ? 'AddToCart_Button AddToCart_Button_disabled' : 'AddToCart_Button'} disabled={Object.keys(colorSelected).length == 0}>
                                     {
-                                        colorSelected.length == 0 ? 'موجود نیست' : 'افزودن به سبد خرید'
+                                        Object.keys(colorSelected).length == 0 ? 'موجود نیست' : 'افزودن به سبد خرید'
                                     }
                                 </button>
                             </div>
