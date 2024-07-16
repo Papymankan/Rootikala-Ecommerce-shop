@@ -23,6 +23,13 @@ export default function Product() {
                 return res.json()
             }).then(data => {
                 setProduct(data.product)
+                data.product.variants.some(variant =>{
+                    if(variant.inventory_quantity != 0){
+                        setColorSelected(variant.id)
+                        return true
+                    }
+                    return false
+                })
             })
         }
     }, [id])
@@ -101,12 +108,14 @@ export default function Product() {
                                     <span>انتخاب رنگ و سایز</span>
                                     <div>
                                         {
-                                            product.variants && product.variants.map(variant => (
-                                                <button className={colorSelected == variant.id ? 'Color SelectColor_Active' : 'Color'} onClick={() => setColorSelected(variant.id)} disabled={variant.inventory_quantity == 0 && true}>
-                                                    <span style={{ background: `${variant.metadata.color}` }}></span>
-                                                    <span>{variant.title.EntoFa()}</span>
-                                                </button>
-                                            ))
+                                            product.variants && product.variants.map((variant) => {
+                                                return (
+                                                    <button className={colorSelected == variant.id ? 'Color SelectColor_Active' : 'Color'} onClick={() => setColorSelected(variant.id)} disabled={variant.inventory_quantity == 0 && true}>
+                                                        <span style={{ background: `${variant.metadata.color}` }}></span>
+                                                        <span>{variant.title.EntoFa()}</span>
+                                                    </button>
+                                                )
+                                            })
                                         }
                                     </div>
                                 </div>
@@ -123,7 +132,11 @@ export default function Product() {
                                         <span>{(1800000).toLocaleString().EntoFa()} تومان</span>
                                     </div>
                                 </div>
-                                <button className="AddToCart_Button">افزودن به سبد خرید</button>
+                                <button className={colorSelected.length == 0 ? 'AddToCart_Button AddToCart_Button_disabled' : 'AddToCart_Button'} disabled={colorSelected.length == 0}>
+                                    {
+                                        colorSelected.length == 0 ? 'موجود نیست' : 'افزودن به سبد خرید'
+                                    }
+                                </button>
                             </div>
                         </div>
                     </div>
