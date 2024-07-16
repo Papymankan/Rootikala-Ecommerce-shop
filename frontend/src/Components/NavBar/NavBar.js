@@ -19,11 +19,19 @@ export default function NavBar() {
   const [showActions, setShowActions] = useState(false)
   const [categories, setCategories] = useState([])
   const [listedCats, setListedCats] = useState([])
+  const [cart, setCart] = useState({})
   const authContext = useContext(AuthContext)
 
   useEffect(() => {
     fetch(`http://localhost:9000/store/product-categories`, {
     }).then(res => res.json()).then(data => setCategories(data.product_categories))
+
+    const cartID = JSON.parse(localStorage.getItem('cartID'))
+    if (cartID) {
+      fetch(`http://localhost:9000/store/carts/${cartID}`)
+        .then(res => res.json())
+        .then(data => setCart(data.cart))
+    }
   }, [])
 
   useEffect(() => {
@@ -195,46 +203,72 @@ export default function NavBar() {
 
       <Offcanvas show={showCart} onHide={setShowCart}>
         <Offcanvas.Header closeButton className="cartSlideHeader">
-          <Offcanvas.Title>سبد خرید (5)</Offcanvas.Title>
+          <Offcanvas.Title>سبد خرید</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body className="cartSlideBody">
 
           <div className="cartSlideContainer">
-            <div className="cartSlideItem">
-              <div className="cartSlideItemImg">
-                <div className="cartSlideCrossBtn">
-                  <LiaTimesSolid />
-                </div>
-                <img src="http://localhost:9000/uploads/1708421712623-503a50201bfdeca14002b8bd006ac2f1cee7c661_1662029535.webp" />
-              </div>
-              <div className="cartSlideItemDetail">
-                <span className="cartSlideItemTitle">
-                  <Link>
-                    تیشرت اسپورت مردانه
-                  </Link>
-                </span>
-                <div>تعداد : 2  | سایز : 42</div>
-                <div>
-                  <span>{(1350000).toLocaleString()} تومان</span>
-                  <div className="quantity">
-                    <FaPlus />
-                    2
-                    <FaMinus />
-                  </div>
-                </div>
-              </div>
-            </div>
+            {
+              Object.keys(cart).length != 0 ? (
+                <>
+                  {
+                    cart.items.length != 0 ? (
+                      <>
+                        {
+                          cart.item.map(item => (
+                            <div className="cartSlideItem">
+                              <div className="cartSlideItemImg">
+                                <div className="cartSlideCrossBtn">
+                                  <LiaTimesSolid />
+                                </div>
+                                <img src="http://localhost:9000/uploads/1708421712623-503a50201bfdeca14002b8bd006ac2f1cee7c661_1662029535.webp" />
+                              </div>
+                              <div className="cartSlideItemDetail">
+                                <span className="cartSlideItemTitle">
+                                  <Link>
+                                    تیشرت اسپورت مردانه
+                                  </Link>
+                                </span>
+                                <div>تعداد : 2  | سایز : 42</div>
+                                <div>
+                                  <span>{(1350000).toLocaleString()} تومان</span>
+                                  <div className="quantity">
+                                    <FaPlus />
+                                    2
+                                    <FaMinus />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ))
+                        }
+                      </>
+                    ) : (
+                      <div className="alert alert-warning">سبد خرید شما خالی است</div>
+                    )
+                  }
+                </>
+              ) : (
+                <div className="alert alert-warning">سبد خریدی برای شما وجود ندارد</div>
+              )
+            }
+
           </div>
 
-          <div className="cartSlideActions">
-            <div>
-              <span>مبلغ قابل پرداخت</span>
-              <span>{(1350000).toLocaleString()} تومان</span>
-            </div>
-            <div>
-              <button>مشاهده و پرداخت</button>
-            </div>
-          </div>
+          {
+            Object.keys(cart).length != 0 && cart.items.length != 0 && (
+              <div className="cartSlideActions">
+                <div>
+                  <span>مبلغ قابل پرداخت</span>
+                  <span>{(1350000).toLocaleString()} تومان</span>
+                </div>
+                <div>
+                  <button>مشاهده و پرداخت</button>
+                </div>
+              </div>
+            )
+          }
+
         </Offcanvas.Body>
       </Offcanvas>
     </>
