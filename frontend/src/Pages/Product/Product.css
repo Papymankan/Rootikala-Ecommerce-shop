@@ -264,6 +264,15 @@
     font-weight: bolder;
     color: var(--green);
 }
+.discount{
+    font-size: 15px;
+    color: white;
+    background-color: red;
+    padding: 1px 3px;
+    margin-right: 8px;
+    border-radius: 7px;
+    direction: rtl;
+}
 
 .AddToCart_Button {
     width: 100%;

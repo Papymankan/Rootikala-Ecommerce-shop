@@ -48,6 +48,10 @@ export default function Product() {
         }
     }, [product])
 
+    useEffect(()=>{
+        setQuantity(1)
+    },[colorSelected])
+
     return (
         <>
             <NavBar />
@@ -131,16 +135,33 @@ export default function Product() {
                                         <div className="AddToCart_Container">
                                             <div className="Quantity_Container">
                                                 <div className="quantity">
-                                                    <FaPlus onClick={() => setQuantity(quantity + 1)} />
+                                                    <FaPlus onClick={quantity < colorSelected.inventory_quantity ? () => setQuantity(quantity + 1) : () => { }} />
                                                     {(quantity + '').EntoFa()}
                                                     <FaMinus onClick={quantity > 1 ? () => setQuantity(quantity - 1) : () => { }} />
                                                 </div>
-                                                <span>{(Object.keys(colorSelected).length != 0 && colorSelected.prices[0].amount * quantity).toLocaleString().EntoFa()} تومان</span>
+                                                <span>
+                                                   
+                                                    {
+                                                        (Object.keys(colorSelected).length != 0 && (
+                                                            product.collection_id == 'pcol_01HMR5RCMZ4RCE58VJ59AWXA7V' ?
+                                                                colorSelected.prices[0].amount *
+                                                                (100 - product.collection.metadata.percent) / 100 * quantity :
+                                                                (colorSelected.prices[0].amount * quantity)
+
+                                                        )).toLocaleString().EntoFa()
+                                                    }
+                                                    <span>  </span>
+                                                    تومان
+                                                    {
+                                                        product.collection_id == 'pcol_01HMR5RCMZ4RCE58VJ59AWXA7V' &&
+                                                        <span className="discount">%{product.collection.metadata.percent.EntoFa()}</span>
+                                                    }
+                                                </span>
                                             </div>
                                         </div>
                                     ) : (<></>)
                                 }
-
+                                {/* pcol_01HMR5RCMZ4RCE58VJ59AWXA7V */}
                                 <button className={Object.keys(colorSelected).length == 0 ? 'AddToCart_Button AddToCart_Button_disabled' : 'AddToCart_Button'} disabled={Object.keys(colorSelected).length == 0}>
                                     {
                                         Object.keys(colorSelected).length == 0 ? 'موجود نیست' : 'افزودن به سبد خرید'
