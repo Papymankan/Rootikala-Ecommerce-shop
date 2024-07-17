@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import './Product.css'
 import Footer from "../../Components/Footer/Footer";
 import NavBar from "../../Components/NavBar/NavBar";
@@ -12,6 +12,8 @@ import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { BsClockHistory } from "react-icons/bs";
 import { Link, useParams } from "react-router-dom";
+import AuthContext from "../../Context/Context";
+
 // prod_01HQ2XX2RNYZGD98W5YMHHZ46B
 
 export default function Product() {
@@ -28,11 +30,13 @@ export default function Product() {
         }
     }, [id])
 
+    const authContext = useContext(AuthContext)
 
     const [product, setProduct] = useState({})
     const [thumbnail, setThumbnail] = useState('')
     const [colorSelected, setColorSelected] = useState({})
     const [quantity, setQuantity] = useState(1)
+
     useEffect(() => {
         if (product.thumbnail) {
             setThumbnail(product.thumbnail)
@@ -48,9 +52,32 @@ export default function Product() {
         }
     }, [product])
 
-    useEffect(()=>{
+    useEffect(() => {
         setQuantity(1)
-    },[colorSelected])
+    }, [colorSelected])
+
+    const AddToCartHandler = () => {
+        const cartID = JSON.parse(localStorage.getItem('cartID'))
+        let item = {
+            variant_id: colorSelected.id,
+            quantity,
+        }
+        console.log(item);
+        if (cartID) {
+            fetch(`http://localhost:9000/store/carts/${cartID}/line-items`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(item)
+            }).then(res => {
+                res.json()
+            }).then(data => {
+                authContext.getCart(cartID)
+            })
+        }
+    }
+
 
     return (
         <>
@@ -140,7 +167,7 @@ export default function Product() {
                                                     <FaMinus onClick={quantity > 1 ? () => setQuantity(quantity - 1) : () => { }} />
                                                 </div>
                                                 <span>
-                                                   
+
                                                     {
                                                         (Object.keys(colorSelected).length != 0 && (
                                                             product.collection_id == 'pcol_01HMR5RCMZ4RCE58VJ59AWXA7V' ?
@@ -162,7 +189,7 @@ export default function Product() {
                                     ) : (<></>)
                                 }
                                 {/* pcol_01HMR5RCMZ4RCE58VJ59AWXA7V */}
-                                <button className={Object.keys(colorSelected).length == 0 ? 'AddToCart_Button AddToCart_Button_disabled' : 'AddToCart_Button'} disabled={Object.keys(colorSelected).length == 0}>
+                                <button className={Object.keys(colorSelected).length == 0 ? 'AddToCart_Button AddToCart_Button_disabled' : 'AddToCart_Button'} disabled={Object.keys(colorSelected).length == 0} onClick={AddToCartHandler}>
                                     {
                                         Object.keys(colorSelected).length == 0 ? 'موجود نیست' : 'افزودن به سبد خرید'
                                     }

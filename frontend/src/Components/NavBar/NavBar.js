@@ -19,19 +19,14 @@ export default function NavBar() {
   const [showActions, setShowActions] = useState(false)
   const [categories, setCategories] = useState([])
   const [listedCats, setListedCats] = useState([])
-  const [cart, setCart] = useState({})
   const authContext = useContext(AuthContext)
+  const [cart, setCart] = useState({})
 
   useEffect(() => {
     fetch(`http://localhost:9000/store/product-categories`, {
     }).then(res => res.json()).then(data => setCategories(data.product_categories))
-
-    const cartID = JSON.parse(localStorage.getItem('cartID'))
-    if (cartID) {
-      fetch(`http://localhost:9000/store/carts/${cartID}`)
-        .then(res => res.json())
-        .then(data => setCart(data.cart))
-    }
+    // console.log(authContext.userCart);
+    // setCart(authContext.userCart)
   }, [])
 
   useEffect(() => {
@@ -209,13 +204,13 @@ export default function NavBar() {
 
           <div className="cartSlideContainer">
             {
-              Object.keys(cart).length != 0 ? (
+              Object.keys(authContext.userCart).length != 0 ? (
                 <>
                   {
-                    cart.items.length != 0 ? (
+                    authContext.userCart.items.length != 0 ? (
                       <>
                         {
-                          cart.item.map(item => (
+                          authContext.userCart && authContext.userCart.items.map(item => (
                             <div className="cartSlideItem">
                               <div className="cartSlideItemImg">
                                 <div className="cartSlideCrossBtn">
@@ -256,11 +251,11 @@ export default function NavBar() {
           </div>
 
           {
-            Object.keys(cart).length != 0 && cart.items.length != 0 && (
+            Object.keys(authContext.userCart).length != 0 && authContext.userCart.items.length != 0 && (
               <div className="cartSlideActions">
                 <div>
                   <span>مبلغ قابل پرداخت</span>
-                  <span>{(1350000).toLocaleString()} تومان</span>
+                  <span>{(authContext.userCart.subtotal).toLocaleString()} تومان</span>
                 </div>
                 <div>
                   <button>مشاهده و پرداخت</button>

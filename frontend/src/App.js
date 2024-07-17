@@ -14,7 +14,7 @@ function App() {
   const [isloggedIn, setIsloggedIn] = useState(false)
   const [token, setToken] = useState(null)
   const [userInfos, setUserInfos] = useState({})
-  const [userCart, setUserCart] = useState('')
+  const [userCart, setUserCart] = useState({})
 
   const router = useRoutes(routes)
 
@@ -57,6 +57,14 @@ function App() {
       })
   }, [])
 
+  const getCart = useCallback((id) => {
+    console.log('GOT');
+    fetch(`http://localhost:9000/store/carts/${id}`)
+      .then(res => res.json())
+      .then(data => setUserCart(data.cart))
+  }, [])
+
+
   useEffect(() => {
     console.log('APP');
     const localData = JSON.parse(localStorage.getItem('user'))
@@ -74,9 +82,7 @@ function App() {
     }
     const cartID = JSON.parse(localStorage.getItem('cartID'))
     if (cartID) {
-      fetch(`http://localhost:9000/store/carts/${cartID}`)
-        .then(res => res.json())
-        .then(data => setUserCart(data.cart))
+      getCart(cartID)
     }
   }, [login])
 
@@ -96,10 +102,11 @@ function App() {
             isloggedIn,
             token,
             userInfos,
-            userCart,
             createCart,
             login,
-            logout
+            logout,
+            userCart,
+            getCart
           }}
         >
           {router}

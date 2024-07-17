@@ -7,7 +7,8 @@ const AuthContext = createContext({
     userCart: null,
     login: () => { },
     logout: () => { },
-    createCart: () => { }
+    createCart: () => { },
+    getCart: () => { }
 })
 
 export default AuthContext
