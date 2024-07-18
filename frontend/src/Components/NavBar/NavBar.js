@@ -11,6 +11,9 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import './NavBar.css'
 import MenuBar from "../MenuBar/MenuBar";
 import AuthContext from "../../Context/Context";
+import EntoFa from "../../funcs/EntoFa/EntoFa";
+import { toast } from "react-toastify";
+
 
 export default function NavBar() {
 
@@ -20,13 +23,10 @@ export default function NavBar() {
   const [categories, setCategories] = useState([])
   const [listedCats, setListedCats] = useState([])
   const authContext = useContext(AuthContext)
-  const [cart, setCart] = useState({})
 
   useEffect(() => {
     fetch(`http://localhost:9000/store/product-categories`, {
     }).then(res => res.json()).then(data => setCategories(data.product_categories))
-    // console.log(authContext.userCart);
-    // setCart(authContext.userCart)
   }, [])
 
   useEffect(() => {
@@ -49,6 +49,55 @@ export default function NavBar() {
     }
   }, [categories])
 
+  const notify = (text) => toast.error(text, {
+    position: "bottom-right",
+    autoClose: 2500,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+  });
+
+  const IncreaseQuantity = (item) => {
+    if (item.quantity < item.variant.inventory_quantity) {
+      const updatedQuantity = {
+        quantity: item.quantity + 1
+      }
+      fetch(`http://localhost:9000/store/carts/${authContext.userCart.id}/line-items/${item.id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedQuantity)
+      }).then(res => res.json())
+        .then(data => {
+          console.log('done');
+          authContext.getCart(authContext.userCart.id)
+        })
+    } else {
+      notify('این تعداد موجود نمی باشد')
+    }
+  }
+  const DecreaseQuantity = (item) => {
+    if (item.quantity > 1) {
+      const updatedQuantity = {
+        quantity: item.quantity - 1
+      }
+      fetch(`http://localhost:9000/store/carts/${authContext.userCart.id}/line-items/${item.id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedQuantity)
+      }).then(res => res.json())
+        .then(data => {
+          authContext.getCart(authContext.userCart.id)
+        })
+    }
+  }
+  // authContext.userCart
   return (
     <>
       <div className="navBar">
@@ -204,7 +253,7 @@ export default function NavBar() {
 
           <div className="cartSlideContainer">
             {
-              Object.keys(authContext.userCart).length != 0 ? (
+              authContext.userCart && Object.keys(authContext.userCart).length != 0 ? (
                 <>
                   {
                     authContext.userCart.items.length != 0 ? (
@@ -216,21 +265,21 @@ export default function NavBar() {
                                 <div className="cartSlideCrossBtn">
                                   <LiaTimesSolid />
                                 </div>
-                                <img src="http://localhost:9000/uploads/1708421712623-503a50201bfdeca14002b8bd006ac2f1cee7c661_1662029535.webp" />
+                                <img src={item.thumbnail} />
                               </div>
                               <div className="cartSlideItemDetail">
                                 <span className="cartSlideItemTitle">
-                                  <Link>
-                                    تیشرت اسپورت مردانه
+                                  <Link to={`/product/${item.variant.product_id}`}>
+                                    {item.title}
                                   </Link>
                                 </span>
-                                <div>تعداد : 2  | سایز : 42</div>
+                                <div className="cartSlideItemVariant"><span style={{ background: `${item.variant.metadata.color}` }}></span> {item.description}</div>
                                 <div>
-                                  <span>{(1350000).toLocaleString()} تومان</span>
+                                  <span>{(item.unit_price * item.quantity).toLocaleString().EntoFa()} تومان</span>
                                   <div className="quantity">
-                                    <FaPlus />
-                                    2
-                                    <FaMinus />
+                                    <FaPlus onClick={() => IncreaseQuantity(item)} />
+                                    {item.quantity}
+                                    <FaMinus onClick={() => DecreaseQuantity(item)} />
                                   </div>
                                 </div>
                               </div>
@@ -251,11 +300,11 @@ export default function NavBar() {
           </div>
 
           {
-            Object.keys(authContext.userCart).length != 0 && authContext.userCart.items.length != 0 && (
+            authContext.userCart && Object.keys(authContext.userCart).length != 0 && authContext.userCart.items.length != 0 && (
               <div className="cartSlideActions">
                 <div>
                   <span>مبلغ قابل پرداخت</span>
-                  <span>{(authContext.userCart.subtotal).toLocaleString()} تومان</span>
+                  <span>{(authContext.userCart.subtotal).toLocaleString().EntoFa()} تومان</span>
                 </div>
                 <div>
                   <button>مشاهده و پرداخت</button>

@@ -75,6 +75,8 @@ export default function Product() {
             }).then(data => {
                 authContext.getCart(cartID)
             })
+        }else{
+            authContext.createCart()
         }
     }
 

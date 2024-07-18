@@ -46,16 +46,25 @@ function App() {
     notify2('با موفقیت خارج شدید')
   }, [])
 
-  const createCart = useCallback(() => {
+  const createCart = () => {
+    // console.log('Created');
+    // let item = {
+    //   customer_id : userInfos.customer.id
+    // }
+    // console.log(userInfos);
     fetch(`http://localhost:9000/store/carts`, {
-      'method': 'POST'
+      'method': 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(item)
     })
       .then(res => res.json())
       .then(data => {
         setUserCart(data.cart)
         localStorage.setItem('cartID', JSON.stringify(data.cart.id))
       })
-  }, [])
+  }
 
   const getCart = useCallback((id) => {
     console.log('GOT');
