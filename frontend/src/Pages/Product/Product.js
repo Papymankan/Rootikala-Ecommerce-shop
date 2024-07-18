@@ -57,13 +57,36 @@ export default function Product() {
     }, [colorSelected])
 
     const AddToCartHandler = () => {
-        const cartID = JSON.parse(localStorage.getItem('cartID'))
+        var cartID = JSON.parse(localStorage.getItem('cartID'))
         let item = {
             variant_id: colorSelected.id,
             quantity,
         }
-        console.log(item);
-        if (cartID) {
+        if (!cartID) {
+
+            const createCartPromise = new Promise((resolve) => {
+                // console.log(authContext.createCart());
+                resolve(authContext.createCart())
+            })
+
+            createCartPromise.then(res => {
+                cartID = res
+                if (res) {
+                    fetch(`http://localhost:9000/store/carts/${cartID}/line-items`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(item)
+                    }).then(res => {
+                        res.json()
+                    }).then(data => {
+                        authContext.getCart(cartID)
+                    })
+                }
+            })
+
+        } else {
             fetch(`http://localhost:9000/store/carts/${cartID}/line-items`, {
                 method: 'POST',
                 headers: {
@@ -75,8 +98,6 @@ export default function Product() {
             }).then(data => {
                 authContext.getCart(cartID)
             })
-        }else{
-            authContext.createCart()
         }
     }
 

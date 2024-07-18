@@ -46,28 +46,21 @@ function App() {
     notify2('با موفقیت خارج شدید')
   }, [])
 
-  const createCart = () => {
-    // console.log('Created');
-    // let item = {
-    //   customer_id : userInfos.customer.id
-    // }
-    // console.log(userInfos);
-    fetch(`http://localhost:9000/store/carts`, {
+  const createCart = async () => {
+    let cartID = ''
+    await fetch(`http://localhost:9000/store/carts`, {
       'method': 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(item)
     })
       .then(res => res.json())
       .then(data => {
         setUserCart(data.cart)
         localStorage.setItem('cartID', JSON.stringify(data.cart.id))
+        cartID = data.cart.id
       })
+      return cartID
   }
 
   const getCart = useCallback((id) => {
-    console.log('GOT');
     fetch(`http://localhost:9000/store/carts/${id}`)
       .then(res => res.json())
       .then(data => setUserCart(data.cart))

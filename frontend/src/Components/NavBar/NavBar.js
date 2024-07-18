@@ -97,7 +97,14 @@ export default function NavBar() {
         })
     }
   }
-  // authContext.userCart
+  const DeleteItem = (id) => {
+    fetch(`http://localhost:9000/store/carts/${authContext.userCart.id}/line-items/${id}`, {
+      method: 'DELETE',
+    }).then(res => res.json())
+    .then(data => {
+      authContext.getCart(authContext.userCart.id)
+    })
+  }
   return (
     <>
       <div className="navBar">
@@ -263,7 +270,7 @@ export default function NavBar() {
                             <div className="cartSlideItem">
                               <div className="cartSlideItemImg">
                                 <div className="cartSlideCrossBtn">
-                                  <LiaTimesSolid />
+                                  <LiaTimesSolid onClick={() => DeleteItem(item.id)} />
                                 </div>
                                 <img src={item.thumbnail} />
                               </div>
