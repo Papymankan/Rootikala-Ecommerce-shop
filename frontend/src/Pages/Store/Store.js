@@ -17,6 +17,7 @@ export default function Store() {
   const { id } = useParams()
 
   useEffect(() => {
+    setFetchComplete(false)
     fetch(`http://localhost:9000/store/products`, {
     }).then(res => {
       return res.json()

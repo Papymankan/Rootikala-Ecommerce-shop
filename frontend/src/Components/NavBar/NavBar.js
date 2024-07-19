@@ -73,7 +73,6 @@ export default function NavBar() {
         body: JSON.stringify(updatedQuantity)
       }).then(res => res.json())
         .then(data => {
-          console.log('done');
           authContext.getCart(authContext.userCart.id)
         })
     } else {

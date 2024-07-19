@@ -1,8 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
 import './Product.css'
 import Footer from "../../Components/Footer/Footer";
 import NavBar from "../../Components/NavBar/NavBar";
 import EntoFa from "../../funcs/EntoFa/EntoFa";
+import LightGallery from 'lightgallery/react';
+import lgZoom from 'lightgallery/plugins/zoom';
+import lgVideo from 'lightgallery/plugins/video';
+import lgThumbnail from 'lightgallery/plugins/thumbnail';
+import 'lightgallery/css/lightgallery.css';
+import 'lightgallery/css/lg-zoom.css';
+import 'lightgallery/css/lg-thumbnail.css';
 import { MdShare, MdCompare } from "react-icons/md";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { AiOutlineLike } from "react-icons/ai";
@@ -13,6 +20,7 @@ import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { BsClockHistory } from "react-icons/bs";
 import { Link, useParams } from "react-router-dom";
 import AuthContext from "../../Context/Context";
+import { toast } from "react-toastify";
 
 // prod_01HQ2XX2RNYZGD98W5YMHHZ46B
 
@@ -56,6 +64,17 @@ export default function Product() {
         setQuantity(1)
     }, [colorSelected])
 
+    const notify = (text) => toast.success(text, {
+        position: "bottom-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+    });
+
     const AddToCartHandler = () => {
         var cartID = JSON.parse(localStorage.getItem('cartID'))
         let item = {
@@ -79,6 +98,9 @@ export default function Product() {
                         },
                         body: JSON.stringify(item)
                     }).then(res => {
+                        if (res.ok) {
+                            notify('با موفقیت به سبد خرید اضافه شد')
+                        }
                         res.json()
                     }).then(data => {
                         authContext.getCart(cartID)
@@ -94,6 +116,9 @@ export default function Product() {
                 },
                 body: JSON.stringify(item)
             }).then(res => {
+                if (res.ok) {
+                    notify('با موفقیت به سبد خرید اضافه شد')
+                }
                 res.json()
             }).then(data => {
                 authContext.getCart(cartID)
@@ -101,6 +126,12 @@ export default function Product() {
         }
     }
 
+    const lightGallery = useRef('gallery');
+    const onInit = useCallback((detail) => {
+        if (detail) {
+            lightGallery.current = detail.instance;
+        }
+    }, []);
 
     return (
         <>
@@ -120,11 +151,44 @@ export default function Product() {
                             <div>
                                 <img src={thumbnail} />
                             </div>
-                            <div className="LastImageBlur">
+                            <div className="LastImageBlur" onClick={() => {
+                                console.log('click');
+                                lightGallery.current.openGallery(0);
+                            }}>
                                 <img src="http://localhost:9000/uploads/1708421712623-503a50201bfdeca14002b8bd006ac2f1cee7c661_1662029535.webp" />
                                 <span>...</span>
                             </div>
                         </div>
+                        <LightGallery
+                            onInit={onInit}
+                            elementClassNames={'gallery'}
+                            dynamic={true}
+                            plugins={[lgZoom, lgVideo, lgThumbnail]}
+                            dynamicEl={[
+                                {
+                                    src: "http://localhost:9000/uploads/1708421712623-503a50201bfdeca14002b8bd006ac2f1cee7c661_1662029535.webp",
+
+                                },
+                                {
+                                    src: 'https://images.unsplash.com/photo-1477322524744-0eece9e79640?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80',
+                                    responsive:
+                                        'https://images.unsplash.com/photo-1477322524744-0eece9e79640?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=480&q=80 480, https://images.unsplash.com/photo-1477322524744-0eece9e79640?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80 800',
+                                    thumb:
+                                        'https://images.unsplash.com/photo-1477322524744-0eece9e79640?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=240&q=80',
+                                },
+                                {
+                                    src: 'https://images.unsplash.com/photo-1609342122563-a43ac8917a3a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1400&q=80',
+                                    responsive:
+                                      'https://images.unsplash.com/photo-1609342122563-a43ac8917a3a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=480&q=80 480, https://images.unsplash.com/photo-1609342122563-a43ac8917a3a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80 800',
+                                    thumb:
+                                      'https://images.unsplash.com/photo-1609342122563-a43ac8917a3a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=240&q=80',
+                                    subHtml: `<div class="lightGallery-captions">
+                                              <h4>Photo by <a href="https://unsplash.com/@brookecagle">Brooke Cagle</a></h4>
+                                              <p>Description of the slide 1</p>
+                                          </div>`,
+                                  },
+                            ]}
+                        ></LightGallery>
                     </div>
                     <div className="ProductVariants_Container">
                         <div className="ProductTitle_Container">
@@ -211,7 +275,6 @@ export default function Product() {
                                         </div>
                                     ) : (<></>)
                                 }
-                                {/* pcol_01HMR5RCMZ4RCE58VJ59AWXA7V */}
                                 <button className={Object.keys(colorSelected).length == 0 ? 'AddToCart_Button AddToCart_Button_disabled' : 'AddToCart_Button'} disabled={Object.keys(colorSelected).length == 0} onClick={AddToCartHandler}>
                                     {
                                         Object.keys(colorSelected).length == 0 ? 'موجود نیست' : 'افزودن به سبد خرید'
