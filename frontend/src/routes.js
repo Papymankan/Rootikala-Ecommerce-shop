@@ -5,6 +5,7 @@ import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import Sales from "./Pages/Sales/Sales";
 import Product from "./Pages/Product/Product";
+import Cart from "./Pages/Cart/Cart";
 
 const routes = [
     {path:'/' , element:<Home/>},
@@ -14,6 +15,7 @@ const routes = [
     {path:'/store' , element:<Store/>},
     {path:'/sales' , element:<Sales/>},
     {path:'/product/:id' , element:<Product/>},
+    {path:'/cart/:id' , element:<Cart/>},
 ]
 
 export default routes
