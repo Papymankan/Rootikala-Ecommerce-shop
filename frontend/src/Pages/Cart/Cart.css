@@ -3,6 +3,7 @@
     justify-content: center;
     margin-top: 60px;
     margin-bottom: 20px;
+    font-family: var(--font);
 }
 
 .purchaseProductStep {
@@ -13,7 +14,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: var(--font);
     font-size: 18px;
     font-weight: bolder;
 }
@@ -33,9 +33,78 @@
     align-items: center;
 }
 
+#CartSteps_Container{
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font);
+}
+.CartStep{
+    width: 65%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+}
+.CartStep>div:first-of-type{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 18px;
+}
+.CartStep>div:first-of-type>button{
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    color: red;
+}
+.CartStep>div:first-of-type>button>svg{
+    margin-left: 5px;
+    font-size: 23px;
+}
+.CartStepItem{
+    width: 100%;
+    display: flex;
+}
+.CartStepItem>div:first-of-type{
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.CartStepImg{
+    display: flex;
+    flex-direction: column;
+}
+.CartStepImg>img{
+    width: 100%;
+}
+.CartStepImg>span{
+    position: relative;
+    top: 30px;
+    right: 0;
+    padding: 8px;
+    border-radius: 20px;
+    font-size: 24px;
+    color: red;
+    background-color: var(--gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+}
+.CartStepImg>span>svg{
+}
+.CartPrice{
+    width: 30%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+}
 .purchaseProductStep>span>svg {
     font-size: 33px;
 }
+
 
 @media (max-width: 800px) {
     .purchaseProductStep {
