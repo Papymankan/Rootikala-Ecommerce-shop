@@ -138,20 +138,23 @@ export default function Product() {
                             <img src={thumbnail} />
                         </div>
                         <div className="Images_Container">
-                            <div onClick={()=> setThumbnail(product.thumbnail)}>
+                            <div onClick={() => setThumbnail(product.thumbnail)}>
                                 <img src={product.thumbnail} />
                             </div>
                             {
-                                product.images && product.images.slice(0 , 1).map(img => (
-                                    <div onClick={()=> setThumbnail(img.url)}>
+                                product.images && product.images.slice(0, 1).map(img => (
+                                    <div onClick={() => setThumbnail(img.url)}>
                                         <img src={img.url} />
                                     </div>
                                 ))
                             }
-                            <div className="LastImageBlur" onClick={() => setGalleryShow(true)}>
-                                <img src="http://localhost:9000/uploads/1708421712623-503a50201bfdeca14002b8bd006ac2f1cee7c661_1662029535.webp" />
-                                <span>...</span>
-                            </div>
+                            {
+                                product.images && product.images.length > 0 && <div className="LastImageBlur" onClick={() => setGalleryShow(true)}>
+                                    <img src={product.thumbnail} />
+                                    <span>...</span>
+                                </div>
+                            }
+
                         </div>
                         <Lightbox
                             open={galleryShow}
@@ -169,7 +172,7 @@ export default function Product() {
                         <div className="ProductTitle_Container">
                             <div className="ProductTags">
                                 {product.tags && product.tags.map(tag =>
-                                    (<span><Link to={`/tag/${tag.id}`}>{tag.value}</Link></span>)
+                                    (<span><Link to={'#'}>{tag.value}</Link></span>)
                                 )}
                             </div>
                             <div className="ProductName">
