@@ -3,13 +3,9 @@ import './Product.css'
 import Footer from "../../Components/Footer/Footer";
 import NavBar from "../../Components/NavBar/NavBar";
 import EntoFa from "../../funcs/EntoFa/EntoFa";
-import LightGallery from 'lightgallery/react';
-import lgZoom from 'lightgallery/plugins/zoom';
-import lgVideo from 'lightgallery/plugins/video';
-import lgThumbnail from 'lightgallery/plugins/thumbnail';
-import 'lightgallery/css/lightgallery.css';
-import 'lightgallery/css/lg-zoom.css';
-import 'lightgallery/css/lg-thumbnail.css';
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+
 import { MdShare, MdCompare } from "react-icons/md";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { AiOutlineLike } from "react-icons/ai";
@@ -44,6 +40,7 @@ export default function Product() {
     const [thumbnail, setThumbnail] = useState('')
     const [colorSelected, setColorSelected] = useState({})
     const [quantity, setQuantity] = useState(1)
+    const [galleryShow, setGalleryShow] = useState(false)
 
     useEffect(() => {
         if (product.thumbnail) {
@@ -126,13 +123,6 @@ export default function Product() {
         }
     }
 
-    const lightGallery = useRef('gallery');
-    const onInit = useCallback((detail) => {
-        if (detail) {
-            lightGallery.current = detail.instance;
-        }
-    }, []);
-
     return (
         <>
             <NavBar />
@@ -148,47 +138,32 @@ export default function Product() {
                             <img src={thumbnail} />
                         </div>
                         <div className="Images_Container">
-                            <div>
-                                <img src={thumbnail} />
+                            <div onClick={()=> setThumbnail(product.thumbnail)}>
+                                <img src={product.thumbnail} />
                             </div>
-                            <div className="LastImageBlur" onClick={() => {
-                                console.log('click');
-                                lightGallery.current.openGallery(0);
-                            }}>
+                            {
+                                product.images && product.images.slice(0 , 1).map(img => (
+                                    <div onClick={()=> setThumbnail(img.url)}>
+                                        <img src={img.url} />
+                                    </div>
+                                ))
+                            }
+                            <div className="LastImageBlur" onClick={() => setGalleryShow(true)}>
                                 <img src="http://localhost:9000/uploads/1708421712623-503a50201bfdeca14002b8bd006ac2f1cee7c661_1662029535.webp" />
                                 <span>...</span>
                             </div>
                         </div>
-                        <LightGallery
-                            onInit={onInit}
-                            elementClassNames={'gallery'}
-                            dynamic={true}
-                            plugins={[lgZoom, lgVideo, lgThumbnail]}
-                            dynamicEl={[
-                                {
-                                    src: "http://localhost:9000/uploads/1708421712623-503a50201bfdeca14002b8bd006ac2f1cee7c661_1662029535.webp",
-
-                                },
-                                {
-                                    src: 'https://images.unsplash.com/photo-1477322524744-0eece9e79640?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=80',
-                                    responsive:
-                                        'https://images.unsplash.com/photo-1477322524744-0eece9e79640?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=480&q=80 480, https://images.unsplash.com/photo-1477322524744-0eece9e79640?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80 800',
-                                    thumb:
-                                        'https://images.unsplash.com/photo-1477322524744-0eece9e79640?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=240&q=80',
-                                },
-                                {
-                                    src: 'https://images.unsplash.com/photo-1609342122563-a43ac8917a3a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1400&q=80',
-                                    responsive:
-                                      'https://images.unsplash.com/photo-1609342122563-a43ac8917a3a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=480&q=80 480, https://images.unsplash.com/photo-1609342122563-a43ac8917a3a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=800&q=80 800',
-                                    thumb:
-                                      'https://images.unsplash.com/photo-1609342122563-a43ac8917a3a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=240&q=80',
-                                    subHtml: `<div class="lightGallery-captions">
-                                              <h4>Photo by <a href="https://unsplash.com/@brookecagle">Brooke Cagle</a></h4>
-                                              <p>Description of the slide 1</p>
-                                          </div>`,
-                                  },
-                            ]}
-                        ></LightGallery>
+                        <Lightbox
+                            open={galleryShow}
+                            close={() => setGalleryShow(false)}
+                            slides={
+                                product.images && product.images.map(img => {
+                                    return {
+                                        src: img.url
+                                    }
+                                })
+                            }
+                        />
                     </div>
                     <div className="ProductVariants_Container">
                         <div className="ProductTitle_Container">

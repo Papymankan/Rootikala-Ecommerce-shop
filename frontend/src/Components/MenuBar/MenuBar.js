@@ -171,17 +171,17 @@ export default function MenuBar({ showMenu, setShowMenu, listedCats }) {
                 <Offcanvas.Header closeButton>
                     <Offcanvas.Title>
                         <Link to='/'>
-                            <img src="/Images/logo.svg" className="navBarLogoImg" />
+                            <img src="/Images/logo.svg" className="SlideBarLogoImg" />
                         </Link>
                     </Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                     <ul className="SlideBarLinksList">
                         <li className="SlideBarLinks">
-                            <Link><CiHome /> صفحه اصلی</Link>
+                            <Link to={'/'}><CiHome /> صفحه اصلی</Link>
                         </li>
                         <li className="SlideBarLinks">
-                            <Link><SlFire /> فروش ویژه</Link>
+                            <Link to={'/sales'}><SlFire /> فروش ویژه</Link>
                         </li>
                         <li className="SlideBarLinks">
                             <Link><CiShoppingBasket /> راهنمای خرید</Link>
