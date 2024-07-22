@@ -1,5 +1,6 @@
 import React from "react";
 import NavBar from "../../Components/NavBar/NavBar";
+import Footer from "../../Components/Footer/Footer"
 import './Cart.css'
 import { CiShoppingCart } from "react-icons/ci";
 import { LiaShippingFastSolid, LiaTimesSolid } from "react-icons/lia";
@@ -90,10 +91,34 @@ export default function Cart() {
                         </div>
                     </div>
                 </div>
-                <div className="CartPrice">
-
+                <div className="CartPricing">
+                    <div className="CartPricing_Price">
+                        <span>قیمت کالا ها (2)</span>
+                        <span>{(240000000).toLocaleString().EntoFa()} تومان</span>
+                    </div>
+                    <div className="CartPricing_Price">
+                        <span>تخفیف</span>
+                        <span>{(1200000).toLocaleString().EntoFa()} تومان</span>
+                    </div>
+                    <div className="CartPricing_Price">
+                        <span>هزینه ارسال</span>
+                        <span>{(24000).toLocaleString().EntoFa()} تومان</span>
+                    </div>
+                    <div className="CartPricing_Price">
+                        <span>مبلغ قابل پرداخت</span>
+                        <span>{(240000000).toLocaleString().EntoFa()} تومان</span>
+                    </div>
+                    <button>ادامه فرایند پرداخت</button>
                 </div>
             </div>
+            <div className="CartPricing_fixed">
+                <button>ادامه فرایند پرداخت</button>
+                <div>
+                    <span>مبلغ قابل پرداخت</span>
+                    <span>{(240000000).toLocaleString().EntoFa()} تومان</span>
+                </div>
+            </div>
+            <Footer />
         </>
     );
 }
