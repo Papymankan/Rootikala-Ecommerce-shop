@@ -15,6 +15,7 @@ function App() {
   const [token, setToken] = useState(null)
   const [userInfos, setUserInfos] = useState({})
   const [userCart, setUserCart] = useState({})
+  
 
   const router = useRoutes(routes)
 
@@ -46,9 +47,10 @@ function App() {
     localStorage.removeItem('user')
     localStorage.removeItem('cartID')
     notify2('با موفقیت خارج شدید')
+    
   }, [])
 
-  const setCustomer = (customer) => {
+  const setCustomer =  (customer) => {
       fetch(`http://localhost:9000/store/carts/${userCart.id}`, {
         method: 'POST',
         headers: {
@@ -65,8 +67,7 @@ function App() {
           }
         })
       }).then(res=> res.json()).then(data => {
-        console.log(data);
-        setUserCart(data)
+        setUserCart(data.cart)
       })
     
     setUserInfos(customer)

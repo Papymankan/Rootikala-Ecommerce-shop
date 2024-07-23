@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CiMenuBurger, CiMenuKebab, CiSearch, CiShoppingCart } from "react-icons/ci";
 import Avatar from '@mui/material/Avatar';
 import { FaPlus, FaMinus } from "react-icons/fa";
@@ -23,6 +23,7 @@ export default function NavBar() {
   const [categories, setCategories] = useState([])
   const [listedCats, setListedCats] = useState([])
   const authContext = useContext(AuthContext)
+
 
   useEffect(() => {
     fetch(`http://localhost:9000/store/product-categories`, {
@@ -154,8 +155,9 @@ export default function NavBar() {
                       </li>
                       <li>
                         <Link onClick={() => {
+                         
                           authContext.logout()
-                        }}>
+                        }} to={'/'}>
                           <HiOutlineShoppingBag />خروج
                         </Link>
                       </li>
@@ -223,7 +225,7 @@ export default function NavBar() {
                         <li>
                           <Link onClick={() => {
                             authContext.logout()
-                          }}>
+                          }} to={'/'}>
                             <HiOutlineShoppingBag />خروج
                           </Link>
                         </li>

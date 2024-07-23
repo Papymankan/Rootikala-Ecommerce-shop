@@ -109,8 +109,8 @@ export default function Cart() {
     useEffect(() => {
         if (authContext.userCart.id) {
             fetch(`http://localhost:9000/store/shipping-options/${authContext.userCart.id}`).then(res => res.json())
-                .then(data => {
-                    setShippings(data.shipping_options)
+                .then(shippingOptions => {
+
                     if (authContext.userCart.shipping_methods.length == 0) {
                         fetch(`http://localhost:9000/store/carts/${authContext.userCart.id}/shipping-methods`, {
                             method: 'POST',
@@ -118,9 +118,15 @@ export default function Cart() {
                                 'Content-Type': 'application/json',
                             },
                             body: JSON.stringify({
-                                option_id: data.shipping_options[0].id
+                                option_id: shippingOptions.shipping_options[0].id
                             })
-                        })
+                        }).then(res => res.json())
+                            .then(data => {
+                                useContext.setCart(data.cart)
+                                setShippings(shippingOptions.shipping_options)
+                            })
+                    }else{
+                        setShippings(shippingOptions.shipping_options)
                     }
                 })
         }
