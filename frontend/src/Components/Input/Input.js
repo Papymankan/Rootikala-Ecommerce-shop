@@ -34,9 +34,18 @@ export default function Input(props) {
         }
     }, [props.Value])
 
+    useEffect(() => {
+        if (props.state) {
+          let stateStatus = Object.keys(props.state).every(key => props.state[key].value == '')
+          if (stateStatus) {
+            dispatch({ type: 'CLEAR' })
+          }
+        }
+      }, [props.state])
+
     const element = props.element == 'textarea' ? (
-        <textarea placeholder={props.placeholder} className='Login_Input' onChange={InputOnChange} value={mainInput.value}></textarea>
-    ) : (<input placeholder={props.placeholder} type={props.type ? props.type : 'text'} onChange={InputOnChange} value={mainInput.value} className='Login_Input' />)
+        <textarea placeholder={props.placeholder} className='Login_Input' onChange={InputOnChange} value={mainInput.value} disabled={props.disabled}></textarea>
+    ) : (<input placeholder={props.placeholder} type={props.type ? props.type : 'text'} onChange={InputOnChange} value={mainInput.value} className='Login_Input'  disabled={props.disabled}/>)
 
 
 

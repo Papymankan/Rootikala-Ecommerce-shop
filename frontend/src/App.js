@@ -57,13 +57,16 @@ function App() {
         localStorage.setItem('cartID', JSON.stringify(data.cart.id))
         cartID = data.cart.id
       })
-      return cartID
+    return cartID
   }
 
   const getCart = useCallback((id) => {
     fetch(`http://localhost:9000/store/carts/${id}`)
       .then(res => res.json())
       .then(data => setUserCart(data.cart))
+  }, [])
+  const setCart = useCallback((cart) => {
+    setUserCart(cart)
   }, [])
 
 
@@ -108,7 +111,8 @@ function App() {
             login,
             logout,
             userCart,
-            getCart
+            getCart,
+            setCart
           }}
         >
           {router}

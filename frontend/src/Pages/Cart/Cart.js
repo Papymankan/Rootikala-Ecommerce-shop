@@ -29,17 +29,38 @@ export default function Cart() {
                 option_id: id
             })
         }).then(res => res.json()).then(data => {
-            authContext.getCart(authContext.userCart.id)
+            authContext.setCart(data.cart)
         })
     }
+
+    const addAddress = () => {
+        if (!inputDisable) {
+            return true
+        } else {
+            setInputDisable(false)
+            onInputSubmit()
+        }
+
+    }
+
+    const completeCart = ()=>{
+        
+    }
+
     const [shippings, setShippings] = useState([])
+    const [inputDisable, setInputDisable] = useState(false)
 
     useEffect(() => {
-        fetch(`http://localhost:9000/store/shipping-options/cart_01J32A03NTM8NH9FKY3XBAWRJ7`).then(res => res.json())
-            .then(data => setShippings(data.shipping_options))
-    }, [])
+        if (authContext.userCart.id) {
+            fetch(`http://localhost:9000/store/shipping-options/${authContext.userCart.id}`).then(res => res.json())
+                .then(data => setShippings(data.shipping_options))
+        }
+        if (authContext.userCart.shipping_address) {
+            setInputDisable(true)
+        }
+    }, [authContext.userCart.id])
 
-    const [formState, onInputHandler] = useForm(
+    const [formState, onInputHandler, onInputSubmit] = useForm(
         {
             name: {
                 value: '',
@@ -148,7 +169,7 @@ export default function Cart() {
                     <div className="CartAdress_Inputs">
                         <div className="CartAdress_Title">
                             <span>آدرس تحویل سفارش</span>
-                            <button>
+                            <button onClick={addAddress}>
                                 <MdOutlineAddLocationAlt />
                                 آدرس جدید
                             </button>
@@ -159,6 +180,9 @@ export default function Cart() {
                                 minValidator(2),
                             ]}
                             onInputHandler={onInputHandler}
+                            disabled={inputDisable}
+                            Value={authContext.userCart.shipping_address && authContext.userCart.shipping_address.first_name}
+                            state={formState.inputs}
                         />
                         <Input placeholder="نام خانوادگی" id="lastName"
                             validation={[
@@ -166,6 +190,9 @@ export default function Cart() {
                                 minValidator(2),
                             ]}
                             onInputHandler={onInputHandler}
+                            disabled={inputDisable}
+                            Value={authContext.userCart.shipping_address && authContext.userCart.shipping_address.last_name}
+                            state={formState.inputs}
                         />
                         <Input placeholder="شهر" id="city"
                             validation={[
@@ -173,6 +200,9 @@ export default function Cart() {
                                 minValidator(2),
                             ]}
                             onInputHandler={onInputHandler}
+                            disabled={inputDisable}
+                            Value={authContext.userCart.shipping_address && authContext.userCart.shipping_address.city}
+                            state={formState.inputs}
                         />
                         <Input placeholder="کدپستی" id="post_Code"
                             validation={[
@@ -180,7 +210,10 @@ export default function Cart() {
                                 minValidator(2),
                             ]}
                             onInputHandler={onInputHandler}
+                            disabled={inputDisable}
                             type='number'
+                            Value={authContext.userCart.shipping_address && authContext.userCart.shipping_address.postal_code}
+                            state={formState.inputs}
                         />
                         <Input element='textarea'
                             placeholder="آدرس"
@@ -190,27 +223,12 @@ export default function Cart() {
                                 requiredValidator(),
                                 minValidator(5),
                             ]}
+                            disabled={inputDisable}
+                            Value={authContext.userCart.shipping_address && authContext.userCart.shipping_address.address_1}
+                            state={formState.inputs}
                         />
                     </div>
                     <div className="CartAdress_Shippings">
-                        {/* <div className="CartAdress_Shipping">
-                            <div className="CartAdress_Shipping_Title">
-                                <span>تیپاکس</span>
-                                <span>{(60000).toLocaleString().EntoFa()} تومان</span>
-                            </div>
-                            <div className="CartAdress_Shipping_Logo">
-                                <img src="/Images/image-removebg-preview.png" />
-                            </div>
-                        </div>
-                        <div className="CartAdress_Shipping">
-                            <div className="CartAdress_Shipping_Title">
-                                <span>تیپاکس</span>
-                                <span>{(60000).toLocaleString().EntoFa()} تومان</span>
-                            </div>
-                            <div className="CartAdress_Shipping_Logo">
-                                <img src="/Images/download-removebg-preview.png" />
-                            </div>
-                        </div> */}
                         {
                             shippings.length > 0 && shippings.map(shipping => (
                                 <div className={authContext.userCart && authContext.userCart.shipping_methods[0].shipping_option.id == shipping.id ? `CartAdress_Shipping CartAdress_Shipping_active` : 'CartAdress_Shipping'} onClick={() => AddShippingMethod(shipping.id)}>
@@ -229,28 +247,28 @@ export default function Cart() {
                 <div className="CartPricing">
                     <div className="CartPricing_Price">
                         <span>قیمت کالا ها (2)</span>
-                        <span>{(240000000).toLocaleString().EntoFa()} تومان</span>
+                        <span>{authContext.userCart && (authContext.userCart.subtotal.toLocaleString()).EntoFa()} تومان</span>
                     </div>
                     <div className="CartPricing_Price">
                         <span>تخفیف</span>
-                        <span>{(1200000).toLocaleString().EntoFa()} تومان</span>
+                        <span>{authContext.userCart && (authContext.userCart.discount_total).toLocaleString().EntoFa()} تومان</span>
                     </div>
                     <div className="CartPricing_Price">
                         <span>هزینه ارسال</span>
-                        <span>{(24000).toLocaleString().EntoFa()} تومان</span>
+                        <span>{authContext.userCart && (authContext.userCart.shipping_total).toLocaleString().EntoFa()} تومان</span>
                     </div>
                     <div className="CartPricing_Price">
                         <span>مبلغ قابل پرداخت</span>
-                        <span>{(240000000).toLocaleString().EntoFa()} تومان</span>
+                        <span>{authContext.userCart && (authContext.userCart.total).toLocaleString().EntoFa()} تومان</span>
                     </div>
-                    <button>ادامه فرایند پرداخت</button>
+                    <button onClick={completeCart}>ادامه فرایند پرداخت</button>
                 </div>
             </div>
             <div className="CartPricing_fixed">
-                <button>ادامه فرایند پرداخت</button>
+                <button onClick={completeCart}>ادامه فرایند پرداخت</button>
                 <div>
                     <span>مبلغ قابل پرداخت</span>
-                    <span>{(240000000).toLocaleString().EntoFa()} تومان</span>
+                    <span>{authContext.userCart && (authContext.userCart.total).toLocaleString().EntoFa()} تومان</span>
                 </div>
             </div>
             <Footer />
