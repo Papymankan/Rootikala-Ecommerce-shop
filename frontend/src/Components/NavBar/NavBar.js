@@ -262,7 +262,7 @@ export default function NavBar() {
               authContext.userCart && Object.keys(authContext.userCart).length != 0 ? (
                 <>
                   {
-                    authContext.userCart.items.length != 0 ? (
+                    authContext.userCart.items && authContext.userCart.items.length != 0 ? (
                       <>
                         {
                           authContext.userCart && authContext.userCart.items.map(item => (
@@ -306,7 +306,7 @@ export default function NavBar() {
           </div>
 
           {
-            authContext.userCart && Object.keys(authContext.userCart).length != 0 && authContext.userCart.items.length != 0 && (
+            authContext.userCart && Object.keys(authContext.userCart).length != 0 && authContext.userCart.items && authContext.userCart.items.length != 0 && (
               <div className="cartSlideActions">
                 <div>
                   <span>مبلغ قابل پرداخت</span>

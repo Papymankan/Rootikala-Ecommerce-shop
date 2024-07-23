@@ -58,10 +58,12 @@ export default function Cart() {
     const completeCart = () => {
         if (!inputDisable) {
             const localData = JSON.parse(localStorage.getItem('user'))
+
             if (!formState.isFormValid) {
                 notify('آدرس و مشخصات سفارش را کامل کنید')
                 return true
             }
+
             let obj = {
                 address: {
                     "first_name": formState.inputs.name.value,
@@ -72,7 +74,8 @@ export default function Cart() {
                     "postal_code": formState.inputs.post_Code.value
                 }
             }
-            if (authContext.userInfos.customer.shipping_addresses) {
+
+            if (authContext.userInfos.customer.shipping_addresses.length) {
                 fetch(`http://localhost:9000/store/customers/me/addresses/${authContext.userInfos.customer.shipping_addresses[0].id}`, {
                     method: 'POST',
                     headers: {
@@ -85,7 +88,7 @@ export default function Cart() {
                     authContext.setCustomer(data)
                 })
             } else {
-                fetch(`http://localhost:9000/store/customers/me/addresses}`, {
+                fetch(`http://localhost:9000/store/customers/me/addresses`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -106,11 +109,25 @@ export default function Cart() {
     useEffect(() => {
         if (authContext.userCart.id) {
             fetch(`http://localhost:9000/store/shipping-options/${authContext.userCart.id}`).then(res => res.json())
-                .then(data => setShippings(data.shipping_options))
+                .then(data => {
+                    setShippings(data.shipping_options)
+                    if (authContext.userCart.shipping_methods.length == 0) {
+                        fetch(`http://localhost:9000/store/carts/${authContext.userCart.id}/shipping-methods`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                option_id: data.shipping_options[0].id
+                            })
+                        })
+                    }
+                })
         }
-        if (authContext.userCart.shipping_address) {
+        if (authContext.userCart.shipping_address && authContext.userCart.shipping_address.first_name) {
             setInputDisable(true)
         }
+
     }, [authContext.userCart.id])
 
     const [formState, onInputHandler, onInputSubmit] = useForm(
@@ -283,7 +300,7 @@ export default function Cart() {
                     </div>
                     <div className="CartAdress_Shippings">
                         {
-                            shippings.length > 0 && shippings.map(shipping => (
+                            authContext.userCart.shipping_methods && shippings.length > 0 && shippings.map(shipping => (
                                 <div className={authContext.userCart && authContext.userCart.shipping_methods[0].shipping_option.id == shipping.id ? `CartAdress_Shipping CartAdress_Shipping_active` : 'CartAdress_Shipping'} onClick={() => AddShippingMethod(shipping.id)}>
                                     <div className="CartAdress_Shipping_Title">
                                         <span>{shipping.name}</span>

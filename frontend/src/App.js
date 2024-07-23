@@ -64,7 +64,10 @@ function App() {
             postal_code: customer.customer.shipping_addresses[0].postal_code
           }
         })
-      }).then(res=> res.json()).then(data => console.log(data))
+      }).then(res=> res.json()).then(data => {
+        console.log(data);
+        setUserCart(data)
+      })
     
     setUserInfos(customer)
   }
