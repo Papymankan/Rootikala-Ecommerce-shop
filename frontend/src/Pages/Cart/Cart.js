@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import { maxValidator, minValidator, requiredValidator } from "../../Validation/rules";
 import { useForm } from "../../hooks/useForm";
 import AuthContext from "../../Context/Context";
+import { toast } from "react-toastify";
 
 export default function Cart() {
 
@@ -43,10 +44,62 @@ export default function Cart() {
 
     }
 
-    const completeCart = ()=>{
-        
-    }
+    const notify = (text) => toast.error(text, {
+        position: "bottom-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+    });
 
+    const completeCart = () => {
+        if (!inputDisable) {
+            const localData = JSON.parse(localStorage.getItem('user'))
+            if (!formState.isFormValid) {
+                notify('آدرس و مشخصات سفارش را کامل کنید')
+                return true
+            }
+            let obj = {
+                address: {
+                    "first_name": formState.inputs.name.value,
+                    "last_name": formState.inputs.lastName.value,
+                    "address_1": formState.inputs.address.value,
+                    "city": formState.inputs.city.value,
+                    "country_code": 'ir',
+                    "postal_code": formState.inputs.post_Code.value
+                }
+            }
+            if (authContext.userInfos.customer.shipping_addresses) {
+                fetch(`http://localhost:9000/store/customers/me/addresses/${authContext.userInfos.customer.shipping_addresses[0].id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localData.token}`
+                    },
+                    body: JSON.stringify(obj.address)
+                }).then(res => res.json()).then(data => {
+                    console.log(data);
+                    authContext.setCustomer(data)
+                })
+            } else {
+                fetch(`http://localhost:9000/store/customers/me/addresses}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localData.token}`
+                    },
+                    body: JSON.stringify(obj)
+                }).then(res => res.json()).then(data => {
+                    console.log(data);
+                    authContext.setCustomer(data)
+                })
+            }
+
+        }
+    }
     const [shippings, setShippings] = useState([])
     const [inputDisable, setInputDisable] = useState(false)
 
@@ -247,19 +300,23 @@ export default function Cart() {
                 <div className="CartPricing">
                     <div className="CartPricing_Price">
                         <span>قیمت کالا ها (2)</span>
-                        <span>{authContext.userCart && (authContext.userCart.subtotal.toLocaleString()).EntoFa()} تومان</span>
+                        <span>{authContext.userCart.subtotal && (authContext.userCart.subtotal.toLocaleString()).EntoFa()} تومان</span>
                     </div>
-                    <div className="CartPricing_Price">
-                        <span>تخفیف</span>
-                        <span>{authContext.userCart && (authContext.userCart.discount_total).toLocaleString().EntoFa()} تومان</span>
-                    </div>
+                    {
+                        authContext.userCart.discount_total > 0 &&
+                        <div className="CartPricing_Price CartPricing_Price_Sale">
+                            <span>تخفیف</span>
+                            <span>{authContext.userCart.discount_total && (authContext.userCart.discount_total.toLocaleString().EntoFa())} تومان</span>
+                        </div>
+                    }
+
                     <div className="CartPricing_Price">
                         <span>هزینه ارسال</span>
-                        <span>{authContext.userCart && (authContext.userCart.shipping_total).toLocaleString().EntoFa()} تومان</span>
+                        <span>{authContext.userCart.shipping_total && (authContext.userCart.shipping_total.toLocaleString()).EntoFa()} تومان</span>
                     </div>
                     <div className="CartPricing_Price">
                         <span>مبلغ قابل پرداخت</span>
-                        <span>{authContext.userCart && (authContext.userCart.total).toLocaleString().EntoFa()} تومان</span>
+                        <span>{authContext.userCart.total && (authContext.userCart.total.toLocaleString()).EntoFa()} تومان</span>
                     </div>
                     <button onClick={completeCart}>ادامه فرایند پرداخت</button>
                 </div>
@@ -268,7 +325,7 @@ export default function Cart() {
                 <button onClick={completeCart}>ادامه فرایند پرداخت</button>
                 <div>
                     <span>مبلغ قابل پرداخت</span>
-                    <span>{authContext.userCart && (authContext.userCart.total).toLocaleString().EntoFa()} تومان</span>
+                    <span>{authContext.userCart.subtotal && (authContext.userCart.total.toLocaleString()).EntoFa()} تومان</span>
                 </div>
             </div>
             <Footer />

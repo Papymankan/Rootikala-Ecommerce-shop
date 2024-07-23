@@ -42,9 +42,32 @@ function App() {
     setToken(null)
     setUserInfos({})
     setIsloggedIn(false)
+    setUserCart({})
     localStorage.removeItem('user')
+    localStorage.removeItem('cartID')
     notify2('با موفقیت خارج شدید')
   }, [])
+
+  const setCustomer = (customer) => {
+      fetch(`http://localhost:9000/store/carts/${userCart.id}`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          shipping_address: {
+            first_name: customer.customer.shipping_addresses[0].first_name,
+            last_name: customer.customer.shipping_addresses[0].last_name,
+            address_1: customer.customer.shipping_addresses[0].address_1,
+            city: customer.customer.shipping_addresses[0].city,
+            country_code: customer.customer.shipping_addresses[0].country_code,
+            postal_code: customer.customer.shipping_addresses[0].postal_code
+          }
+        })
+      }).then(res=> res.json()).then(data => console.log(data))
+    
+    setUserInfos(customer)
+  }
 
   const createCart = async () => {
     let cartID = ''
@@ -65,6 +88,7 @@ function App() {
       .then(res => res.json())
       .then(data => setUserCart(data.cart))
   }, [])
+
   const setCart = useCallback((cart) => {
     setUserCart(cart)
   }, [])
@@ -112,7 +136,8 @@ function App() {
             logout,
             userCart,
             getCart,
-            setCart
+            setCart,
+            setCustomer
           }}
         >
           {router}

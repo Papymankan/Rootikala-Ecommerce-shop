@@ -201,7 +201,7 @@
     font-size: 15px;
 }
 
-.CartPricing_Price:nth-of-type(2)>span:last-of-type {
+.CartPricing_Price_Sale>span:last-of-type {
     color: red;
 }
 
