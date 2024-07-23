@@ -28,7 +28,9 @@ export default function Input(props) {
         props.onInputHandler(props.id, mainInput.value, mainInput.isValid)
     }, [mainInput.value])
 
-    const element = <input placeholder={props.placeholder} type={props.type ? props.type : 'text'} onChange={InputOnChange} value={mainInput.value} className='Login_Input'/>
+    const element = props.element == 'textarea' ? (
+        <textarea placeholder={props.placeholder} className='Login_Input' onChange={InputOnChange} value={mainInput.value}></textarea>
+    ) : (<input placeholder={props.placeholder} type={props.type ? props.type : 'text'} onChange={InputOnChange} value={mainInput.value} className='Login_Input' />)
 
 
 

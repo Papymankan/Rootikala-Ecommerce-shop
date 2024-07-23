@@ -73,7 +73,7 @@ function App() {
     if (localData) {
       fetch('http://localhost:9000/store/auth', {
         headers: {
-          'Authorization': `Bearer ${localData.token}`
+          'Authorization': `Bearer ${localData.token}`,
         }
       }).then(res => res.json())
         .then(data => {
