@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import NavBar from "../../Components/NavBar/NavBar";
 import Footer from "../../Components/Footer/Footer"
 import Input from "../../Components/Input/Input"
@@ -7,36 +7,37 @@ import { CiShoppingCart } from "react-icons/ci";
 import { LiaShippingFastSolid, LiaTimesSolid } from "react-icons/lia";
 import { SlWallet } from "react-icons/sl";
 import { IoTrashOutline } from "react-icons/io5";
+import { MdOutlineAddLocationAlt } from "react-icons/md";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import EntoFa from "../../funcs/EntoFa/EntoFa";
 import { Link } from "react-router-dom";
 import { maxValidator, minValidator, requiredValidator } from "../../Validation/rules";
 import { useForm } from "../../hooks/useForm";
+import AuthContext from "../../Context/Context";
 
 export default function Cart() {
 
-    // const addAdress = () => {
-    //     const localData = JSON.parse(localStorage.getItem('user'))
-    //     fetch(`http://localhost:9000/store/customers/me/addresses`, {
-    //         method : 'POST',
-    //         headers: {
-    //             'Authorization': `Bearer ${localData.token}`,
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             "address": {
-    //                 "first_name": "پارسا",
-    //                 "last_name": "رستمی",
-    //                 "address_1": "سنندج / بهاران",
-    //                 "postal_code": "85137",
-    //                 "city": "سنندج",
-    //                 "country_code": "IR",
-    //               }
-    //         })
-    //     }).then(res => res.json()).then(data => {
-    //         console.log(data);
-    //     })
-    // }   
+    const authContext = useContext(AuthContext)
+
+    const AddShippingMethod = (id) => {
+        fetch(`http://localhost:9000/store/carts/${authContext.userCart.id}/shipping-methods`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                option_id: id
+            })
+        }).then(res => res.json()).then(data => {
+            authContext.getCart(authContext.userCart.id)
+        })
+    }
+    const [shippings, setShippings] = useState([])
+
+    useEffect(() => {
+        fetch(`http://localhost:9000/store/shipping-options/cart_01J32A03NTM8NH9FKY3XBAWRJ7`).then(res => res.json())
+            .then(data => setShippings(data.shipping_options))
+    }, [])
 
     const [formState, onInputHandler] = useForm(
         {
@@ -145,6 +146,13 @@ export default function Cart() {
                 </div> */}
                 <div className="CartAdress">
                     <div className="CartAdress_Inputs">
+                        <div className="CartAdress_Title">
+                            <span>آدرس تحویل سفارش</span>
+                            <button>
+                                <MdOutlineAddLocationAlt />
+                                آدرس جدید
+                            </button>
+                        </div>
                         <Input placeholder="نام" id="name"
                             validation={[
                                 requiredValidator(),
@@ -183,6 +191,39 @@ export default function Cart() {
                                 minValidator(5),
                             ]}
                         />
+                    </div>
+                    <div className="CartAdress_Shippings">
+                        {/* <div className="CartAdress_Shipping">
+                            <div className="CartAdress_Shipping_Title">
+                                <span>تیپاکس</span>
+                                <span>{(60000).toLocaleString().EntoFa()} تومان</span>
+                            </div>
+                            <div className="CartAdress_Shipping_Logo">
+                                <img src="/Images/image-removebg-preview.png" />
+                            </div>
+                        </div>
+                        <div className="CartAdress_Shipping">
+                            <div className="CartAdress_Shipping_Title">
+                                <span>تیپاکس</span>
+                                <span>{(60000).toLocaleString().EntoFa()} تومان</span>
+                            </div>
+                            <div className="CartAdress_Shipping_Logo">
+                                <img src="/Images/download-removebg-preview.png" />
+                            </div>
+                        </div> */}
+                        {
+                            shippings.length > 0 && shippings.map(shipping => (
+                                <div className={authContext.userCart && authContext.userCart.shipping_methods[0].shipping_option.id == shipping.id ? `CartAdress_Shipping CartAdress_Shipping_active` : 'CartAdress_Shipping'} onClick={() => AddShippingMethod(shipping.id)}>
+                                    <div className="CartAdress_Shipping_Title">
+                                        <span>{shipping.name}</span>
+                                        <span>{(shipping.amount).toLocaleString().EntoFa()} تومان</span>
+                                    </div>
+                                    <div className="CartAdress_Shipping_Logo">
+                                        <img src={`/Images/${shipping.metadata.img}`} />
+                                    </div>
+                                </div>
+                            ))
+                        }
                     </div>
                 </div>
                 <div className="CartPricing">
