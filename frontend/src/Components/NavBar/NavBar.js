@@ -23,6 +23,7 @@ export default function NavBar() {
   const [categories, setCategories] = useState([])
   const [listedCats, setListedCats] = useState([])
   const authContext = useContext(AuthContext)
+  const navigate = useNavigate()
 
 
   useEffect(() => {
@@ -101,9 +102,9 @@ export default function NavBar() {
     fetch(`http://localhost:9000/store/carts/${authContext.userCart.id}/line-items/${id}`, {
       method: 'DELETE',
     }).then(res => res.json())
-    .then(data => {
-      authContext.getCart(authContext.userCart.id)
-    })
+      .then(data => {
+        authContext.getCart(authContext.userCart.id)
+      })
   }
   return (
     <>
@@ -155,7 +156,7 @@ export default function NavBar() {
                       </li>
                       <li>
                         <Link onClick={() => {
-                         
+
                           authContext.logout()
                         }} to={'/'}>
                           <HiOutlineShoppingBag />خروج
@@ -315,7 +316,7 @@ export default function NavBar() {
                   <span>{(authContext.userCart.subtotal).toLocaleString().EntoFa()} تومان</span>
                 </div>
                 <div>
-                  <button>مشاهده و پرداخت</button>
+                  <button onClick={() => navigate('/cart')}>مشاهده و پرداخت</button>
                 </div>
               </div>
             )

@@ -122,7 +122,7 @@ export default function Cart() {
                             })
                         }).then(res => res.json())
                             .then(data => {
-                                useContext.setCart(data.cart)
+                                authContext.setCart(data.cart)
                                 setShippings(shippingOptions.shipping_options)
                             })
                     }else{

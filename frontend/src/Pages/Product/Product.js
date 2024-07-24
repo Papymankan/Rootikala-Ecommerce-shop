@@ -117,7 +117,21 @@ export default function Product() {
                 }
                 return res.json()
             }).then(data => {
-                authContext.setCart(data.cart)
+                if (authContext.userCart.customer_id != authContext.userInfos.customer.id) {
+                    fetch(`http://localhost:9000/store/carts/${data.cart.id}`, {
+                        'method': 'POST',
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            customer_id: authContext.userInfos.customer.id
+                        })
+                    }).then(res => res.json()).then(data => {
+                        authContext.setCart(data.cart)
+                    })
+                } else {
+                    authContext.setCart(data.cart)
+                }
             })
         }
     }

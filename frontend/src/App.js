@@ -102,8 +102,16 @@ function App() {
           .then(res => res.json())
           .then(data => {
             setUserInfos(data)
+            fetch(`http://localhost:9000/store/carts/${cartID}`, {
+              'method': 'POST',
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                customer_id: data.customer.id
+              })
+            }).then(res => res.json())
           })
-          
       })
     return cartID
   }
@@ -113,7 +121,6 @@ function App() {
       .then(res => res.json())
       .then(data => {
         setUserCart(data.cart)
-        console.log('cart got', userInfos);
       })
   }
 
@@ -135,7 +142,6 @@ function App() {
           setToken(localData.token)
           setUserInfos(data)
           if (data.customer.metadata) {
-            console.log('get cart on login');
             getCart(data.customer.metadata.cartID)
           }
         })
