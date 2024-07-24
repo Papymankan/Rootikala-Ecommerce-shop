@@ -73,15 +73,14 @@ export default function Product() {
     });
 
     const AddToCartHandler = () => {
-        var cartID = JSON.parse(localStorage.getItem('cartID'))
+        var cartID = authContext.userCart.id
         let item = {
             variant_id: colorSelected.id,
             quantity,
         }
-        if (!cartID) {
 
+        if (!cartID) {
             const createCartPromise = new Promise((resolve) => {
-                // console.log(authContext.createCart());
                 resolve(authContext.createCart())
             })
 
@@ -98,9 +97,9 @@ export default function Product() {
                         if (res.ok) {
                             notify('با موفقیت به سبد خرید اضافه شد')
                         }
-                        res.json()
+                        return res.json()
                     }).then(data => {
-                        authContext.getCart(cartID)
+                        authContext.setCart(data.cart)
                     })
                 }
             })
@@ -116,9 +115,9 @@ export default function Product() {
                 if (res.ok) {
                     notify('با موفقیت به سبد خرید اضافه شد')
                 }
-                res.json()
+                return res.json()
             }).then(data => {
-                authContext.getCart(cartID)
+                authContext.setCart(data.cart)
             })
         }
     }

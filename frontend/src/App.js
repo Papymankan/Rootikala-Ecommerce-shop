@@ -15,7 +15,7 @@ function App() {
   const [token, setToken] = useState(null)
   const [userInfos, setUserInfos] = useState({})
   const [userCart, setUserCart] = useState({})
-  
+
 
   const router = useRoutes(routes)
 
@@ -34,8 +34,10 @@ function App() {
     setToken(token)
     setIsloggedIn(true)
     setUserInfos(userInfo)
+    if (userInfo.customer.metadata) {
+      getCart(userInfo.customer.metadata.cartID)
+    }
     localStorage.setItem('user', JSON.stringify({ token }))
-    console.log(userInfo);
     notify2(`${userInfo.customer.first_name + ' ' + userInfo.customer.last_name} خوش آمدید`)
   }, [])
 
@@ -47,29 +49,29 @@ function App() {
     localStorage.removeItem('user')
     localStorage.removeItem('cartID')
     notify2('با موفقیت خارج شدید')
-    
+
   }, [])
 
-  const setCustomer =  (customer) => {
-      fetch(`http://localhost:9000/store/carts/${userCart.id}`, {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          shipping_address: {
-            first_name: customer.customer.shipping_addresses[0].first_name,
-            last_name: customer.customer.shipping_addresses[0].last_name,
-            address_1: customer.customer.shipping_addresses[0].address_1,
-            city: customer.customer.shipping_addresses[0].city,
-            country_code: customer.customer.shipping_addresses[0].country_code,
-            postal_code: customer.customer.shipping_addresses[0].postal_code
-          }
-        })
-      }).then(res=> res.json()).then(data => {
-        setUserCart(data.cart)
+  const setCustomer = (customer) => {
+    fetch(`http://localhost:9000/store/carts/${userCart.id}`, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        shipping_address: {
+          first_name: customer.customer.shipping_addresses[0].first_name,
+          last_name: customer.customer.shipping_addresses[0].last_name,
+          address_1: customer.customer.shipping_addresses[0].address_1,
+          city: customer.customer.shipping_addresses[0].city,
+          country_code: customer.customer.shipping_addresses[0].country_code,
+          postal_code: customer.customer.shipping_addresses[0].postal_code
+        }
       })
-    
+    }).then(res => res.json()).then(data => {
+      setUserCart(data.cart)
+    })
+
     setUserInfos(customer)
   }
 
@@ -80,25 +82,46 @@ function App() {
     })
       .then(res => res.json())
       .then(data => {
+
         setUserCart(data.cart)
-        localStorage.setItem('cartID', JSON.stringify(data.cart.id))
         cartID = data.cart.id
+
+        const localData = JSON.parse(localStorage.getItem('user'))
+        fetch(`http://localhost:9000/store/customers/me`, {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${localData.token}`
+          },
+          body: JSON.stringify({
+            metadata: {
+              cartID: data.cart.id
+            }
+          })
+        })
+          .then(res => res.json())
+          .then(data => {
+            setUserInfos(data)
+          })
+          
       })
     return cartID
   }
 
-  const getCart = useCallback((id) => {
+  const getCart = (id) => {
     fetch(`http://localhost:9000/store/carts/${id}`)
       .then(res => res.json())
-      .then(data => setUserCart(data.cart))
-  }, [])
+      .then(data => {
+        setUserCart(data.cart)
+        console.log('cart got', userInfos);
+      })
+  }
 
   const setCart = useCallback((cart) => {
     setUserCart(cart)
   }, [])
 
-
-  useEffect(() => {
+  const fun = () => {
     console.log('APP');
     const localData = JSON.parse(localStorage.getItem('user'))
     if (localData) {
@@ -107,16 +130,21 @@ function App() {
           'Authorization': `Bearer ${localData.token}`,
         }
       }).then(res => res.json())
-        .then(data => {
+        .then((data) => {
           setIsloggedIn(true)
           setToken(localData.token)
           setUserInfos(data)
+          if (data.customer.metadata) {
+            console.log('get cart on login');
+            getCart(data.customer.metadata.cartID)
+          }
         })
     }
-    const cartID = JSON.parse(localStorage.getItem('cartID'))
-    if (cartID) {
-      getCart(cartID)
-    }
+  }
+
+
+  useEffect(() => {
+    fun()
   }, [login])
 
   const { pathname } = useLocation();
