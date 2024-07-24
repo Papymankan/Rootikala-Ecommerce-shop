@@ -88,7 +88,7 @@ function App() {
   }
 
   const createCart = async () => {
-    if (AuthContext.isloggedIn) {
+    if (isloggedIn) {
       let cartID = ''
       await fetch(`http://localhost:9000/store/carts`, {
         'method': 'POST',

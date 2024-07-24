@@ -125,13 +125,33 @@ export default function Cart() {
                                 authContext.setCart(data.cart)
                                 setShippings(shippingOptions.shipping_options)
                             })
-                    }else{
+                    } else {
                         setShippings(shippingOptions.shipping_options)
                     }
                 })
         }
         if (authContext.userCart.shipping_address && authContext.userCart.shipping_address.first_name) {
             setInputDisable(true)
+        }
+        if (authContext.userInfos.customer && authContext.userInfos.customer.shipping_addresses.length>0 && authContext.userInfos.customer.shipping_addresses[0].id && !authContext.userCart.shipping_address.first_name) {
+            fetch(`http://localhost:9000/store/carts/${authContext.userCart.id}`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    shipping_address: {
+                        first_name: authContext.userInfos.customer.shipping_addresses[0].first_name,
+                        last_name: authContext.userInfos.customer.shipping_addresses[0].last_name,
+                        address_1: authContext.userInfos.customer.shipping_addresses[0].address_1,
+                        city: authContext.userInfos.customer.shipping_addresses[0].city,
+                        country_code: authContext.userInfos.customer.shipping_addresses[0].country_code,
+                        postal_code: authContext.userInfos.customer.shipping_addresses[0].postal_code
+                    }
+                })
+            }).then(res => res.json()).then(data => {
+                authContext.setCart(data.cart)
+            })
         }
 
     }, [authContext.userCart.id])
