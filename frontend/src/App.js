@@ -2,7 +2,7 @@ import './App.css';
 import routes from './routes'
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useLocation, useRoutes } from 'react-router-dom'
+import { useNavigate, useLocation, useRoutes } from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer } from 'react-toastify';
 import './variables.css'
@@ -15,6 +15,7 @@ function App() {
   const [token, setToken] = useState(null)
   const [userInfos, setUserInfos] = useState({})
   const [userCart, setUserCart] = useState({})
+  const navigate = useNavigate()
 
 
   const router = useRoutes(routes)
@@ -22,6 +23,17 @@ function App() {
   const notify2 = (text) => toast.success(text, {
     position: "bottom-right",
     autoClose: 2500,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+  });
+
+  const notify = (text) => toast.warning(text, {
+    position: "top-right",
+    autoClose: 4500,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
@@ -76,44 +88,49 @@ function App() {
   }
 
   const createCart = async () => {
-    let cartID = ''
-    await fetch(`http://localhost:9000/store/carts`, {
-      'method': 'POST',
-    })
-      .then(res => res.json())
-      .then(data => {
-
-        setUserCart(data.cart)
-        cartID = data.cart.id
-
-        const localData = JSON.parse(localStorage.getItem('user'))
-        fetch(`http://localhost:9000/store/customers/me`, {
-          method: 'POST',
-          headers: {
-            "Content-Type": "application/json",
-            'Authorization': `Bearer ${localData.token}`
-          },
-          body: JSON.stringify({
-            metadata: {
-              cartID: data.cart.id
-            }
-          })
-        })
-          .then(res => res.json())
-          .then(data => {
-            setUserInfos(data)
-            fetch(`http://localhost:9000/store/carts/${cartID}`, {
-              'method': 'POST',
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                customer_id: data.customer.id
-              })
-            }).then(res => res.json())
-          })
+    if (AuthContext.isloggedIn) {
+      let cartID = ''
+      await fetch(`http://localhost:9000/store/carts`, {
+        'method': 'POST',
       })
-    return cartID
+        .then(res => res.json())
+        .then(data => {
+
+          setUserCart(data.cart)
+          cartID = data.cart.id
+
+          const localData = JSON.parse(localStorage.getItem('user'))
+          fetch(`http://localhost:9000/store/customers/me`, {
+            method: 'POST',
+            headers: {
+              "Content-Type": "application/json",
+              'Authorization': `Bearer ${localData.token}`
+            },
+            body: JSON.stringify({
+              metadata: {
+                cartID: data.cart.id
+              }
+            })
+          })
+            .then(res => res.json())
+            .then(data => {
+              setUserInfos(data)
+              fetch(`http://localhost:9000/store/carts/${cartID}`, {
+                'method': 'POST',
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  customer_id: data.customer.id
+                })
+              }).then(res => res.json())
+            })
+        })
+      return cartID
+    }else{
+      navigate('/login')
+      notify('برای خرید ابتدا وارد حساب کاربری خود شوید')
+    }
   }
 
   const getCart = (id) => {

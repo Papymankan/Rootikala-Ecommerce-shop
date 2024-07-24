@@ -113,7 +113,7 @@ export default function Product() {
                 body: JSON.stringify(item)
             }).then(res => {
                 if (res.ok) {
-                    notify('با موفقیت به سبد خرید اضافه شد')
+                    notify('به سبد خرید اضافه شد')
                 }
                 return res.json()
             }).then(data => {
