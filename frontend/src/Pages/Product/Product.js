@@ -99,6 +99,7 @@ export default function Product() {
                         }
                         return res.json()
                     }).then(data => {
+                        console.log(data);
                         authContext.setCart(data.cart)
                     })
                 }

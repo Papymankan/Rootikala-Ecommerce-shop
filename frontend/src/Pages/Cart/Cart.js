@@ -45,7 +45,7 @@ export default function Cart() {
     }
 
     const notify = (text) => toast.error(text, {
-        position: "bottom-right",
+        position: "top-right",
         autoClose: 2500,
         hideProgressBar: false,
         closeOnClick: true,
@@ -130,10 +130,8 @@ export default function Cart() {
                     }
                 })
         }
-        if (authContext.userCart.shipping_address && authContext.userCart.shipping_address.first_name) {
-            setInputDisable(true)
-        }
-        if (authContext.userInfos.customer && authContext.userInfos.customer.shipping_addresses.length>0 && authContext.userInfos.customer.shipping_addresses[0].id && !authContext.userCart.shipping_address.first_name) {
+
+        if (authContext.userInfos.customer && authContext.userInfos.customer.shipping_addresses.length > 0 && authContext.userInfos.customer.shipping_addresses[0].id && !authContext.userCart.shipping_address.first_name) {
             fetch(`http://localhost:9000/store/carts/${authContext.userCart.id}`, {
                 method: 'POST',
                 headers: {
@@ -151,7 +149,14 @@ export default function Cart() {
                 })
             }).then(res => res.json()).then(data => {
                 authContext.setCart(data.cart)
+                if (data.cart.shipping_address && data.cart.shipping_address.first_name) {
+                    setInputDisable(true)
+                }
             })
+        } else {
+            if (authContext.userCart.shipping_address && authContext.userCart.shipping_address.first_name) {
+                setInputDisable(true)
+            }
         }
 
     }, [authContext.userCart.id])
@@ -290,6 +295,9 @@ export default function Cart() {
                             Value={authContext.userCart.shipping_address && authContext.userCart.shipping_address.last_name}
                             state={formState.inputs}
                         />
+                        {
+                            console.log(authContext.userCart.shipping_address)
+                        }
                         <Input placeholder="شهر" id="city"
                             validation={[
                                 requiredValidator(),
