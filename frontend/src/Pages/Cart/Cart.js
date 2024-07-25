@@ -266,6 +266,7 @@ export default function Cart() {
                         </div>
                     </div>
                 </div> */}
+                
                 <div className="CartAdress">
                     <div className="CartAdress_Inputs">
                         <div className="CartAdress_Title">
@@ -348,6 +349,7 @@ export default function Cart() {
                         }
                     </div>
                 </div>
+
                 <div className="CartPricing">
                     <div className="CartPricing_Price">
                         <span>قیمت کالا ها (2)</span>
