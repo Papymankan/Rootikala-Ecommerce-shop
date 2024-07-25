@@ -16,7 +16,7 @@ const routes = [
     { path: '/store', element: <Store /> },
     { path: '/sales', element: <Sales /> },
     { path: '/product/:id', element: <Product /> },
-    { path: '/cart', element: <Cart /> },
+    { path: '/cart', element: <PrivateRoute> <Cart /> </PrivateRoute> },
 ]
 
 export default routes

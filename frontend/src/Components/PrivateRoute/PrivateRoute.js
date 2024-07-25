@@ -1,9 +1,11 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import AuthContext from "../../Context/Context";
 
 export default function PrivateRoute({ children }) {
+
+    const pageRender = useRef(false)
 
     const authContext = useContext(AuthContext)
     const notify = (text) => toast.warning(text, {
@@ -19,12 +21,15 @@ export default function PrivateRoute({ children }) {
 
     const navigate = useNavigate()
     useEffect(() => {
-        if (!authContext.isloggedIn) {
-            console.log(authContext.userInfos.id);
+        const localData = JSON.parse(localStorage.getItem('user'))
+        if (!localData) {
             navigate('/login')
             notify('برای مشاهده سبد خرید ابتدا وارد حساب کاربری خود شوید')
+        } else if (authContext.userInfos.customer && !authContext.userInfos.customer.metadata) {
+            navigate('/')
+            notify('سبد خریدی برای شما وجود ندارد')
         }
-    }, [])
+    }, [authContext.userInfos])
 
     return (
         <>
