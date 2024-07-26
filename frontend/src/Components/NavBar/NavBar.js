@@ -75,7 +75,7 @@ export default function NavBar() {
         body: JSON.stringify(updatedQuantity)
       }).then(res => res.json())
         .then(data => {
-          authContext.getCart(authContext.userCart.id)
+          authContext.setCart(data.cart)
         })
     } else {
       notify('این تعداد موجود نمی باشد')
@@ -94,7 +94,7 @@ export default function NavBar() {
         body: JSON.stringify(updatedQuantity)
       }).then(res => res.json())
         .then(data => {
-          authContext.getCart(authContext.userCart.id)
+          authContext.setCart(data.cart)
         })
     }
   }
@@ -103,7 +103,7 @@ export default function NavBar() {
       method: 'DELETE',
     }).then(res => res.json())
       .then(data => {
-        authContext.getCart(authContext.userCart.id)
+        authContext.setCart(data.cart)
       })
   }
   return (

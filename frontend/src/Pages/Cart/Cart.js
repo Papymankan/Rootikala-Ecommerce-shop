@@ -103,32 +103,80 @@ export default function Cart() {
 
         }
     }
+    const IncreaseQuantity = (item) => {
+        if (item.quantity < item.variant.inventory_quantity) {
+            const updatedQuantity = {
+                quantity: item.quantity + 1
+            }
+            fetch(`http://localhost:9000/store/carts/${authContext.userCart.id}/line-items/${item.id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedQuantity)
+            }).then(res => res.json())
+                .then(data => {
+                    authContext.setCart(data.cart)
+                })
+        } else {
+            notify('این تعداد موجود نمی باشد')
+        }
+    }
+    const DecreaseQuantity = (item) => {
+        if (item.quantity > 1) {
+            const updatedQuantity = {
+                quantity: item.quantity - 1
+            }
+            fetch(`http://localhost:9000/store/carts/${authContext.userCart.id}/line-items/${item.id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedQuantity)
+            }).then(res => res.json())
+                .then(data => {
+                    authContext.setCart(data.cart)
+                })
+        }
+    }
+    const DeleteItem = (id) => {
+        fetch(`http://localhost:9000/store/carts/${authContext.userCart.id}/line-items/${id}`, {
+            method: 'DELETE',
+        }).then(res => res.json())
+            .then(data => {
+                authContext.setCart(data.cart)
+            })
+    }
+
+
     const [shippings, setShippings] = useState([])
     const [inputDisable, setInputDisable] = useState(false)
+    const [step, setStep] = useState(1)
 
     useEffect(() => {
         if (authContext.userCart.id) {
-            fetch(`http://localhost:9000/store/shipping-options/${authContext.userCart.id}`).then(res => res.json())
-                .then(shippingOptions => {
-
-                    if (authContext.userCart.shipping_methods.length == 0) {
-                        fetch(`http://localhost:9000/store/carts/${authContext.userCart.id}/shipping-methods`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                option_id: shippingOptions.shipping_options[0].id
-                            })
-                        }).then(res => res.json())
-                            .then(data => {
-                                authContext.setCart(data.cart)
-                                setShippings(shippingOptions.shipping_options)
-                            })
-                    } else {
-                        setShippings(shippingOptions.shipping_options)
-                    }
-                })
+            if (authContext.userCart.items.length) {
+                fetch(`http://localhost:9000/store/shipping-options/${authContext.userCart.id}`).then(res => res.json())
+                    .then(shippingOptions => {
+                        if (authContext.userCart.shipping_methods.length == 0) {
+                            fetch(`http://localhost:9000/store/carts/${authContext.userCart.id}/shipping-methods`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    option_id: shippingOptions.shipping_options[0].id
+                                })
+                            }).then(res => res.json())
+                                .then(data => {
+                                    authContext.setCart(data.cart)
+                                    setShippings(shippingOptions.shipping_options)
+                                })
+                        } else {
+                            setShippings(shippingOptions.shipping_options)
+                        }
+                    })
+            }
         }
 
         if (authContext.userInfos.customer && authContext.userInfos.customer.shipping_addresses.length > 0 && authContext.userInfos.customer.shipping_addresses[0].id && !authContext.userCart.shipping_address.first_name) {
@@ -210,149 +258,136 @@ export default function Cart() {
                 </div>
             </div>
             <div className="Container" id="CartSteps_Container">
-                {/* <div className="CartStep">
-                    <div>
-                        <span>سبد خرید<span>( 2 کالا )</span></span>
-                        <button onClick={addAdress}><IoTrashOutline />حذف همه</button>
-                    </div>
-                    <div className="CartStepItem">
-                        <div>
-                            <div className="CartStepImg">
-                                <span>
-                                    <LiaTimesSolid />
-                                </span>
-                                <img src="http://localhost:9000/uploads/1705775340738-p2.png" />
+                {
+                    step == 1 && (
+                        <div className="CartStep">
+                            <div>
+                                <span>سبد خرید<span>( {authContext.userCart.items.length.toLocaleString().EntoFa()} کالا )</span></span>
+                                <button><IoTrashOutline />حذف همه</button>
                             </div>
-                            <div className="quantity">
-                                <FaPlus />
-                                3
-                                < FaMinus />
-                            </div>
-                        </div>
-                        <div>
-                            <div className="CartStepTitle_Container">
-                                <h3 className="CartStepTitle"><Link>کفش مدل نیوبالانس</Link></h3>
-                                <div>
-                                    <span></span>
-                                    <span>39 / آبی</span>
-                                </div>
-                            </div>
-                            <h4>{(1200000).toLocaleString().EntoFa()} تومان</h4>
-                        </div>
-                    </div>
-                    <div className="CartStepItem">
-                        <div>
-                            <div className="CartStepImg">
-                                <span>
-                                    <LiaTimesSolid />
-                                </span>
-                                <img src="http://localhost:9000/uploads/1705775340738-p2.png" />
-                            </div>
-                            <div className="quantity">
-                                <FaPlus />
-                                3
-                                < FaMinus />
-                            </div>
-                        </div>
-                        <div>
-                            <div className="CartStepTitle_Container">
-                                <h3 className="CartStepTitle"><Link>کفش مدل نیوبالانس</Link></h3>
-                                <div>
-                                    <span></span>
-                                    <span>39 / آبی</span>
-                                </div>
-                            </div>
-                            <h4>{(1200000).toLocaleString().EntoFa()} تومان</h4>
-                        </div>
-                    </div>
-                </div> */}
-                
-                <div className="CartAdress">
-                    <div className="CartAdress_Inputs">
-                        <div className="CartAdress_Title">
-                            <span>آدرس تحویل سفارش</span>
-                            <button onClick={addAddress}>
-                                <MdOutlineAddLocationAlt />
-                                آدرس جدید
-                            </button>
-                        </div>
-                        <Input placeholder="نام" id="name"
-                            validation={[
-                                requiredValidator(),
-                                minValidator(2),
-                            ]}
-                            onInputHandler={onInputHandler}
-                            disabled={inputDisable}
-                            Value={authContext.userCart.shipping_address && authContext.userCart.shipping_address.first_name}
-                            state={formState.inputs}
-                        />
-                        <Input placeholder="نام خانوادگی" id="lastName"
-                            validation={[
-                                requiredValidator(),
-                                minValidator(2),
-                            ]}
-                            onInputHandler={onInputHandler}
-                            disabled={inputDisable}
-                            Value={authContext.userCart.shipping_address && authContext.userCart.shipping_address.last_name}
-                            state={formState.inputs}
-                        />
-                        {
-                            console.log(authContext.userCart.shipping_address)
-                        }
-                        <Input placeholder="شهر" id="city"
-                            validation={[
-                                requiredValidator(),
-                                minValidator(2),
-                            ]}
-                            onInputHandler={onInputHandler}
-                            disabled={inputDisable}
-                            Value={authContext.userCart.shipping_address && authContext.userCart.shipping_address.city}
-                            state={formState.inputs}
-                        />
-                        <Input placeholder="کدپستی" id="post_Code"
-                            validation={[
-                                requiredValidator(),
-                                minValidator(2),
-                            ]}
-                            onInputHandler={onInputHandler}
-                            disabled={inputDisable}
-                            type='number'
-                            Value={authContext.userCart.shipping_address && authContext.userCart.shipping_address.postal_code}
-                            state={formState.inputs}
-                        />
-                        <Input element='textarea'
-                            placeholder="آدرس"
-                            id='address'
-                            onInputHandler={onInputHandler}
-                            validation={[
-                                requiredValidator(),
-                                minValidator(5),
-                            ]}
-                            disabled={inputDisable}
-                            Value={authContext.userCart.shipping_address && authContext.userCart.shipping_address.address_1}
-                            state={formState.inputs}
-                        />
-                    </div>
-                    <div className="CartAdress_Shippings">
-                        {
-                            authContext.userCart.shipping_methods && shippings.length > 0 && shippings.map(shipping => (
-                                <div className={authContext.userCart && authContext.userCart.shipping_methods[0].shipping_option.id == shipping.id ? `CartAdress_Shipping CartAdress_Shipping_active` : 'CartAdress_Shipping'} onClick={() => AddShippingMethod(shipping.id)}>
-                                    <div className="CartAdress_Shipping_Title">
-                                        <span>{shipping.name}</span>
-                                        <span>{(shipping.amount).toLocaleString().EntoFa()} تومان</span>
+                            {
+                                authContext.userCart.items && authContext.userCart.items.length > 0 ? authContext.userCart.items.map(item => (
+                                    <div className="CartStepItem">
+                                        <div>
+                                            <div className="CartStepImg">
+                                                <span onClick={() => DeleteItem(item.id)}>
+                                                    <LiaTimesSolid />
+                                                </span>
+                                                <img src={item.thumbnail} />
+                                            </div>
+                                            <div className="quantity">
+                                                <FaPlus onClick={() => IncreaseQuantity(item)} />
+                                                {item.quantity}
+                                                < FaMinus onClick={() => DecreaseQuantity(item)} />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className="CartStepTitle_Container">
+                                                <h3 className="CartStepTitle"><Link>{item.title}</Link></h3>
+                                                <div>
+                                                    <span style={{ backgroundColor: item.variant.metadata.color }}></span>
+                                                    <span>{item.description}</span>
+                                                </div>
+                                            </div>
+                                            <h4>{(item.unit_price * item.quantity).toLocaleString().EntoFa()} تومان</h4>
+                                        </div>
                                     </div>
-                                    <div className="CartAdress_Shipping_Logo">
-                                        <img src={`/Images/${shipping.metadata.img}`} />
-                                    </div>
+                                )) : <div className="alert alert-warning">سبد خرید شما خالی است</div>
+                            }
+
+                        </div>
+                    )
+                }
+                {
+                    step == 2 && (
+                        <div className="CartAdress">
+                            <div className="CartAdress_Inputs">
+                                <div className="CartAdress_Title">
+                                    <span>آدرس تحویل سفارش</span>
+                                    <button onClick={addAddress}>
+                                        <MdOutlineAddLocationAlt />
+                                        آدرس جدید
+                                    </button>
                                 </div>
-                            ))
-                        }
-                    </div>
-                </div>
+                                <Input placeholder="نام" id="name"
+                                    validation={[
+                                        requiredValidator(),
+                                        minValidator(2),
+                                    ]}
+                                    onInputHandler={onInputHandler}
+                                    disabled={inputDisable}
+                                    Value={authContext.userCart.shipping_address && authContext.userCart.shipping_address.first_name}
+                                    state={formState.inputs}
+                                />
+                                <Input placeholder="نام خانوادگی" id="lastName"
+                                    validation={[
+                                        requiredValidator(),
+                                        minValidator(2),
+                                    ]}
+                                    onInputHandler={onInputHandler}
+                                    disabled={inputDisable}
+                                    Value={authContext.userCart.shipping_address && authContext.userCart.shipping_address.last_name}
+                                    state={formState.inputs}
+                                />
+                                {
+                                    console.log(authContext.userCart.shipping_address)
+                                }
+                                <Input placeholder="شهر" id="city"
+                                    validation={[
+                                        requiredValidator(),
+                                        minValidator(2),
+                                    ]}
+                                    onInputHandler={onInputHandler}
+                                    disabled={inputDisable}
+                                    Value={authContext.userCart.shipping_address && authContext.userCart.shipping_address.city}
+                                    state={formState.inputs}
+                                />
+                                <Input placeholder="کدپستی" id="post_Code"
+                                    validation={[
+                                        requiredValidator(),
+                                        minValidator(2),
+                                    ]}
+                                    onInputHandler={onInputHandler}
+                                    disabled={inputDisable}
+                                    type='number'
+                                    Value={authContext.userCart.shipping_address && authContext.userCart.shipping_address.postal_code}
+                                    state={formState.inputs}
+                                />
+                                <Input element='textarea'
+                                    placeholder="آدرس"
+                                    id='address'
+                                    onInputHandler={onInputHandler}
+                                    validation={[
+                                        requiredValidator(),
+                                        minValidator(5),
+                                    ]}
+                                    disabled={inputDisable}
+                                    Value={authContext.userCart.shipping_address && authContext.userCart.shipping_address.address_1}
+                                    state={formState.inputs}
+                                />
+                            </div>
+                            <div className="CartAdress_Shippings">
+                                {
+                                    authContext.userCart.shipping_methods && shippings.length > 0 && shippings.map(shipping => (
+                                        <div className={authContext.userCart && authContext.userCart.shipping_methods[0].shipping_option.id == shipping.id ? `CartAdress_Shipping CartAdress_Shipping_active` : 'CartAdress_Shipping'} onClick={() => AddShippingMethod(shipping.id)}>
+                                            <div className="CartAdress_Shipping_Title">
+                                                <span>{shipping.name}</span>
+                                                <span>{(shipping.amount).toLocaleString().EntoFa()} تومان</span>
+                                            </div>
+                                            <div className="CartAdress_Shipping_Logo">
+                                                <img src={`/Images/${shipping.metadata.img}`} />
+                                            </div>
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                        </div>
+                    )
+                }
 
                 <div className="CartPricing">
                     <div className="CartPricing_Price">
-                        <span>قیمت کالا ها (2)</span>
+                        <span>قیمت کالا ها ({authContext.userCart.items.length.toLocaleString().EntoFa()})</span>
                         <span>{authContext.userCart.subtotal && (authContext.userCart.subtotal.toLocaleString()).EntoFa()} تومان</span>
                     </div>
                     {
@@ -362,11 +397,14 @@ export default function Cart() {
                             <span>{authContext.userCart.discount_total && (authContext.userCart.discount_total.toLocaleString().EntoFa())} تومان</span>
                         </div>
                     }
+                    {
+                        authContext.userCart.shipping_total > 0 && <div className="CartPricing_Price">
+                            <span>هزینه ارسال</span>
+                            <span>{authContext.userCart.shipping_total && (authContext.userCart.shipping_total.toLocaleString()).EntoFa()} تومان</span>
+                        </div>
+                    }
 
-                    <div className="CartPricing_Price">
-                        <span>هزینه ارسال</span>
-                        <span>{authContext.userCart.shipping_total && (authContext.userCart.shipping_total.toLocaleString()).EntoFa()} تومان</span>
-                    </div>
+
                     <div className="CartPricing_Price">
                         <span>مبلغ قابل پرداخت</span>
                         <span>{authContext.userCart.total && (authContext.userCart.total.toLocaleString()).EntoFa()} تومان</span>
