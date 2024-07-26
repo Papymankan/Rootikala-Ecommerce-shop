@@ -10,7 +10,7 @@ import { IoTrashOutline } from "react-icons/io5";
 import { MdOutlineAddLocationAlt } from "react-icons/md";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import EntoFa from "../../funcs/EntoFa/EntoFa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { maxValidator, minValidator, requiredValidator } from "../../Validation/rules";
 import { useForm } from "../../hooks/useForm";
 import AuthContext from "../../Context/Context";
@@ -19,6 +19,7 @@ import { toast } from "react-toastify";
 export default function Cart() {
 
     const authContext = useContext(AuthContext)
+    const navigate = useNavigate()
 
     const AddShippingMethod = (id) => {
         fetch(`http://localhost:9000/store/carts/${authContext.userCart.id}/shipping-methods`, {
@@ -54,6 +55,17 @@ export default function Cart() {
         progress: undefined,
         theme: "colored",
     });
+    const notify2 = (text) => toast.success(text, {
+        position: "top-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+    });
+
 
     const completeCart = () => {
         if (!inputDisable) {
@@ -84,8 +96,8 @@ export default function Cart() {
                     },
                     body: JSON.stringify(obj.address)
                 }).then(res => res.json()).then(data => {
-                    console.log(data);
                     authContext.setCustomer(data)
+                    setStep(3)
                 })
             } else {
                 fetch(`http://localhost:9000/store/customers/me/addresses`, {
@@ -96,11 +108,13 @@ export default function Cart() {
                     },
                     body: JSON.stringify(obj)
                 }).then(res => res.json()).then(data => {
-                    console.log(data);
                     authContext.setCustomer(data)
+                    setStep(3)
                 })
             }
 
+        }else{
+            setStep(3)
         }
     }
     const IncreaseQuantity = (item) => {
@@ -146,6 +160,15 @@ export default function Cart() {
             .then(data => {
                 authContext.setCart(data.cart)
             })
+    }
+    const DeleteAll = async () => {
+        if (authContext.userCart.items.length) {
+            authContext.setLoading(true)
+            await authContext.userCart.items.map(item => {
+                DeleteItem(item.id)
+            })
+            authContext.setLoading(false)
+        }
     }
 
 
@@ -262,8 +285,8 @@ export default function Cart() {
                     step == 1 && (
                         <div className="CartStep">
                             <div>
-                                <span>سبد خرید<span>( {authContext.userCart.items.length.toLocaleString().EntoFa()} کالا )</span></span>
-                                <button><IoTrashOutline />حذف همه</button>
+                                <span>سبد خرید<span>( {authContext.userCart.items && authContext.userCart.items.length.toLocaleString().EntoFa()} کالا )</span></span>
+                                <button onClick={() => DeleteAll()}><IoTrashOutline />حذف همه</button>
                             </div>
                             {
                                 authContext.userCart.items && authContext.userCart.items.length > 0 ? authContext.userCart.items.map(item => (
@@ -387,7 +410,7 @@ export default function Cart() {
 
                 <div className="CartPricing">
                     <div className="CartPricing_Price">
-                        <span>قیمت کالا ها ({authContext.userCart.items.length.toLocaleString().EntoFa()})</span>
+                        <span>قیمت کالا ها ({authContext.userCart.items && authContext.userCart.items.length.toLocaleString().EntoFa()})</span>
                         <span>{authContext.userCart.subtotal && (authContext.userCart.subtotal.toLocaleString()).EntoFa()} تومان</span>
                     </div>
                     {
@@ -409,7 +432,19 @@ export default function Cart() {
                         <span>مبلغ قابل پرداخت</span>
                         <span>{authContext.userCart.total && (authContext.userCart.total.toLocaleString()).EntoFa()} تومان</span>
                     </div>
-                    <button onClick={completeCart}>ادامه فرایند پرداخت</button>
+                    <button onClick={() => {
+                        if (step == 1) {
+                            if (authContext.userCart.items && authContext.userCart.items.length > 0) {
+                                setStep(2)
+                            } else {
+                                notify('سبد خرید شما خالی است')
+                            }
+                        } else if (step == 2) {
+                            completeCart()
+                        } else {
+
+                        }
+                    }}>ادامه فرایند پرداخت</button>
                 </div>
             </div>
             <div className="CartPricing_fixed">

@@ -8,6 +8,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import './variables.css'
 import AuthContext from './Context/Context';
 import { useCallback, useEffect, useState } from 'react';
+import Loader from './Components/Loader/Loader';
+
 
 function App() {
 
@@ -15,6 +17,7 @@ function App() {
   const [token, setToken] = useState(null)
   const [userInfos, setUserInfos] = useState({})
   const [userCart, setUserCart] = useState({})
+  const [loader, setLoader] = useState(false)
   const navigate = useNavigate()
 
 
@@ -127,7 +130,7 @@ function App() {
             })
         })
       return cartID
-    }else{
+    } else {
       navigate('/login')
       notify('برای خرید ابتدا وارد حساب کاربری خود شوید')
     }
@@ -144,6 +147,15 @@ function App() {
   const setCart = useCallback((cart) => {
     setUserCart(cart)
   }, [])
+
+  const setLoading = (state) => {
+    setLoader(state)
+    if(state){
+      document.body.style.overflow = 'hidden'
+    }else{
+      document.body.style.overflow = 'auto'
+    }
+  }
 
   const fun = () => {
     console.log('APP');
@@ -179,6 +191,13 @@ function App() {
 
   return (
     <>
+    {
+      loader &&
+      <div class="overlay">
+        <Loader id='overlayLoader' />
+      </div>
+    }
+      
       <div className="App">
 
         <AuthContext.Provider
@@ -192,7 +211,8 @@ function App() {
             userCart,
             getCart,
             setCart,
-            setCustomer
+            setCustomer,
+            setLoading
           }}
         >
           {router}
