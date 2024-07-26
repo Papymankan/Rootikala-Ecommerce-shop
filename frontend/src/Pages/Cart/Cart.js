@@ -66,7 +66,6 @@ export default function Cart() {
         theme: "colored",
     });
 
-
     const completeCart = () => {
         if (!inputDisable) {
             const localData = JSON.parse(localStorage.getItem('user'))
@@ -113,7 +112,7 @@ export default function Cart() {
                 })
             }
 
-        }else{
+        } else {
             setStep(3)
         }
     }
@@ -161,13 +160,15 @@ export default function Cart() {
                 authContext.setCart(data.cart)
             })
     }
-    const DeleteAll = async () => {
+    const DeleteAll = () => {
         if (authContext.userCart.items.length) {
             authContext.setLoading(true)
-            await authContext.userCart.items.map(item => {
+            authContext.userCart.items.map((item, index) => {
                 DeleteItem(item.id)
+                if (index + 1 == authContext.userCart.items.length) {
+                    authContext.setLoading(false)
+                }
             })
-            authContext.setLoading(false)
         }
     }
 
@@ -178,7 +179,7 @@ export default function Cart() {
 
     useEffect(() => {
         if (authContext.userCart.id) {
-            if (authContext.userCart.items.length) {
+            if (authContext.userCart.items.length > 0) {
                 fetch(`http://localhost:9000/store/shipping-options/${authContext.userCart.id}`).then(res => res.json())
                     .then(shippingOptions => {
                         if (authContext.userCart.shipping_methods.length == 0) {
@@ -261,19 +262,19 @@ export default function Cart() {
         <>
             <NavBar />
             <div className="Container" id="purchaseProductSteps_Container">
-                <div className="purchaseProductStep">
+                <div className={step == 1 ? 'purchaseProductStep purchaseProductStep_active' : 'purchaseProductStep'} onClick={()=>setStep(1)}>
                     <span>
                         <CiShoppingCart />
                         سبد خرید
                     </span>
                 </div>
-                <div className="purchaseProductStep">
+                <div className={step == 2 ? 'purchaseProductStep purchaseProductStep_active' : 'purchaseProductStep'} onClick={()=>setStep(2)}>
                     <span>
                         <LiaShippingFastSolid />
                         شیوه ارسال
                     </span>
                 </div>
-                <div className="purchaseProductStep">
+                <div className={step == 3 ? 'purchaseProductStep purchaseProductStep_active' : 'purchaseProductStep'}>
                     <span>
                         <SlWallet />
                         پرداخت
@@ -392,7 +393,7 @@ export default function Cart() {
                             <div className="CartAdress_Shippings">
                                 {
                                     authContext.userCart.shipping_methods && shippings.length > 0 && shippings.map(shipping => (
-                                        <div className={authContext.userCart && authContext.userCart.shipping_methods[0].shipping_option.id == shipping.id ? `CartAdress_Shipping CartAdress_Shipping_active` : 'CartAdress_Shipping'} onClick={() => AddShippingMethod(shipping.id)}>
+                                        <div className={authContext.userCart && authContext.userCart.shipping_methods.length > 0 && authContext.userCart.shipping_methods[0].shipping_option.id == shipping.id ? `CartAdress_Shipping CartAdress_Shipping_active` : 'CartAdress_Shipping'} onClick={() => AddShippingMethod(shipping.id)}>
                                             <div className="CartAdress_Shipping_Title">
                                                 <span>{shipping.name}</span>
                                                 <span>{(shipping.amount).toLocaleString().EntoFa()} تومان</span>
@@ -440,7 +441,11 @@ export default function Cart() {
                                 notify('سبد خرید شما خالی است')
                             }
                         } else if (step == 2) {
-                            completeCart()
+                            if (authContext.userCart.shipping_methods.length > 0) {
+                                completeCart()
+                            } else {
+                                notify('شیوه ارسال را انتخاب نمایید')
+                            }
                         } else {
 
                         }

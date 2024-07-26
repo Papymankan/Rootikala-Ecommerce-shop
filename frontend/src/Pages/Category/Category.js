@@ -310,8 +310,9 @@ export default function Category() {
             {
               fetchComplete ? (showProducts.length >= 1 ? showProducts.map(product => (<AllProductsCard {...product} />)) : (
                 <div className="NoProductFound">
-                  <img src="/Images/download.svg" />
+                  <img src="/Images/2791942_prev_ui.png" />
                   <span>عجیبه! محصولی یافت نشد</span>
+                  {/* frontend\public\Images\2791942_prev_ui.png */}
                 </div>
               )) : <Loader />
             }

@@ -18,18 +18,17 @@ import { Link, useParams } from "react-router-dom";
 import AuthContext from "../../Context/Context";
 import { toast } from "react-toastify";
 
-// prod_01HQ2XX2RNYZGD98W5YMHHZ46B
-
 export default function Product() {
     const { id } = useParams()
     useEffect(() => {
+        authContext.setLoading(true)
         if (id) {
             fetch(`http://localhost:9000/store/products/${id}`, {
             }).then(res => {
                 return res.json()
             }).then(data => {
                 setProduct(data.product)
-
+                authContext.setLoading(false)
             })
         }
     }, [id])

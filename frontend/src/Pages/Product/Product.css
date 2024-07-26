@@ -227,6 +227,7 @@
     width: 20px !important;
     height: 20px !important;
     border-radius: 10px;
+    border: 1px solid gray;
     /* background-color: black; */
 }
 
