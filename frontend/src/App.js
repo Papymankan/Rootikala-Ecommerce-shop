@@ -148,11 +148,32 @@ function App() {
     setUserCart(cart)
   }, [])
 
+  const DeleteCart = (id) => {
+    setUserCart({})
+    const localData = JSON.parse(localStorage.getItem('user'))
+    fetch(`http://localhost:9000/store/customers/me`, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': `Bearer ${localData.token}`
+      },
+      body: JSON.stringify({
+        metadata: {
+          cartID: ''
+        }
+      })
+    }).then(res => {
+      if(res.ok){
+        window.location.reload()
+      }
+    })
+  }
+
   const setLoading = (state) => {
     setLoader(state)
-    if(state){
+    if (state) {
       document.body.style.overflow = 'hidden'
-    }else{
+    } else {
       document.body.style.overflow = 'auto'
     }
   }
@@ -170,7 +191,7 @@ function App() {
           setIsloggedIn(true)
           setToken(localData.token)
           setUserInfos(data)
-          if (data.customer.metadata) {
+          if (data.customer.metadata && data.customer.metadata.cartID) {
             getCart(data.customer.metadata.cartID)
           }
         })
@@ -191,13 +212,13 @@ function App() {
 
   return (
     <>
-    {
-      loader &&
-      <div class="overlay">
-        <Loader id='overlayLoader' />
-      </div>
-    }
-      
+      {
+        loader &&
+        <div class="overlay">
+          <Loader id='overlayLoader' />
+        </div>
+      }
+
       <div className="App">
 
         <AuthContext.Provider
@@ -212,7 +233,8 @@ function App() {
             getCart,
             setCart,
             setCustomer,
-            setLoading
+            setLoading,
+            DeleteCart
           }}
         >
           {router}

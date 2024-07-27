@@ -96,6 +96,7 @@ export default function Cart() {
                     body: JSON.stringify(obj.address)
                 }).then(res => res.json()).then(data => {
                     authContext.setCustomer(data)
+                    setInputDisable(true)
                     setStep(3)
                 })
             } else {
@@ -109,11 +110,45 @@ export default function Cart() {
                 }).then(res => res.json()).then(data => {
                     authContext.setCustomer(data)
                     setStep(3)
+                    setInputDisable(true)
                 })
             }
 
         } else {
             setStep(3)
+        }
+
+        if (authContext.userCart.payment_sessions.length == 0) {
+            fetch(`http://localhost:9000/store/carts/${authContext.userCart.id}/payment-sessions`, {
+                method: 'POST',
+            }).then(res => res.json()).then(data => {
+                authContext.setCart(data.cart)
+                fetch(`http://localhost:9000/store/carts/${authContext.userCart.id}/complete`, {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                }).then(res => res.json()).then(data => {
+                    if (data.type == 'order') {
+                        notify2('سفارش شما ثبت شد')
+                        navigate('/')
+                        authContext.DeleteCart()
+                    }
+                })
+            })
+        } else {
+            fetch(`http://localhost:9000/store/carts/${authContext.userCart.id}/complete`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            }).then(res => res.json()).then(data => {
+                if (data.type == 'order') {
+                    notify2('سفارش شما ثبت شد')
+                    navigate('/')
+                    authContext.DeleteCart()
+                }
+            })
         }
     }
     const IncreaseQuantity = (item) => {
@@ -231,6 +266,7 @@ export default function Cart() {
             }
         }
 
+
     }, [authContext.userCart.id])
 
     const [formState, onInputHandler, onInputSubmit] = useForm(
@@ -262,13 +298,13 @@ export default function Cart() {
         <>
             <NavBar />
             <div className="Container" id="purchaseProductSteps_Container">
-                <div className={step == 1 ? 'purchaseProductStep purchaseProductStep_active' : 'purchaseProductStep'} onClick={()=>setStep(1)}>
+                <div className={step == 1 ? 'purchaseProductStep purchaseProductStep_active' : 'purchaseProductStep'} onClick={() => setStep(1)}>
                     <span>
                         <CiShoppingCart />
                         سبد خرید
                     </span>
                 </div>
-                <div className={step == 2 ? 'purchaseProductStep purchaseProductStep_active' : 'purchaseProductStep'} onClick={()=>setStep(2)}>
+                <div className={step == 2 ? 'purchaseProductStep purchaseProductStep_active' : 'purchaseProductStep'} onClick={() => setStep(2)}>
                     <span>
                         <LiaShippingFastSolid />
                         شیوه ارسال

@@ -12,6 +12,7 @@ const AuthContext = createContext({
     setCart: () => { },
     setCustomer: () => { },
     setLoading: () => { },
+    DeleteCart: () => { },
 })
 
 export default AuthContext
