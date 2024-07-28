@@ -497,14 +497,25 @@ export default function Cart() {
                                 notify('سبد خرید شما خالی است')
                             }
                         } else if (step == 2) {
-                            if (authContext.userCart.shipping_methods.length > 0) {
-                                setStep(3)
-                                completeCart()
+                            if (authContext.userCart.items && authContext.userCart.items.length > 0) {
+                                if (authContext.userCart.shipping_methods.length > 0) {
+                                    setStep(3)
+                                    completeCart()
+                                } else {
+                                    notify('شیوه ارسال را انتخاب نمایید')
+                                }
                             } else {
-                                notify('شیوه ارسال را انتخاب نمایید')
+                                notify('سبد خرید شما خالی است')
+                                setStep(1)
                             }
+
                         } else if (step == 3) {
-                            CompletePurchase()
+                            if (authContext.userCart.items && authContext.userCart.items.length > 0) {
+                                CompletePurchase()
+                            } else {
+                                notify('سبد خرید شما خالی است')
+                                setStep(1)
+                            }
                         }
                     }}>{step == 3 ? 'پرداخت' : 'ادامه فرایند پرداخت'}</button>
                 </div>
@@ -518,14 +529,25 @@ export default function Cart() {
                             notify('سبد خرید شما خالی است')
                         }
                     } else if (step == 2) {
-                        if (authContext.userCart.shipping_methods.length > 0) {
-                            setStep(3)
-                            completeCart()
+                        if (authContext.userCart.items && authContext.userCart.items.length > 0) {
+                            if (authContext.userCart.shipping_methods.length > 0) {
+                                setStep(3)
+                                completeCart()
+                            } else {
+                                notify('شیوه ارسال را انتخاب نمایید')
+                            }
                         } else {
-                            notify('شیوه ارسال را انتخاب نمایید')
+                            notify('سبد خرید شما خالی است')
+                            setStep(1)
                         }
+
                     } else if (step == 3) {
-                        CompletePurchase()
+                        if (authContext.userCart.items && authContext.userCart.items.length > 0) {
+                            CompletePurchase()
+                        } else {
+                            notify('سبد خرید شما خالی است')
+                            setStep(1)
+                        }
                     }
                 }}>{step == 3 ? 'پرداخت' : 'ادامه فرایند پرداخت'}</button>
                 <div>
