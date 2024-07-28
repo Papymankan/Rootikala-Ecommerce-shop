@@ -97,7 +97,6 @@ export default function Cart() {
                 }).then(res => res.json()).then(data => {
                     authContext.setCustomer(data)
                     setInputDisable(true)
-                    setStep(3)
                 })
             } else {
                 fetch(`http://localhost:9000/store/customers/me/addresses`, {
@@ -109,15 +108,15 @@ export default function Cart() {
                     body: JSON.stringify(obj)
                 }).then(res => res.json()).then(data => {
                     authContext.setCustomer(data)
-                    setStep(3)
                     setInputDisable(true)
                 })
             }
 
-        } else {
-            setStep(3)
         }
+    }
 
+    const CompletePurchase = () => {
+        const localData = JSON.parse(localStorage.getItem('user'))
         if (authContext.userCart.payment_sessions.length == 0) {
             fetch(`http://localhost:9000/store/carts/${authContext.userCart.id}/payment-sessions`, {
                 method: 'POST',
@@ -151,6 +150,7 @@ export default function Cart() {
             })
         }
     }
+
     const IncreaseQuantity = (item) => {
         if (item.quantity < item.variant.inventory_quantity) {
             const updatedQuantity = {
@@ -298,26 +298,46 @@ export default function Cart() {
         <>
             <NavBar />
             <div className="Container" id="purchaseProductSteps_Container">
-                <div className={step == 1 ? 'purchaseProductStep purchaseProductStep_active' : 'purchaseProductStep'} onClick={() => setStep(1)}>
+                <div className={step == 1 ? 'purchaseProductStep purchaseProductStep_active' : 'purchaseProductStep'} onClick={() => {
+                    setStep(1)
+                }}>
                     <span>
                         <CiShoppingCart />
                         سبد خرید
                     </span>
                 </div>
-                <div className={step == 2 ? 'purchaseProductStep purchaseProductStep_active' : 'purchaseProductStep'} onClick={() => setStep(2)}>
+                <div className={step == 2 ? 'purchaseProductStep purchaseProductStep_active' : 'purchaseProductStep'} onClick={() => {
+                    if (authContext.userCart.items && authContext.userCart.items.length > 0) {
+                        setStep(2)
+                    } else {
+                        notify('سبد خرید شما خالی است')
+                    }
+                }}>
                     <span>
                         <LiaShippingFastSolid />
                         شیوه ارسال
                     </span>
                 </div>
-                <div className={step == 3 ? 'purchaseProductStep purchaseProductStep_active' : 'purchaseProductStep'}>
+                <div className={step == 3 ? 'purchaseProductStep purchaseProductStep_active' : 'purchaseProductStep'} onClick={() => {
+                    if (authContext.userCart.items && authContext.userCart.items.length > 0) {
+                        if (authContext.userCart.shipping_methods.length > 0) {
+                            setStep(3)
+                            completeCart()
+                        } else {
+                            notify('شیوه ارسال را انتخاب نمایید')
+                            setStep(2)
+                        }
+                    } else {
+                        notify('سبد خرید شما خالی است')
+                    }
+                }}>
                     <span>
                         <SlWallet />
                         پرداخت
                     </span>
                 </div>
             </div>
-            <div className="Container" id="CartSteps_Container">
+            <div className="Container" id="CartSteps_Container" style={step == 3 ? ({ justifyContent: 'center' }) : ({ justifyContent: 'space-between' })}>
                 {
                     step == 1 && (
                         <div className="CartStep">
@@ -445,7 +465,7 @@ export default function Cart() {
                     )
                 }
 
-                <div className="CartPricing">
+                <div className="CartPricing" >
                     <div className="CartPricing_Price">
                         <span>قیمت کالا ها ({authContext.userCart.items && authContext.userCart.items.length.toLocaleString().EntoFa()})</span>
                         <span>{authContext.userCart.subtotal && (authContext.userCart.subtotal.toLocaleString()).EntoFa()} تومان</span>
@@ -478,18 +498,36 @@ export default function Cart() {
                             }
                         } else if (step == 2) {
                             if (authContext.userCart.shipping_methods.length > 0) {
+                                setStep(3)
                                 completeCart()
                             } else {
                                 notify('شیوه ارسال را انتخاب نمایید')
                             }
-                        } else {
-
+                        } else if (step == 3) {
+                            CompletePurchase()
                         }
-                    }}>ادامه فرایند پرداخت</button>
+                    }}>{step == 3 ? 'پرداخت' : 'ادامه فرایند پرداخت'}</button>
                 </div>
             </div>
             <div className="CartPricing_fixed">
-                <button onClick={completeCart}>ادامه فرایند پرداخت</button>
+                <button onClick={() => {
+                    if (step == 1) {
+                        if (authContext.userCart.items && authContext.userCart.items.length > 0) {
+                            setStep(2)
+                        } else {
+                            notify('سبد خرید شما خالی است')
+                        }
+                    } else if (step == 2) {
+                        if (authContext.userCart.shipping_methods.length > 0) {
+                            setStep(3)
+                            completeCart()
+                        } else {
+                            notify('شیوه ارسال را انتخاب نمایید')
+                        }
+                    } else if (step == 3) {
+                        CompletePurchase()
+                    }
+                }}>{step == 3 ? 'پرداخت' : 'ادامه فرایند پرداخت'}</button>
                 <div>
                     <span>مبلغ قابل پرداخت</span>
                     <span>{authContext.userCart.subtotal && (authContext.userCart.total.toLocaleString()).EntoFa()} تومان</span>
