@@ -7,6 +7,7 @@ import { LiaTimesSolid } from "react-icons/lia";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { GoSignIn } from "react-icons/go";
 import { IoIosArrowBack } from "react-icons/io";
+import { SlLogout } from "react-icons/sl";
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import './NavBar.css'
 import MenuBar from "../MenuBar/MenuBar";
@@ -139,8 +140,8 @@ export default function NavBar() {
                   <div className="actionMenuList">
                     <ul>
                       <li>
-                        <Link>
-                          <Avatar sx={{ bgcolor: '#10B981', marginLeft: '10px', width: 30, height: 30, display: "flex", justifyContent: 'center', alignItems: 'center' }}>P</Avatar>
+                        <Link to={'/dashboard'}>
+                          <Avatar sx={{ bgcolor: '#10B981', marginLeft: '10px', width: 30, height: 30, display: "flex", justifyContent: 'center', alignItems: 'center', fontSize: '19px' }}>{authContext.userInfos.customer.first_name[0]}</Avatar>
                           {authContext.userInfos.customer.first_name + ' ' + authContext.userInfos.customer.last_name}  <IoIosArrowBack />
                         </Link>
                       </li>
@@ -150,16 +151,10 @@ export default function NavBar() {
                         </Link>
                       </li>
                       <li>
-                        <Link>
-                          <HiOutlineShoppingBag />پیام ها
-                        </Link>
-                      </li>
-                      <li>
                         <Link onClick={() => {
-
                           authContext.logout()
                         }} to={'/'}>
-                          <HiOutlineShoppingBag />خروج
+                          <SlLogout />خروج
                         </Link>
                       </li>
                     </ul>
@@ -209,7 +204,7 @@ export default function NavBar() {
                       <ul>
                         <li>
                           <Link>
-                            <Avatar sx={{ bgcolor: '#10B981', marginLeft: '10px', width: 30, height: 30, display: "flex", justifyContent: 'center', alignItems: 'center' }}>P</Avatar>
+                            <Avatar sx={{ bgcolor: '#10B981', marginLeft: '10px', width: 30, height: 30, display: "flex", justifyContent: 'center', alignItems: 'center', fontSize: '19px' }}>{authContext.userInfos.customer.first_name[0]}</Avatar>
                             {authContext.userInfos.customer.first_name + ' ' + authContext.userInfos.customer.last_name}  <IoIosArrowBack />
                           </Link>
                         </li>
@@ -219,15 +214,10 @@ export default function NavBar() {
                           </Link>
                         </li>
                         <li>
-                          <Link>
-                            <HiOutlineShoppingBag />پیام ها
-                          </Link>
-                        </li>
-                        <li>
                           <Link onClick={() => {
                             authContext.logout()
                           }} to={'/'}>
-                            <HiOutlineShoppingBag />خروج
+                            <SlLogout />خروج
                           </Link>
                         </li>
                       </ul>

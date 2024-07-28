@@ -7,6 +7,8 @@ import Sales from "./Pages/Sales/Sales";
 import Product from "./Pages/Product/Product";
 import Cart from "./Pages/Cart/Cart";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+import DashBoard from "./Pages/DashBoard/DashBoard";
+import DashBoardMain from "./Pages/DashBoard/DashBoardMain/DashBoardMain";
 
 const routes = [
     { path: '/', element: <Home /> },
@@ -17,6 +19,9 @@ const routes = [
     { path: '/sales', element: <Sales /> },
     { path: '/product/:id', element: <Product /> },
     { path: '/cart', element: <PrivateRoute> <Cart /> </PrivateRoute> },
+    { path: '/dashboard/*', element: <DashBoard/> , children:[
+        {path: 'main', element: <DashBoardMain/> }
+    ]},
 ]
 
 export default routes

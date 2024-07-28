@@ -1,0 +1,117 @@
+#dashboard_Container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-top: 60px;
+    font-family: var(--font);
+}
+
+.dashboard_Menu {
+    width: 25%;
+    padding: 25px;
+    box-shadow: 0px 0px 30px -12px rgba(0, 0, 0, 0.68);
+    -webkit-box-shadow: 0px 0px 30px -12px rgba(0, 0, 0, 0.68);
+    -moz-box-shadow: 0px 0px 30px -12px rgba(0, 0, 0, 0.68);
+    border-radius: 10px;
+    background-color: white;
+}
+
+.dashboard {
+    width: 72%;
+    padding: 20px;
+    box-shadow: 0px 0px 30px -12px rgba(0, 0, 0, 0.68);
+    -webkit-box-shadow: 0px 0px 30px -12px rgba(0, 0, 0, 0.68);
+    -moz-box-shadow: 0px 0px 30px -12px rgba(0, 0, 0, 0.68);
+    border-radius: 10px;
+    background-color: white;
+}
+
+.Profile {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Profile_Detail {
+    display: flex;
+    align-items: center;
+}
+
+.Profile_Name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Profile_Name>span:first-of-type {
+    font-size: 18px;
+}
+
+.Profile>svg {
+    font-size: 25px;
+    color: var(--green);
+    cursor: pointer;
+}
+
+.dashboard_Menu_actionList {
+    width: 100%;
+    border-top: 1px solid var(--gray);
+    margin-top: 20px;
+}
+
+.dashboard_Menu_actionList>ul {
+    width: 100%;
+    margin-top: 10px 0;
+    padding: 0;
+    height: auto;
+}
+
+.dashboard_Menu_actionList>ul>li {
+    width: 100%;
+    margin: 5px 0;
+    height: auto;
+
+    border-radius: 10px;
+}
+
+.dashboard_Menu_actionList>ul>li:hover {
+    background-color: var(--gray);
+}
+
+.dashboard_Menu_actionList>ul>li>a {
+    width: 100%;
+    padding: 15px 10px;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.dashboard_Menu_actionList>ul>li>a>svg {
+    font-size: 26px;
+    margin-left: 20px;
+}
+
+.dashboard_Menu_actionList>ul>li:last-of-type {
+    background: none;
+    color: red !important;
+}
+
+.dashboard_Menu_actionList>ul>li:last-of-type>a {
+    color: red !important;
+}
+
+.dashboard_Menu_actionList-active {
+    background-color: #E6F8F2 !important;
+}
+
+.dashboard_Menu_actionList-active>a {
+    color: var(--green) !important;
+}
+
+@media (max-width: 1150px) {
+    #dashboard_Container {
+        /* flex-direction: column; */
+    }
+}

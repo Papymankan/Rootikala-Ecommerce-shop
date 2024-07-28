@@ -178,8 +178,8 @@ function App() {
     }
   }
 
-  const fun = () => {
-    console.log('APP');
+  useEffect(() => {
+        console.log('APP');
     const localData = JSON.parse(localStorage.getItem('user'))
     if (localData) {
       fetch('http://localhost:9000/store/auth', {
@@ -196,11 +196,6 @@ function App() {
           }
         })
     }
-  }
-
-
-  useEffect(() => {
-    fun()
   }, [login])
 
   const { pathname } = useLocation();
