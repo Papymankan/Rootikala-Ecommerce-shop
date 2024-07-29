@@ -91,15 +91,15 @@
 }
 
 .dashboard_content_order_action:nth-of-type(2) {
-    background-color: var(--green);
+    background-color: #EAB308;
 }
 
 .dashboard_content_order_action:nth-of-type(3) {
-    background-color: #DC2828;
+    background-color: var(--green);
 }
 
 .dashboard_content_order_action:nth-of-type(4) {
-    background-color: #EAB308;
+    background-color: #DC2828;
 }
 
 .dashboard_content_orders {

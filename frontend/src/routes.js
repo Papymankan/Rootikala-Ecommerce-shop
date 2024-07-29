@@ -19,9 +19,11 @@ const routes = [
     { path: '/sales', element: <Sales /> },
     { path: '/product/:id', element: <Product /> },
     { path: '/cart', element: <PrivateRoute> <Cart /> </PrivateRoute> },
-    { path: '/dashboard/*', element: <DashBoard/> , children:[
-        {path: 'main', element: <DashBoardMain/> }
-    ]},
+    {
+        path: '/dashboard/*', element: <PrivateRoute><DashBoard /></PrivateRoute>, children: [
+            { path: 'main', element: <DashBoardMain /> }
+        ]
+    },
 ]
 
 export default routes

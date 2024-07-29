@@ -24,7 +24,7 @@ export default function PrivateRoute({ children }) {
         const localData = JSON.parse(localStorage.getItem('user'))
         if (!localData) {
             navigate('/login')
-            notify('برای مشاهده سبد خرید ابتدا وارد حساب کاربری خود شوید')
+            notify('برای مشاهده ابتدا وارد حساب کاربری خود شوید')
         } else if (authContext.userInfos.customer && !authContext.userInfos.customer.metadata) {
             navigate('/')
             notify('سبد خریدی برای شما وجود ندارد')

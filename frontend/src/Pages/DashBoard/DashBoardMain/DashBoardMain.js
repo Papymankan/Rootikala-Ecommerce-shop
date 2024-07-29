@@ -1,13 +1,49 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import './DashBoardMain.css'
 import EntoFa from "../../../funcs/EntoFa/EntoFa";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { MdOutlineAddLocationAlt, MdOutlineManageAccounts, MdLockOpen } from "react-icons/md";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
+import AuthContext from "../../../Context/Context";
 
 
 export default function DashBoardMain() {
+
+  const authContext = useContext(AuthContext)
+  const [orders, setOrders] = useState({
+    'cancle': 0,
+    'new': 0,
+    'fulfilling': 0,
+    'shipped': 0
+  })
+
+  useEffect(() => {
+    setOrders({
+      'cancle': 0,
+      'new': 0,
+      'fulfilling': 0,
+      'shipped': 0
+    })
+    if (authContext.userInfos.customer && authContext.userInfos.customer.orders.length > 0) {
+      authContext.userInfos.customer.orders.map(order => {
+        if (order.canceled_at) {
+          setOrders({ ...orders, 'cancle': orders['cancle'] + 1 })
+          return true
+        } else if (order.fulfillment_status == 'not_fulfilled') {
+          setOrders({ ...orders, 'new': orders['new'] + 1 })
+          return true
+        } else if (order.fulfillment_status == 'fulfilled') {
+          setOrders({ ...orders, 'fulfilling': orders['fulfilling'] + 1 })
+          return true
+        } else if (order.fulfillment_status == 'shipped') {
+          setOrders({ ...orders, 'shipped': orders['shipped'] + 1 })
+          return true
+        }
+      })
+    }
+  }, [authContext.userInfos])
+
   return (
     <>
       <div className="dashboard_content">
@@ -44,29 +80,29 @@ export default function DashBoardMain() {
             <div className="dashboard_content_order_action">
               <span><HiOutlineShoppingBag /></span>
               <div>
-                <span>{(0).toLocaleString().EntoFa()} سفارش</span>
-                <span>فعلی</span>
+                <span>{(orders['new']).toLocaleString().EntoFa()} سفارش</span>
+                <span>در انتظار ارسال</span>
               </div>
             </div>
             <div className="dashboard_content_order_action">
               <span><MdLockOpen /></span>
               <div>
-                <span>{(0).toLocaleString().EntoFa()} سفارش</span>
-                <span>فعلی</span>
+                <span>{(orders['fulfilling']).toLocaleString().EntoFa()} سفارش</span>
+                <span>در حال ارسال</span>
               </div>
             </div>
             <div className="dashboard_content_order_action">
               <span><MdOutlineAddLocationAlt /></span>
               <div>
-                <span>{(0).toLocaleString().EntoFa()} سفارش</span>
-                <span>فعلی</span>
+                <span>{(orders['shipped']).toLocaleString().EntoFa()} سفارش</span>
+                <span>ارسال شده</span>
               </div>
             </div>
             <div className="dashboard_content_order_action">
               <span><MdOutlineAddLocationAlt /></span>
               <div>
-                <span>{(0).toLocaleString().EntoFa()} سفارش</span>
-                <span>فعلی</span>
+                <span>{(orders['cancle']).toLocaleString().EntoFa()} سفارش</span>
+                <span>کنسل شده</span>
               </div>
             </div>
           </div>
