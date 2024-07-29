@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import './DashBoardMain.css'
 import EntoFa from "../../../funcs/EntoFa/EntoFa";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
@@ -11,36 +11,39 @@ import AuthContext from "../../../Context/Context";
 export default function DashBoardMain() {
 
   const authContext = useContext(AuthContext)
-  const [orders, setOrders] = useState({
+  const orders = useRef({
     'cancle': 0,
     'new': 0,
     'fulfilling': 0,
     'shipped': 0
   })
+  const [status, setStatus] = useState(false)
 
   useEffect(() => {
-    setOrders({
+    orders.current = {
       'cancle': 0,
       'new': 0,
       'fulfilling': 0,
       'shipped': 0
-    })
+    }
+
     if (authContext.userInfos.customer && authContext.userInfos.customer.orders.length > 0) {
       authContext.userInfos.customer.orders.map(order => {
         if (order.canceled_at) {
-          setOrders({ ...orders, 'cancle': orders['cancle'] + 1 })
+          orders.current = { ...orders.current, 'cancle': orders.current['cancle'] + 1 }
           return true
         } else if (order.fulfillment_status == 'not_fulfilled') {
-          setOrders({ ...orders, 'new': orders['new'] + 1 })
+          orders.current = { ...orders.current, 'new': orders.current['new'] + 1 }
           return true
         } else if (order.fulfillment_status == 'fulfilled') {
-          setOrders({ ...orders, 'fulfilling': orders['fulfilling'] + 1 })
+          orders.current = { ...orders.current, 'fulfilling': orders.current['fulfilling'] + 1 }
           return true
         } else if (order.fulfillment_status == 'shipped') {
-          setOrders({ ...orders, 'shipped': orders['shipped'] + 1 })
+          orders.current = { ...orders.current, 'shipped': orders.current['shipped'] + 1 }
           return true
         }
       })
+      setStatus(true)
     }
   }, [authContext.userInfos])
 
@@ -80,28 +83,28 @@ export default function DashBoardMain() {
             <div className="dashboard_content_order_action">
               <span><HiOutlineShoppingBag /></span>
               <div>
-                <span>{(orders['new']).toLocaleString().EntoFa()} سفارش</span>
+                <span>{(orders.current['new']).toLocaleString().EntoFa()} سفارش</span>
                 <span>در انتظار ارسال</span>
               </div>
             </div>
             <div className="dashboard_content_order_action">
               <span><MdLockOpen /></span>
               <div>
-                <span>{(orders['fulfilling']).toLocaleString().EntoFa()} سفارش</span>
+                <span>{(orders.current['fulfilling']).toLocaleString().EntoFa()} سفارش</span>
                 <span>در حال ارسال</span>
               </div>
             </div>
             <div className="dashboard_content_order_action">
               <span><MdOutlineAddLocationAlt /></span>
               <div>
-                <span>{(orders['shipped']).toLocaleString().EntoFa()} سفارش</span>
+                <span>{(orders.current['shipped']).toLocaleString().EntoFa()} سفارش</span>
                 <span>ارسال شده</span>
               </div>
             </div>
             <div className="dashboard_content_order_action">
               <span><MdOutlineAddLocationAlt /></span>
               <div>
-                <span>{(orders['cancle']).toLocaleString().EntoFa()} سفارش</span>
+                <span>{(orders.current['cancle']).toLocaleString().EntoFa()} سفارش</span>
                 <span>کنسل شده</span>
               </div>
             </div>
@@ -117,7 +120,7 @@ export default function DashBoardMain() {
             {
               authContext.userInfos.customer && authContext.userInfos.customer.orders.length > 0 ? (
                 authContext.userInfos.customer.orders.map(order => {
-                  
+
                   let paid = 0
                   order.items.map(item => {
                     paid += item.quantity * item.unit_price
@@ -131,21 +134,34 @@ export default function DashBoardMain() {
                         <div className="dashboard_content_order">
                           <div className="dashboard_content_order_status">
                             {
-                              order.fulfillment_status == 'not_fulfilled' ? <span style={{ color: '#EAB308' }}><MdOutlineManageAccounts /> تایید نشده</span> :
-                                <span><MdOutlineManageAccounts /> تایید شده</span>
+                              order.canceled_at ? (
+                                <span style={{ color: 'red' }}><MdOutlineManageAccounts />کنسل شده</span>
+                              ) : (
+                                order.payment_status == 'awaiting' ? <span style={{ color: '#0EA5E9' }}><MdOutlineManageAccounts /> تایید نشده</span> :
+                                  <span><MdOutlineManageAccounts /> تایید شده</span>
+                              )
                             }
                             <IoIosArrowBack />
                           </div>
                           <div className="dashboard_content_order_detail">
                             {
-                              order.fulfillment_status == 'not_fulfilled' && <span style={{ color: 'red' }}>منتظر ارسال</span>
+                              order.canceled_at ? (
+                                <span style={{ color: 'red' }}>کنسل شده</span>
+                              ) : (
+                                <>
+                                  {
+                                    order.fulfillment_status == 'not_fulfilled' && <span style={{ color: '#0EA5E9' }}>منتظر ارسال</span>
+                                  }
+                                  {
+                                    order.fulfillment_status == 'fulfilled' && <span style={{ color: '#EAB308' }}>درحال ارسال</span>
+                                  }
+                                  {
+                                    order.fulfillment_status == 'shipped' && <span>ارسال شده</span>
+                                  }
+                                </>
+                              )
                             }
-                            {
-                              order.fulfillment_status == 'fulfilled' && <span style={{ color: '#EAB308' }}>درحال ارسال</span>
-                            }
-                            {
-                              order.fulfillment_status == 'shipped' && <span>ارسال شده</span>
-                            }
+
                             <span>مبلغ کل : <span>{(paid).toLocaleString().EntoFa()} <span>تومان</span></span></span>
                             <span><span>تاریخ :</span> {date1.toLocaleDateString('fa-IR')}</span>
                           </div>
