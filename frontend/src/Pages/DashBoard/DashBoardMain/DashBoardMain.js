@@ -114,19 +114,50 @@ export default function DashBoardMain() {
             سفارشات
           </div>
           <div className="dashboard_content_orders">
-            <Link>
-              <div className="dashboard_content_order">
-                <div className="dashboard_content_order_status">
-                  <span><MdOutlineManageAccounts /> تایید شده</span>
-                  <IoIosArrowBack />
-                </div>
-                <div className="dashboard_content_order_detail">
-                  <span>در حال بارگیری</span>
-                  <span>مبلغ کل : <span>{(12000000).toLocaleString().EntoFa()} <span>تومان</span></span></span>
-                  <span><span>تاریخ :</span> 3 / 12 / 1402</span>
-                </div>
-              </div>
-            </Link>
+            {
+              authContext.userInfos.customer && authContext.userInfos.customer.orders.length > 0 ? (
+                authContext.userInfos.customer.orders.map(order => {
+                  
+                  let paid = 0
+                  order.items.map(item => {
+                    paid += item.quantity * item.unit_price
+                  })
+
+                  let date1 = new Date(`${order.created_at.slice(5, 7)}/${order.created_at.slice(8, 10)}/${order.created_at.slice(0, 4)}`)
+
+                  return (
+                    <>
+                      <Link>
+                        <div className="dashboard_content_order">
+                          <div className="dashboard_content_order_status">
+                            {
+                              order.fulfillment_status == 'not_fulfilled' ? <span style={{ color: '#EAB308' }}><MdOutlineManageAccounts /> تایید نشده</span> :
+                                <span><MdOutlineManageAccounts /> تایید شده</span>
+                            }
+                            <IoIosArrowBack />
+                          </div>
+                          <div className="dashboard_content_order_detail">
+                            {
+                              order.fulfillment_status == 'not_fulfilled' && <span style={{ color: 'red' }}>منتظر ارسال</span>
+                            }
+                            {
+                              order.fulfillment_status == 'fulfilled' && <span style={{ color: '#EAB308' }}>درحال ارسال</span>
+                            }
+                            {
+                              order.fulfillment_status == 'shipped' && <span>ارسال شده</span>
+                            }
+                            <span>مبلغ کل : <span>{(paid).toLocaleString().EntoFa()} <span>تومان</span></span></span>
+                            <span><span>تاریخ :</span> {date1.toLocaleDateString('fa-IR')}</span>
+                          </div>
+                        </div>
+                      </Link>
+                    </>
+                  )
+                })
+              ) : <div className="alert alert-warning">سفارشی وجود ندارد</div>
+            }
+
+
           </div>
         </div>
       </div>
