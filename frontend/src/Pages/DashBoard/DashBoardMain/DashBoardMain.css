@@ -1,0 +1,94 @@
+.dashboard_content {
+    width: 100%;
+}
+
+.dashboard_content_title {
+    font-size: 20px;
+    display: inline-block;
+    border-bottom: 5px solid var(--green);
+    padding-bottom: 7px;
+}
+
+.dashboard_content_account_title {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+
+.dashboard_content_account_title>span {
+    margin-left: 20px;
+    padding: 5px;
+    background-color: var(--green);
+    border-radius: 10px;
+}
+
+.dashboard_content_account_actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.dashboard_content_account_action {
+    display: flex;
+    align-items: center;
+    width: 32%;
+    background-color: var(--green);
+    border-radius: 10px;
+    padding: 20px 8px;
+    cursor: pointer;
+    color: white;
+}
+
+.dashboard_content_account_action>span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    margin-left: 15px;
+}
+
+.dashboard_content_account_action:nth-of-type(1) {
+    background-color: #0EA5E9;
+}
+.dashboard_content_account_action:nth-of-type(2) {
+    background-color: #DC2828;
+}
+.dashboard_content_account_action:nth-of-type(3) {
+    background-color: #F43F5E;
+}
+
+
+@media (max-width: 1150px){
+    .dashboard_content_account_action {
+        padding: 15px 6px;
+        font-size: 15px;
+    }
+    .dashboard_content{
+        padding: 10px;
+    }
+}
+@media (max-width: 675px){
+    .dashboard_content_account_action {
+        padding: 14px 5px;
+        font-size: 13px;
+    }
+}
+@media (max-width: 540px){
+    .dashboard_content_account_action {
+        width: 48%;
+    }
+    .dashboard_content_account_action:last-of-type {
+        width: 48%;
+        margin-top: 10px;
+    }
+}
+@media (max-width: 400px){
+    .dashboard_content_account_action {
+        width: 100% !important;
+        margin-top: 10px;
+        font-size: 15px;
+    }
+}

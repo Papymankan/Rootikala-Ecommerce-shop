@@ -140,7 +140,7 @@ export default function NavBar() {
                   <div className="actionMenuList">
                     <ul>
                       <li>
-                        <Link to={'/dashboard'}>
+                        <Link to={'/dashboard/main'}>
                           <Avatar sx={{ bgcolor: '#10B981', marginLeft: '10px', width: 30, height: 30, display: "flex", justifyContent: 'center', alignItems: 'center', fontSize: '19px' }}>{authContext.userInfos.customer.first_name[0]}</Avatar>
                           {authContext.userInfos.customer.first_name + ' ' + authContext.userInfos.customer.last_name}  <IoIosArrowBack />
                         </Link>
@@ -203,7 +203,7 @@ export default function NavBar() {
                     <div className="actionMenuList">
                       <ul>
                         <li>
-                          <Link>
+                          <Link to={'/dashboard/main'}>
                             <Avatar sx={{ bgcolor: '#10B981', marginLeft: '10px', width: 30, height: 30, display: "flex", justifyContent: 'center', alignItems: 'center', fontSize: '19px' }}>{authContext.userInfos.customer.first_name[0]}</Avatar>
                             {authContext.userInfos.customer.first_name + ' ' + authContext.userInfos.customer.last_name}  <IoIosArrowBack />
                           </Link>

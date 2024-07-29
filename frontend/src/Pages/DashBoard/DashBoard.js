@@ -5,7 +5,7 @@ import NavBar from "../../Components/NavBar/NavBar";
 import AuthContext from "../../Context/Context";
 import { FaRegEdit } from "react-icons/fa";
 import { Avatar, Drawer } from "@mui/material";
-import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { RiHomeSmile2Line } from "react-icons/ri";
 import { CiMenuBurger } from "react-icons/ci";
