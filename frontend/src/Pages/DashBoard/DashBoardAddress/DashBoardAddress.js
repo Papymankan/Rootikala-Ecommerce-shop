@@ -3,14 +3,15 @@ import './DashBoardAddress.css'
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { FaRegEdit } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
-import { maxValidator, minValidator, requiredValidator, emailValidator , phoneValidator } from "../../../Validation/rules";
+import { maxValidator, minValidator, requiredValidator, emailValidator, phoneValidator } from "../../../Validation/rules";
 import AuthContext from "../../../Context/Context";
 import Input from "../../../Components/Input/Input"
 import { useForm } from "../../../hooks/useForm";
+import { toast } from "react-toastify";
 
 export default function DashBoardAddress() {
 
-    const [inputDisable, setInputDisable] = useState(false)
+    const [inputDisable, setInputDisable] = useState(true)
 
     const authContext = useContext(AuthContext)
 
@@ -35,14 +36,52 @@ export default function DashBoardAddress() {
         }, false
     )
 
+    const notify2 = (text) => toast.success(text, {
+        position: "top-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+    });
+
+    const updateUser = () => {
+        const localData = JSON.parse(localStorage.getItem('user'))
+
+        fetch(`http://localhost:9000/store/customers/me`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localData.token}`
+            },
+            body: JSON.stringify({
+                first_name : formState.inputs.name.value,
+                last_name : formState.inputs.lastName.value,
+                email : formState.inputs.email.value,
+                phone : formState.inputs.phone.value
+            })
+        }).then(res => {
+            if(res.ok){
+                setInputDisable(true)
+                notify2('اطلاعات ویرایش شد')
+            }
+            return res.json()
+        }).then(data => {
+            console.log(data);
+        })
+    }
+
+
     return (
         <>
-            <div className="dashboard_address_content">
+            <div className="dashboard_account_content">
                 <div className="dashboard_content_headerTitle">
                     <div className="dashboard_content_title">
                         اطلاعات حساب کاربری
                     </div>
-                    <button><FaRegEdit /> ویرایش اطلاعات</button>
+                    <button onClick={() => setInputDisable(false)}><FaRegEdit /> ویرایش اطلاعات</button>
                 </div>
                 <div className="dashboard_content_inputs">
                     <div className="dashboard_content_input" style={!inputDisable ? ({ backgroundColor: 'white' }) : ({})}>
@@ -102,7 +141,7 @@ export default function DashBoardAddress() {
                             <span>ایمیل</span>
                             <span><FaCheck /></span>
                         </div>
-                        <Input placeholder="ایمیل" id="lastName"
+                        <Input placeholder="ایمیل" id="email"
                             validation={[
                                 requiredValidator(),
                                 emailValidator()
@@ -114,7 +153,10 @@ export default function DashBoardAddress() {
                         />
                     </div>
                 </div>
-                <button>ثبت اطلاعات جدید</button>
+                {
+                    !inputDisable && <button disabled={inputDisable} onClick={updateUser}>ثبت اطلاعات جدید</button>
+                }
+
             </div>
         </>
     );
