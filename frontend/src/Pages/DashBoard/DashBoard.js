@@ -5,7 +5,7 @@ import NavBar from "../../Components/NavBar/NavBar";
 import AuthContext from "../../Context/Context";
 import { FaRegEdit } from "react-icons/fa";
 import { Avatar, Drawer } from "@mui/material";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { RiHomeSmile2Line } from "react-icons/ri";
 import { CiMenuBurger } from "react-icons/ci";
@@ -19,6 +19,7 @@ export default function DashBoard() {
   const navigate = useNavigate()
   const [drawerOpen, setDrawerOpen] = useState(false)
 
+  const { pathname } = useLocation();
 
   const toggleDrawer = (open) => (event) => {
     console.log('clicked');
@@ -39,8 +40,8 @@ export default function DashBoard() {
             </button>
           </div>
           <ul>
-            <li className="dashboard_Menu_actionList-active">
-              <Link>
+            <li className={pathname == '/dashboard/main' && 'dashboard_Menu_actionList-active'}>
+              <Link to={'/dashboard/main'}>
                 <RiHomeSmile2Line />
                 <span>پیشخوان</span>
               </Link>
@@ -57,8 +58,8 @@ export default function DashBoard() {
                 <span>آدرس</span>
               </Link>
             </li>
-            <li>
-              <Link>
+            <li className={pathname == '/dashboard/account' && 'dashboard_Menu_actionList-active'}>
+              <Link to={'/dashboard/account'}>
                 <MdOutlineManageAccounts />
                 <span>اطلاعات حساب کاربری</span>
               </Link>
@@ -97,26 +98,26 @@ export default function DashBoard() {
           </div>
           <div className="dashboard_Menu_actionList">
             <ul>
-              <li className="dashboard_Menu_actionList-active">
-                <Link>
+              <li className={pathname == '/dashboard/main' && 'dashboard_Menu_actionList-active'}>
+                <Link to={'/dashboard/main'}>
                   <RiHomeSmile2Line />
                   <span>پیشخوان</span>
                 </Link>
               </li>
-              <li>
-                <Link>
+              <li className={pathname == '/dashboard/orders' && 'dashboard_Menu_actionList-active'}>
+                <Link to={'/dashboard/orders'}>
                   <HiOutlineShoppingBag />
                   <span>سفارش ها</span>
                 </Link>
               </li>
-              <li>
-                <Link>
+              <li className={pathname == '/dashboard/address' && 'dashboard_Menu_actionList-active'}>
+                <Link to={'/dashboard/address'}>
                   <MdOutlineAddLocationAlt />
                   <span>آدرس</span>
                 </Link>
               </li>
-              <li>
-                <Link>
+              <li className={pathname == '/dashboard/account' && 'dashboard_Menu_actionList-active'}>
+                <Link to={'/dashboard/account'}>
                   <MdOutlineManageAccounts />
                   <span>اطلاعات حساب کاربری</span>
                 </Link>

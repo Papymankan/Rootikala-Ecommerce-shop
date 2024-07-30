@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import './DashBoardAddress.css'
+import './DashBoardAcount.css'
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { FaRegEdit } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
@@ -46,10 +46,37 @@ export default function DashBoardAddress() {
         progress: undefined,
         theme: "colored",
     });
+    const notify = (text) => toast.error(text, {
+        position: "top-right",
+        autoClose: 2500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+    });
 
     const updateUser = () => {
         const localData = JSON.parse(localStorage.getItem('user'))
-
+        if (!formState.isFormValid) {
+            if (!formState.inputs.name.isValid) {
+                notify('نام معتبر نیست')
+            }
+            if (!formState.inputs.lastName.isValid) {
+                notify('نام خانودادگی معتبر نیست')
+            }
+            if (!formState.inputs.email.isValid) {
+                notify('ایمیل معتبر نیست')
+            }
+            if (formState.inputs.phone.value && !formState.inputs.phone.isValid) {
+                notify('شماره تماس معتبر نیست')
+                return true
+            }
+            if (!formState.inputs.email.isValid || !formState.inputs.lastName.isValid || !formState.inputs.name.isValid) {
+                return true
+            }
+        }
         fetch(`http://localhost:9000/store/customers/me`, {
             method: 'POST',
             headers: {
@@ -57,19 +84,18 @@ export default function DashBoardAddress() {
                 'Authorization': `Bearer ${localData.token}`
             },
             body: JSON.stringify({
-                first_name : formState.inputs.name.value,
-                last_name : formState.inputs.lastName.value,
-                email : formState.inputs.email.value,
-                phone : formState.inputs.phone.value
+                first_name: formState.inputs.name.value,
+                last_name: formState.inputs.lastName.value,
+                email: formState.inputs.email.value,
+                phone: formState.inputs.phone.isValid ? formState.inputs.phone.value : null
             })
         }).then(res => {
-            if(res.ok){
+            if (res.ok) {
                 setInputDisable(true)
                 notify2('اطلاعات ویرایش شد')
+                window.location.reload()
             }
             return res.json()
-        }).then(data => {
-            console.log(data);
         })
     }
 
@@ -99,9 +125,7 @@ export default function DashBoardAddress() {
                             Value={authContext.userInfos.customer && authContext.userInfos.customer.first_name}
                             state={formState.inputs}
                         />
-
                     </div>
-
                     <div className="dashboard_content_input" style={!inputDisable ? ({ backgroundColor: 'white' }) : ({})}>
                         <div>
                             <span>نام خانوادگی</span>
@@ -131,7 +155,7 @@ export default function DashBoardAddress() {
                             ]}
                             onInputHandler={onInputHandler}
                             disabled={inputDisable}
-                            Value={authContext.userInfos.customer && authContext.userInfos.customer.phone ? authContext.userInfos.customer.phone : 'ثبت نشده است'}
+                            Value={authContext.userInfos.customer && authContext.userInfos.customer.phone}
                             state={formState.inputs}
                         />
                     </div>

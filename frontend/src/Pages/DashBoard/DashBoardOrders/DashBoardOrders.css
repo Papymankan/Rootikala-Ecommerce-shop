@@ -1,0 +1,80 @@
+.dashboard_orders_content {
+    width: 100%;
+}
+
+.dashboard_orders_filters {
+    width: 100%;
+    display: flex;
+    margin-top: 20px;
+}
+
+.dashboard_orders_filter {
+    margin-left: 20px;
+    padding: 5px;
+    cursor: pointer;
+    transition: .1s all ease-in-out;
+}
+
+.dashboard_orders_filter:hover {
+    border-bottom: 3px solid var(--green);
+    color: var(--green);
+}
+
+.dashboard_orders_filter_active {
+    border-bottom: 3px solid var(--green);
+    color: var(--green);
+}
+.dashboard_orders{
+    width: 100%;
+}
+.dashboard_content_items{
+    width: 100%;
+    display: flex;
+    margin-top: 25px;
+}
+.dashboard_content_item{
+    width: 33%;
+    display: flex;
+    padding: 5px 5px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    align-items: center;
+}
+.dashboard_content_item>img{
+    width: 22%;
+    height: auto;
+    margin-left: 7px;
+}
+.dashboard_content_item>div{    
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 77% !important;
+    color: black;
+}
+.dashboard_content_item>div>span:first-of-type{
+    font-size: 16px;
+    text-align: start;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+.dashboard_content_item>div>span:last-of-type{
+    font-size: 13px;
+}
+
+@media (max-width: 950px) {
+    .dashboard_orders_filter {
+        font-size: 15px;
+        margin-left: 15px;
+    }
+}
+
+@media (max-width: 675px) {
+    .dashboard_orders_filter {
+        font-size: 14px;
+        margin-left: 10px;
+    }
+}
