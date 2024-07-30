@@ -6,7 +6,7 @@
     position: fixed;
     top: 98px;
     transition: all .2s ease-in-out;
-    z-index: 2;
+    z-index: 3;
 }
 
 .topBarRow {
