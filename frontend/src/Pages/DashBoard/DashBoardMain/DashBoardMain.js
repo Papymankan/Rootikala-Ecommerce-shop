@@ -18,6 +18,9 @@ export default function DashBoardMain() {
     'shipped': 0
   })
   const [status, setStatus] = useState(false)
+  const [lastOrder, setLastOrder] = useState({})
+  const [paid, setPaid] = useState(0)
+
 
   useEffect(() => {
     orders.current = {
@@ -45,6 +48,24 @@ export default function DashBoardMain() {
       })
       setStatus(true)
     }
+
+    if (authContext.userInfos.customer && authContext.userInfos.customer.orders.length > 0) {
+      let id = 0
+      let order1 = {}
+      authContext.userInfos.customer.orders.map(order => {
+        if (order.display_id > id) {
+          id = order.display_id
+          order1 = order
+        }
+      })
+      let paid = 0
+      order1.items.map(item => {
+        paid += item.quantity * item.unit_price
+      })
+      setPaid(paid)
+      setLastOrder(order1)
+    }
+
   }, [authContext.userInfos])
 
   return (
@@ -112,71 +133,64 @@ export default function DashBoardMain() {
         </div>
 
         <div className="dashboard_content_account">
-          <div className="dashboard_content_account_title">
-            <span></span>
-            سفارشات
+          <div className="dashboard_content_account__headerTitle">
+            <div className="dashboard_content_account_title">
+              <span></span>
+              آخرین سفارش
+            </div>
+            <Link to={'/dashboard/orders'}>
+              مشاهده همه
+              <IoIosArrowBack />
+            </Link>
           </div>
           <div className="dashboard_content_orders">
             {
-              authContext.userInfos.customer && authContext.userInfos.customer.orders.length > 0 ? (
-                authContext.userInfos.customer.orders.map(order => {
+              lastOrder.id ? (
+                <>
+                  <Link>
+                    <div className="dashboard_content_order">
+                      <div className="dashboard_content_order_status">
+                        {
+                          lastOrder.canceled_at ? (
+                            <span style={{ color: 'red' }}><MdOutlineManageAccounts />کنسل شده</span>
+                          ) : (
+                            lastOrder.payment_status == 'awaiting' ? <span style={{ color: '#0EA5E9' }}><MdOutlineManageAccounts /> تایید نشده</span> :
+                              <span><MdOutlineManageAccounts /> تایید شده</span>
+                          )
+                        }
+                        <IoIosArrowBack />
+                      </div>
+                      <div className="dashboard_content_order_detail">
+                        {
+                          lastOrder.canceled_at ? (
+                            <span style={{ color: 'red' }}>کنسل شده</span>
+                          ) : (
+                            <>
+                              {
+                                lastOrder.fulfillment_status == 'not_fulfilled' && <span style={{ color: '#0EA5E9' }}>منتظر ارسال</span>
+                              }
+                              {
+                                lastOrder.fulfillment_status == 'fulfilled' && <span style={{ color: '#EAB308' }}>درحال ارسال</span>
+                              }
+                              {
+                                lastOrder.fulfillment_status == 'shipped' && <span>ارسال شده</span>
+                              }
+                            </>
+                          )
+                        }
 
-                  let paid = 0
-                  order.items.map(item => {
-                    paid += item.quantity * item.unit_price
-                  })
-
-                  let date1 = new Date(`${order.created_at.slice(5, 7)}/${order.created_at.slice(8, 10)}/${order.created_at.slice(0, 4)}`)
-
-                  return (
-                    <>
-                      <Link>
-                        <div className="dashboard_content_order">
-                          <div className="dashboard_content_order_status">
-                            {
-                              order.canceled_at ? (
-                                <span style={{ color: 'red' }}><MdOutlineManageAccounts />کنسل شده</span>
-                              ) : (
-                                order.payment_status == 'awaiting' ? <span style={{ color: '#0EA5E9' }}><MdOutlineManageAccounts /> تایید نشده</span> :
-                                  <span><MdOutlineManageAccounts /> تایید شده</span>
-                              )
-                            }
-                            <IoIosArrowBack />
-                          </div>
-                          <div className="dashboard_content_order_detail">
-                            {
-                              order.canceled_at ? (
-                                <span style={{ color: 'red' }}>کنسل شده</span>
-                              ) : (
-                                <>
-                                  {
-                                    order.fulfillment_status == 'not_fulfilled' && <span style={{ color: '#0EA5E9' }}>منتظر ارسال</span>
-                                  }
-                                  {
-                                    order.fulfillment_status == 'fulfilled' && <span style={{ color: '#EAB308' }}>درحال ارسال</span>
-                                  }
-                                  {
-                                    order.fulfillment_status == 'shipped' && <span>ارسال شده</span>
-                                  }
-                                </>
-                              )
-                            }
-
-                            <span>مبلغ کل : <span>{(paid).toLocaleString().EntoFa()} <span>تومان</span></span></span>
-                            <span><span>تاریخ :</span> {date1.toLocaleDateString('fa-IR')}</span>
-                          </div>
-                        </div>
-                      </Link>
-                    </>
-                  )
-                })
+                        <span>مبلغ کل : <span>{(paid).toLocaleString().EntoFa()} <span>تومان</span></span></span>
+                        <span><span>تاریخ :</span> {new Date(`${lastOrder.created_at.slice(5, 7)}/${lastOrder.created_at.slice(8, 10)}/${lastOrder.created_at.slice(0, 4)}`).toLocaleDateString('fa-IR')}</span>
+                      </div>
+                    </div>
+                  </Link>
+                </>
               ) : <div className="alert alert-warning">سفارشی وجود ندارد</div>
             }
 
-
           </div>
         </div>
-      </div>
+      </div >
 
     </>
   );
