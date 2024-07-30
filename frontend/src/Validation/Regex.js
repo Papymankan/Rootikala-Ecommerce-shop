@@ -3,5 +3,9 @@ const testEmail = (value) => {
     // const emailPattern = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/g
     return emailPattern.test(value)
 }
+const testPhone = (value) => {
+    const phonePattern = /^(\+98|0)?9\d{9}$/
+    return phonePattern.test(value)
+}
 
-export default {testEmail} 
+export default { testEmail ,  testPhone} 

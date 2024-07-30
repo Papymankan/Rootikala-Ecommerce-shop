@@ -9,6 +9,7 @@ import Cart from "./Pages/Cart/Cart";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import DashBoard from "./Pages/DashBoard/DashBoard";
 import DashBoardMain from "./Pages/DashBoard/DashBoardMain/DashBoardMain";
+import DashBoardAddress from "./Pages/DashBoard/DashBoardAddress/DashBoardAddress";
 
 const routes = [
     { path: '/', element: <Home /> },
@@ -21,7 +22,8 @@ const routes = [
     { path: '/cart', element: <PrivateRoute> <Cart /> </PrivateRoute> },
     {
         path: '/dashboard/*', element: <PrivateRoute><DashBoard /></PrivateRoute>, children: [
-            { path: 'main', element: <DashBoardMain /> }
+            { path: 'main', element: <DashBoardMain /> },
+            { path: 'address', element: <DashBoardAddress /> },
         ]
     },
 ]
