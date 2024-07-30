@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import './DashBoardOrders.css'
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { IoIosArrowBack } from "react-icons/io";
@@ -10,6 +10,40 @@ export default function DashBoardOrders() {
 
     const authContext = useContext(AuthContext)
 
+    const [filter, setFilter] = useState('all')
+    const [showOrders, setShowOrders] = useState([])
+
+    useEffect(() => {
+        if (authContext.userInfos.customer) {
+            let arr = authContext.userInfos.customer.orders.filter(order => {
+                if (filter == 'cancle') {
+                    if (order.canceled_at) {
+                        return order
+                    }
+                }
+                if (filter == 'all') {
+                    return order
+                }
+                if (filter == 'new') {
+                    if (order.fulfillment_status == 'not_fulfilled') {
+                        return order
+                    }
+                }
+                if (filter == 'fulfilled') {
+                    if (order.fulfillment_status == 'fulfilled') {
+                        return order
+                    }
+                }
+                if (filter == 'shipped') {
+                    if (order.fulfillment_status == 'shipped') {
+                        return order
+                    }
+                }
+            })
+            setShowOrders(arr)
+        }
+    }, [filter, authContext.userInfos.customer])
+
     return (
         <>
             <div className="dashboard_orders_content">
@@ -17,26 +51,26 @@ export default function DashBoardOrders() {
                     سفارش ها
                 </div>
                 <div className="dashboard_orders_filters">
-                    <div className="dashboard_orders_filter dashboard_orders_filter_active">
+                    <div className={filter == 'all' ? "dashboard_orders_filter dashboard_orders_filter_active" : 'dashboard_orders_filter'} onClick={() => setFilter('all')}>
                         همه
                     </div>
-                    <div className="dashboard_orders_filter">
+                    <div className={filter == 'new' ? "dashboard_orders_filter dashboard_orders_filter_active" : 'dashboard_orders_filter'} onClick={() => setFilter('new')}>
                         در انتظار ارسال
                     </div>
-                    <div className="dashboard_orders_filter">
+                    <div className={filter == 'fulfilled' ? "dashboard_orders_filter dashboard_orders_filter_active" : 'dashboard_orders_filter'} onClick={() => setFilter('fulfilled')}>
                         در حال ارسال
                     </div>
-                    <div className="dashboard_orders_filter">
+                    <div className={filter == 'shipped' ? "dashboard_orders_filter dashboard_orders_filter_active" : 'dashboard_orders_filter'} onClick={() => setFilter('shipped')}>
                         ارسال شده
                     </div>
-                    <div className="dashboard_orders_filter">
+                    <div className={filter == 'cancle' ? "dashboard_orders_filter dashboard_orders_filter_active" : 'dashboard_orders_filter'} onClick={() => setFilter('cancle')}>
                         کنسل شده
                     </div>
                 </div>
                 <div className="dashboard_orders">
                     {
-                        authContext.userInfos.customer && authContext.userInfos.customer.orders ?
-                            authContext.userInfos.customer.orders.map(order => {
+                        authContext.userInfos.customer && showOrders ?
+                            showOrders.map(order => {
 
                                 let paid = 0
                                 order.items.map(item => {
@@ -47,7 +81,6 @@ export default function DashBoardOrders() {
 
                                 return (
                                     < div className="dashboard_order" >
-                                        <Link>
                                             <div className="dashboard_content_order">
                                                 <div className="dashboard_content_order_status">
                                                     {
@@ -90,6 +123,7 @@ export default function DashBoardOrders() {
                                                                 <div>
                                                                     <span>{item.title}</span>
                                                                     <span>تعداد : {item.quantity}</span>
+                                                                    <span>{item.description}</span>
                                                                 </div>
                                                             </div>
                                                         ))
@@ -97,7 +131,6 @@ export default function DashBoardOrders() {
 
                                                 </div>
                                             </div>
-                                        </Link>
                                     </div>
                                 )
 

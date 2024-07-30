@@ -24,35 +24,42 @@
     border-bottom: 3px solid var(--green);
     color: var(--green);
 }
-.dashboard_orders{
+
+.dashboard_orders {
     width: 100%;
 }
-.dashboard_content_items{
+
+.dashboard_content_items {
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
     margin-top: 25px;
 }
-.dashboard_content_item{
+
+.dashboard_content_item {
     width: 33%;
-    display: flex;
     padding: 5px 5px;
     border: 1px solid gray;
     border-radius: 10px;
+    display: flex;
     align-items: center;
 }
-.dashboard_content_item>img{
+
+.dashboard_content_item>img {
     width: 22%;
     height: auto;
     margin-left: 7px;
 }
-.dashboard_content_item>div{    
+
+.dashboard_content_item>div {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     width: 77% !important;
     color: black;
 }
-.dashboard_content_item>div>span:first-of-type{
+
+.dashboard_content_item>div>span:first-of-type {
     font-size: 16px;
     text-align: start;
     display: inline-block;
@@ -61,8 +68,31 @@
     text-overflow: ellipsis;
     width: 100%;
 }
-.dashboard_content_item>div>span:last-of-type{
+
+.dashboard_content_item>div>span:last-of-type {
     font-size: 13px;
+}
+
+@media (max-width: 1150px) {
+    .dashboard_content_item {
+        width: 49%;
+    }
+
+    .dashboard_content_item>div>span:first-of-type {
+        font-size: 15px;
+    }
+
+    .dashboard_content_item>div>span:last-of-type {
+        font-size: 12px;
+    }
+
+    .dashboard_content_item>img {
+        width: 26%;
+    }
+
+    .dashboard_content_item>div {
+        width: 74% !important;
+    }
 }
 
 @media (max-width: 950px) {
@@ -76,5 +106,27 @@
     .dashboard_orders_filter {
         font-size: 14px;
         margin-left: 10px;
+    }
+
+    .dashboard_content_item>div>span:first-of-type {
+        font-size: 14px;
+    }
+
+    .dashboard_content_item>div>span:last-of-type {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 470px) {
+    .dashboard_content_item {
+        width: 100%;
+        margin-top: 10px;
+    }
+    .dashboard_content_item>img {
+        width: 20%;
+    }
+
+    .dashboard_content_item>div {
+        width: 80% !important;
     }
 }
