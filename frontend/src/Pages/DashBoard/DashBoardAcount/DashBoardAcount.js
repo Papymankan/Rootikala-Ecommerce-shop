@@ -3,6 +3,7 @@ import './DashBoardAcount.css'
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { FaRegEdit } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
+import CloseIcon from '@mui/icons-material/Close';
 import { maxValidator, minValidator, requiredValidator, emailValidator, phoneValidator } from "../../../Validation/rules";
 import AuthContext from "../../../Context/Context";
 import Input from "../../../Components/Input/Input"
@@ -113,7 +114,9 @@ export default function DashBoardAcount() {
                     <div className="dashboard_content_input" style={!inputDisable ? ({ backgroundColor: 'white' }) : ({})}>
                         <div>
                             <span>نام</span>
-                            <span><FaCheck /></span>
+                            {
+                                formState.inputs.name.isValid ? <span><FaCheck /></span> : <span style={{color:'red'}}><CloseIcon /></span>
+                            }
                         </div>
                         <Input placeholder="نام" id="name"
                             validation={[
@@ -129,7 +132,9 @@ export default function DashBoardAcount() {
                     <div className="dashboard_content_input" style={!inputDisable ? ({ backgroundColor: 'white' }) : ({})}>
                         <div>
                             <span>نام خانوادگی</span>
-                            <span><FaCheck /></span>
+                            {
+                                formState.inputs.lastName.isValid ? <span><FaCheck /></span> : <span style={{color:'red'}}><CloseIcon /></span>
+                            }
                         </div>
                         <Input placeholder="نام خانوادگی" id="lastName"
                             validation={[
@@ -146,7 +151,9 @@ export default function DashBoardAcount() {
                     <div className="dashboard_content_input" style={!inputDisable ? ({ backgroundColor: 'white' }) : ({})}>
                         <div>
                             <span>شماره تماس</span>
-                            <span><FaCheck /></span>
+                            {
+                                formState.inputs.phone.isValid ? <span><FaCheck /></span> : <span style={{color:'red'}}><CloseIcon /></span>
+                            }
                         </div>
                         <Input placeholder="شماره تماس" id="phone"
                             validation={[
@@ -163,7 +170,9 @@ export default function DashBoardAcount() {
                     <div className="dashboard_content_input" style={!inputDisable ? ({ backgroundColor: 'white' }) : ({})}>
                         <div>
                             <span>ایمیل</span>
-                            <span><FaCheck /></span>
+                            {
+                                formState.inputs.email.isValid ? <span><FaCheck /></span> : <span style={{color:'red'}}><CloseIcon /></span>
+                            }
                         </div>
                         <Input placeholder="ایمیل" id="email"
                             validation={[

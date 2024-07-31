@@ -2,7 +2,9 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import './DashBoardMain.css'
 import EntoFa from "../../../funcs/EntoFa/EntoFa";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
-import { MdOutlineAddLocationAlt, MdOutlineManageAccounts, MdLockOpen } from "react-icons/md";
+import { MdOutlineAddLocationAlt, MdOutlineManageAccounts, MdLockOpen , MdOutlineCancel  } from "react-icons/md";
+import { LiaShippingFastSolid } from "react-icons/lia";
+import { BsBox2 } from "react-icons/bs";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../../../Context/Context";
@@ -50,7 +52,7 @@ export default function DashBoardMain() {
       setStatus(true)
     }
 
-    if (authContext.userInfos.customer && authContext.userInfos.customer.orders.length > 0) {
+    if (authContext.userInfos.customer && authContext.userInfos.customer.orders && authContext.userInfos.customer.orders.length > 0) {
       let id = 0
       let order1 = {}
       authContext.userInfos.customer.orders.map(order => {
@@ -81,15 +83,15 @@ export default function DashBoardMain() {
             حساب کاربری
           </div>
           <div className="dashboard_content_account_actions">
-            <div className="dashboard_content_account_action" onClick={()=>navigate('/dashboard/account')}>
+            <div className="dashboard_content_account_action" onClick={() => navigate('/dashboard/account')}>
               <span><MdOutlineManageAccounts /></span>
               تکمیل مشخصات
             </div>
-            <div className="dashboard_content_account_action"  onClick={()=>navigate('/dashboard/password')}>
+            <div className="dashboard_content_account_action" onClick={() => navigate('/dashboard/password')}>
               <span><MdLockOpen /></span>
               تغییر رمز عبور
             </div>
-            <div className="dashboard_content_account_action"  onClick={()=>navigate('/dashboard/address')}>
+            <div className="dashboard_content_account_action" onClick={() => navigate('/dashboard/address')}>
               <span><MdOutlineAddLocationAlt /></span>
               آدرس ها
             </div>
@@ -110,21 +112,21 @@ export default function DashBoardMain() {
               </div>
             </div>
             <div className="dashboard_content_order_action">
-              <span><MdLockOpen /></span>
+              <span><LiaShippingFastSolid /></span>
               <div>
                 <span>{(orders.current['fulfilling']).toLocaleString().EntoFa()} سفارش</span>
                 <span>در حال ارسال</span>
               </div>
             </div>
             <div className="dashboard_content_order_action">
-              <span><MdOutlineAddLocationAlt /></span>
+              <span><BsBox2 /></span>
               <div>
                 <span>{(orders.current['shipped']).toLocaleString().EntoFa()} سفارش</span>
                 <span>ارسال شده</span>
               </div>
             </div>
             <div className="dashboard_content_order_action">
-              <span><MdOutlineAddLocationAlt /></span>
+              <span><MdOutlineCancel /></span>
               <div>
                 <span>{(orders.current['cancle']).toLocaleString().EntoFa()} سفارش</span>
                 <span>کنسل شده</span>
@@ -148,7 +150,6 @@ export default function DashBoardMain() {
             {
               lastOrder.id ? (
                 <>
-                  <Link>
                     <div className="dashboard_content_order">
                       <div className="dashboard_content_order_status">
                         {
@@ -184,7 +185,6 @@ export default function DashBoardMain() {
                         <span><span>تاریخ :</span> {new Date(`${lastOrder.created_at.slice(5, 7)}/${lastOrder.created_at.slice(8, 10)}/${lastOrder.created_at.slice(0, 4)}`).toLocaleDateString('fa-IR')}</span>
                       </div>
                     </div>
-                  </Link>
                 </>
               ) : <div className="alert alert-warning">سفارشی وجود ندارد</div>
             }

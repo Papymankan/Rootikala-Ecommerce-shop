@@ -8,7 +8,7 @@ import { Avatar, Drawer } from "@mui/material";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { RiHomeSmile2Line } from "react-icons/ri";
-import { CiMenuBurger } from "react-icons/ci";
+import { CiMenuBurger, CiShoppingCart } from "react-icons/ci";
 import { MdOutlineAddLocationAlt, MdOutlineManageAccounts } from "react-icons/md";
 import CloseIcon from '@mui/icons-material/Close';
 import { SlLogout } from "react-icons/sl";
@@ -62,6 +62,12 @@ export default function DashBoard() {
               <Link to={'/dashboard/account'}>
                 <MdOutlineManageAccounts />
                 <span>اطلاعات حساب کاربری</span>
+              </Link>
+            </li>
+            <li>
+              <Link to={'/cart'}>
+                <CiShoppingCart />
+                <span>سبد خرید</span>
               </Link>
             </li>
             <li>
@@ -124,6 +130,15 @@ export default function DashBoard() {
                   <span>اطلاعات حساب کاربری</span>
                 </Link>
               </li>
+              {
+                authContext.userCart.id && (<li>
+                <Link to={'/cart'}>
+                  <CiShoppingCart />
+                  <span>سبد خرید</span>
+                </Link>
+              </li>)
+              }
+              
               <li>
                 <Link onClick={() => {
                   authContext.logout()

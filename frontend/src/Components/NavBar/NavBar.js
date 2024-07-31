@@ -146,7 +146,7 @@ export default function NavBar() {
                         </Link>
                       </li>
                       <li>
-                        <Link>
+                        <Link to={'/dashboard/orders'}>
                           <HiOutlineShoppingBag />سفارش ها
                         </Link>
                       </li>

@@ -140,6 +140,24 @@
     border-radius: 10px;
 }
 
+@media (max-width: 1150px) {
+    .ProductCard {
+        width: 200px;
+        height: 100%;
+    }
+
+    .ProductCard>a>span {
+        font-size: 15px;
+    }
+
+    .ProductCard>a>div>span:last-of-type {
+        font-size: 15px;
+    }
+
+    .ProductCard>a>div>span:first-of-type {
+        font-size: 11px;
+    }
+}
 @media (max-width: 950px) {
     .ProductCard {
         width: 156px;
@@ -156,5 +174,51 @@
 
     .ProductCard>a>div>span:first-of-type {
         font-size: 11px;
+    }
+}
+@media (max-width: 675px) {
+    .ProductCard {
+        width: 140px;
+        height: 100%;
+        padding: 5px;
+    }
+
+    .ProductCard>a>span {
+        font-size: 13px;
+    }
+
+    .ProductCard>a>div>span:last-of-type {
+        font-size: 14px;
+    }
+    .ProductCard>a>div>span:last-of-type>span {
+        font-size: 12px;
+        padding: 2px 3px;
+    }
+
+    .ProductCard>a>div>span:first-of-type {
+        font-size: 10px;
+    }
+}
+@media (max-width: 470px) {
+    .ProductCard {
+        width: 120px;
+        height: 100%;
+        padding: 5px;
+    }
+
+    .ProductCard>a>span {
+        font-size: 12px;
+    }
+
+    .ProductCard>a>div>span:last-of-type {
+        font-size: 13px;
+    }
+    .ProductCard>a>div>span:last-of-type>span {
+        font-size: 11px;
+        padding: 2px 3px;
+    }
+
+    .ProductCard>a>div>span:first-of-type {
+        font-size: 9px;
     }
 }

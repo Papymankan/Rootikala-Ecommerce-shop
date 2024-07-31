@@ -97,6 +97,7 @@ export default function Cart() {
                 }).then(res => res.json()).then(data => {
                     authContext.setCustomer(data)
                     setInputDisable(true)
+                    setStep(3)
                 })
             } else {
                 fetch(`http://localhost:9000/store/customers/me/addresses`, {
@@ -109,6 +110,7 @@ export default function Cart() {
                 }).then(res => res.json()).then(data => {
                     authContext.setCustomer(data)
                     setInputDisable(true)
+                    setStep(3)
                 })
             }
 
@@ -213,6 +215,7 @@ export default function Cart() {
     const [step, setStep] = useState(1)
 
     useEffect(() => {
+        authContext.setLoading(true)
         if (authContext.userCart.id) {
             if (authContext.userCart.items.length > 0) {
                 fetch(`http://localhost:9000/store/shipping-options/${authContext.userCart.id}`).then(res => res.json())
@@ -259,38 +262,15 @@ export default function Cart() {
                 if (data.cart.shipping_address && data.cart.shipping_address.first_name) {
                     setInputDisable(true)
                 }
+                authContext.setLoading(false)
             })
         } 
-        // else if (authContext.userInfos.customer && authContext.userInfos.customer.shipping_addresses.length > 0 && authContext.userCart.shipping_address.first_name && authContext.userCart.shipping_address.first_name != authContext.userInfos.customer.shipping_addresses[0].first_name) {
-        //     fetch(`http://localhost:9000/store/carts/${authContext.userCart.id}`, {
-        //         method: 'POST',
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //         },
-        //         body: JSON.stringify({
-        //             shipping_address: {
-        //                 first_name: authContext.userInfos.customer.shipping_addresses[0].first_name,
-        //                 last_name: authContext.userInfos.customer.shipping_addresses[0].last_name,
-        //                 address_1: authContext.userInfos.customer.shipping_addresses[0].address_1,
-        //                 city: authContext.userInfos.customer.shipping_addresses[0].city,
-        //                 country_code: authContext.userInfos.customer.shipping_addresses[0].country_code,
-        //                 postal_code: authContext.userInfos.customer.shipping_addresses[0].postal_code
-        //             }
-        //         })
-        //     }).then(res => res.json()).then(data => {
-        //         authContext.setCart(data.cart)
-        //         if (data.cart.shipping_address && data.cart.shipping_address.first_name) {
-        //             setInputDisable(true)
-        //         }
-        //     })
-        // }
         else {
             if (authContext.userCart.shipping_address && authContext.userCart.shipping_address.first_name) {
                 setInputDisable(true)
             }
+            authContext.setLoading(false)
         }
-
-
     }, [authContext.userCart.id])
 
     const [formState, onInputHandler, onInputSubmit] = useForm(
@@ -523,7 +503,6 @@ export default function Cart() {
                         } else if (step == 2) {
                             if (authContext.userCart.items && authContext.userCart.items.length > 0) {
                                 if (authContext.userCart.shipping_methods.length > 0) {
-                                    setStep(3)
                                     completeCart()
                                 } else {
                                     notify('شیوه ارسال را انتخاب نمایید')
@@ -554,8 +533,8 @@ export default function Cart() {
                         }
                     } else if (step == 2) {
                         if (authContext.userCart.items && authContext.userCart.items.length > 0) {
-                            if (authContext.userCart.shipping_methods.length > 0) {
-                                setStep(3)
+                            if (authContext.userCart.shipping_methods.length > 0 && authContext.userCart.shipping_methods.first_name) {
+                    
                                 completeCart()
                             } else {
                                 notify('شیوه ارسال را انتخاب نمایید')

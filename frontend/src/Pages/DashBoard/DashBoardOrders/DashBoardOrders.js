@@ -4,6 +4,9 @@ import { MdOutlineManageAccounts } from "react-icons/md";
 import { IoIosArrowBack } from "react-icons/io";
 import EntoFa from "../../../funcs/EntoFa/EntoFa";
 import AuthContext from "../../../Context/Context";
+import { FaCheck } from "react-icons/fa6";
+import CloseIcon from '@mui/icons-material/Close';
+import { CiClock2 } from "react-icons/ci";
 import { Link } from "react-router-dom";
 
 export default function DashBoardOrders() {
@@ -85,10 +88,10 @@ export default function DashBoardOrders() {
                                                 <div className="dashboard_content_order_status">
                                                     {
                                                         order.canceled_at ? (
-                                                            <span style={{ color: 'red' }}><MdOutlineManageAccounts />کنسل شده</span>
+                                                            <span style={{ color: 'red' }}><CloseIcon />کنسل شده</span>
                                                         ) : (
-                                                            order.payment_status == 'awaiting' ? <span style={{ color: '#0EA5E9' }}><MdOutlineManageAccounts /> تایید نشده</span> :
-                                                                <span><MdOutlineManageAccounts /> تایید شده</span>
+                                                            order.payment_status == 'awaiting' ? <span style={{ color: '#0EA5E9' }}><CiClock2 /> تایید نشده</span> :
+                                                                <span><FaCheck /> تایید شده</span>
                                                         )
                                                     }
                                                     <IoIosArrowBack />

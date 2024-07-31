@@ -7,6 +7,7 @@ import { maxValidator, minValidator, requiredValidator, emailValidator, phoneVal
 import AuthContext from "../../../Context/Context";
 import Input from "../../../Components/Input/Input"
 import { useForm } from "../../../hooks/useForm";
+import CloseIcon from '@mui/icons-material/Close';
 import { toast } from "react-toastify";
 
 export default function DashBoardAddress() {
@@ -135,7 +136,9 @@ export default function DashBoardAddress() {
                     <div className="dashboard_content_input" style={!inputDisable ? ({ backgroundColor: 'white' }) : ({})}>
                         <div>
                             <span>نام</span>
-                            <span><FaCheck /></span>
+                            {
+                                formState.inputs.name.isValid ? <span><FaCheck /></span> : <span style={{color:'red'}}><CloseIcon /></span>
+                            }
                         </div>
                         <Input placeholder="نام" id="name"
                             validation={[
@@ -151,7 +154,9 @@ export default function DashBoardAddress() {
                     <div className="dashboard_content_input" style={!inputDisable ? ({ backgroundColor: 'white' }) : ({})}>
                         <div>
                             <span>نام خانوادگی</span>
-                            <span><FaCheck /></span>
+                            {
+                                formState.inputs.lastName.isValid ? <span><FaCheck /></span> : <span style={{color:'red'}}><CloseIcon /></span>
+                            }
                         </div>
                         <Input placeholder="نام خانوادگی" id="lastName"
                             validation={[
@@ -168,7 +173,9 @@ export default function DashBoardAddress() {
                     <div className="dashboard_content_input" style={!inputDisable ? ({ backgroundColor: 'white' }) : ({})}>
                         <div>
                             <span>شهر</span>
-                            <span><FaCheck /></span>
+                            {
+                                formState.inputs.city.isValid ? <span><FaCheck /></span> : <span style={{color:'red'}}><CloseIcon /></span>
+                            }
                         </div>
                         <Input placeholder="شهر" id="city"
                             validation={[
@@ -184,7 +191,9 @@ export default function DashBoardAddress() {
                     <div className="dashboard_content_input" style={!inputDisable ? ({ backgroundColor: 'white' }) : ({})}>
                         <div>
                             <span>کد پستی</span>
-                            <span><FaCheck /></span>
+                            {
+                                formState.inputs.postal_code.isValid ? <span><FaCheck /></span> : <span style={{color:'red'}}><CloseIcon /></span>
+                            }
                         </div>
                         <Input placeholder="کد پستی" id="postal_code"
                             validation={[
@@ -200,7 +209,9 @@ export default function DashBoardAddress() {
                     <div className="dashboard_content_input" id="dashboard_content_input_textarea" style={!inputDisable ? ({ backgroundColor: 'white' }) : ({})}>
                         <div>
                             <span>آدرس</span>
-                            <span><FaCheck /></span>
+                            {
+                                formState.inputs.address.isValid ? <span><FaCheck /></span> : <span style={{color:'red'}}><CloseIcon /></span>
+                            }
                         </div>
                         <Input placeholder="آدرس" id="address"
                             validation={[
