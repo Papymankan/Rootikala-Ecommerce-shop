@@ -106,7 +106,7 @@ export default function DashBoardAddress() {
                 }).then(res => res.json()).then(data => {
                     authContext.setCustomer(data)
                     setInputDisable(true)
-                    notify2('آدرس با موفقیت ویرایش شد')
+                    notify2('آدرس با موفقیت ثبت شد')
                 })
             }
 
@@ -114,7 +114,7 @@ export default function DashBoardAddress() {
     }
 
     useEffect(() => {
-        if (authContext.userInfos.customer && authContext.userInfos.customer.shipping_addresses[0].first_name) {
+        if (authContext.userInfos.customer && authContext.userInfos.customer.shipping_addresses.length > 0 && authContext.userInfos.customer.shipping_addresses[0].first_name) {
             setInputDisable(true)
         } else {
             setInputDisable(false)
@@ -144,7 +144,7 @@ export default function DashBoardAddress() {
                             ]}
                             onInputHandler={onInputHandler}
                             disabled={inputDisable}
-                            Value={authContext.userInfos.customer && authContext.userInfos.customer.shipping_addresses[0].first_name}
+                            Value={authContext.userInfos.customer && authContext.userInfos.customer.shipping_addresses.length > 0 && authContext.userInfos.customer.shipping_addresses[0].first_name}
                             state={formState.inputs}
                         />
                     </div>
@@ -160,7 +160,7 @@ export default function DashBoardAddress() {
                             ]}
                             onInputHandler={onInputHandler}
                             disabled={inputDisable}
-                            Value={authContext.userInfos.customer && authContext.userInfos.customer.shipping_addresses[0].last_name}
+                            Value={authContext.userInfos.customer && authContext.userInfos.customer.shipping_addresses.length > 0 && authContext.userInfos.customer.shipping_addresses[0].last_name}
                             state={formState.inputs}
                         />
                     </div>
@@ -176,7 +176,7 @@ export default function DashBoardAddress() {
                             ]}
                             onInputHandler={onInputHandler}
                             disabled={inputDisable}
-                            Value={authContext.userInfos.customer && authContext.userInfos.customer.shipping_addresses[0].city}
+                            Value={authContext.userInfos.customer && authContext.userInfos.customer.shipping_addresses.length > 0 && authContext.userInfos.customer.shipping_addresses[0].city}
                             state={formState.inputs}
                         />
                     </div>
@@ -193,7 +193,7 @@ export default function DashBoardAddress() {
                             type='number'
                             onInputHandler={onInputHandler}
                             disabled={inputDisable}
-                            Value={authContext.userInfos.customer && authContext.userInfos.customer.shipping_addresses[0].postal_code}
+                            Value={authContext.userInfos.customer && authContext.userInfos.customer.shipping_addresses.length > 0 && authContext.userInfos.customer.shipping_addresses[0].postal_code}
                             state={formState.inputs}
                         />
                     </div>
@@ -209,7 +209,7 @@ export default function DashBoardAddress() {
                             onInputHandler={onInputHandler}
                             element='textarea'
                             disabled={inputDisable}
-                            Value={authContext.userInfos.customer && authContext.userInfos.customer.shipping_addresses[0].address_1}
+                            Value={authContext.userInfos.customer && authContext.userInfos.customer.shipping_addresses.length > 0 && authContext.userInfos.customer.shipping_addresses[0].address_1}
                             state={formState.inputs}
                         />
                     </div>

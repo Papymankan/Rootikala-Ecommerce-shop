@@ -69,7 +69,7 @@ export default function DashBoardOrders() {
                 </div>
                 <div className="dashboard_orders">
                     {
-                        authContext.userInfos.customer && showOrders ?
+                        authContext.userInfos.customer && showOrders.length > 0 ?
                             showOrders.map(order => {
 
                                 let paid = 0

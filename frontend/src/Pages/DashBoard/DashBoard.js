@@ -94,7 +94,9 @@ export default function DashBoard() {
                 <span>{('09111111111111').toLocaleString().EntoFa()}</span>
               </div>
             </div>
-            <FaRegEdit />
+            <FaRegEdit onClick={() => {
+              navigate('/dashboard/account')
+            }} />
           </div>
           <div className="dashboard_Menu_actionList">
             <ul>

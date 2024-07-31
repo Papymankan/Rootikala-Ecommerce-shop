@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import AuthContext from "../../Context/Context";
 
-export default function PrivateRoute({ children }) {
+export default function PrivateRoute2({ children }) {
 
     const pageRender = useRef(false)
 
@@ -26,9 +26,6 @@ export default function PrivateRoute({ children }) {
         if (!localData) {
             navigate('/login')
             notify('برای مشاهده ابتدا وارد حساب کاربری خود شوید')
-        } else if (authContext.userInfos.customer && !authContext.userInfos.customer.metadata) {
-            navigate('/')
-            notify('سبد خریدی برای شما وجود ندارد')
         }
     }, [authContext.userInfos])
 

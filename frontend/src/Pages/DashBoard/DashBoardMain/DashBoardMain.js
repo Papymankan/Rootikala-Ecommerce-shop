@@ -4,7 +4,7 @@ import EntoFa from "../../../funcs/EntoFa/EntoFa";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { MdOutlineAddLocationAlt, MdOutlineManageAccounts, MdLockOpen } from "react-icons/md";
 import { IoIosArrowBack } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../../../Context/Context";
 
 
@@ -20,6 +20,7 @@ export default function DashBoardMain() {
   const [status, setStatus] = useState(false)
   const [lastOrder, setLastOrder] = useState({})
   const [paid, setPaid] = useState(0)
+  const navigate = useNavigate()
 
 
   useEffect(() => {
@@ -30,7 +31,7 @@ export default function DashBoardMain() {
       'shipped': 0
     }
 
-    if (authContext.userInfos.customer && authContext.userInfos.customer.orders.length > 0) {
+    if (authContext.userInfos.customer && authContext.userInfos.customer.orders && authContext.userInfos.customer.orders.length > 0) {
       authContext.userInfos.customer.orders.map(order => {
         if (order.canceled_at) {
           orders.current = { ...orders.current, 'cancle': orders.current['cancle'] + 1 }
@@ -80,15 +81,15 @@ export default function DashBoardMain() {
             حساب کاربری
           </div>
           <div className="dashboard_content_account_actions">
-            <div className="dashboard_content_account_action">
+            <div className="dashboard_content_account_action" onClick={()=>navigate('/dashboard/account')}>
               <span><MdOutlineManageAccounts /></span>
               تکمیل مشخصات
             </div>
-            <div className="dashboard_content_account_action">
+            <div className="dashboard_content_account_action"  onClick={()=>navigate('/dashboard/password')}>
               <span><MdLockOpen /></span>
               تغییر رمز عبور
             </div>
-            <div className="dashboard_content_account_action">
+            <div className="dashboard_content_account_action"  onClick={()=>navigate('/dashboard/address')}>
               <span><MdOutlineAddLocationAlt /></span>
               آدرس ها
             </div>
