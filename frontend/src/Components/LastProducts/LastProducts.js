@@ -21,7 +21,7 @@ export default function LastProducts({products}) {
                 <div className="LastCoursesContainer">
                     <div className="LastCoursesHeader">
                         <h2>جدیدترین محصولات</h2>
-                        <Link>مشاهده همه <IoIosArrowBack /></Link>
+                        <Link to={'/store'}>مشاهده همه <IoIosArrowBack /></Link>
                     </div>
                     <div className="LastCoursesRow">
                         <Swiper

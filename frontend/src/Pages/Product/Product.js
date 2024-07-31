@@ -17,6 +17,7 @@ import { BsClockHistory } from "react-icons/bs";
 import { Link, useParams } from "react-router-dom";
 import AuthContext from "../../Context/Context";
 import { toast } from "react-toastify";
+import LastProducts from "../../Components/LastProducts/LastProducts";
 
 export default function Product() {
     const { id } = useParams()
@@ -32,6 +33,13 @@ export default function Product() {
             })
         }
     }, [id])
+
+    const [products, setProducts] = useState([])
+  
+    useEffect(() => {
+      fetch(`http://localhost:9000/store/products`, {
+      }).then(res => res.json()).then(data => setProducts(data.products))
+    }, [])
 
     const authContext = useContext(AuthContext)
 
@@ -337,6 +345,7 @@ export default function Product() {
                     </div>
                 </div>
             </div>
+            <LastProducts products={products} />
             <Footer />
         </>
     );
