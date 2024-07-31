@@ -11,6 +11,7 @@ import DashBoard from "./Pages/DashBoard/DashBoard";
 import DashBoardMain from "./Pages/DashBoard/DashBoardMain/DashBoardMain";
 import DashBoardAcount from "./Pages/DashBoard/DashBoardAcount/DashBoardAcount";
 import DashBoardOrders from "./Pages/DashBoard/DashBoardOrders/DashBoardOrders";
+import DashBoardAddress from "./Pages/DashBoard/DashBoardAddress/DashBoardAddress";
 
 const routes = [
     { path: '/', element: <Home /> },
@@ -25,7 +26,8 @@ const routes = [
         path: '/dashboard/*', element: <PrivateRoute><DashBoard /></PrivateRoute>, children: [
             { path: 'main', element: <DashBoardMain /> },
             { path: 'account', element: <DashBoardAcount /> },
-            { path: 'orders', element: <DashBoardOrders /> }
+            { path: 'orders', element: <DashBoardOrders /> },
+            { path: 'address', element: <DashBoardAddress /> },
         ]
     },
 ]

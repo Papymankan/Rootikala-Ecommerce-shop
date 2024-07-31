@@ -1,0 +1,19 @@
+#dashboard_content_input_textarea {
+    width: 100%;
+}
+
+#dashboard_content_input_textarea>textarea {
+    width: 100%;
+    resize: none;
+    height: 120px;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid var(--gray) !important;
+}
+
+#dashboard_content_input_textarea>textarea:focus {
+    outline: 0;
+}
+#dashboard_content_input_textarea>textarea:disabled {
+    background: none;
+}

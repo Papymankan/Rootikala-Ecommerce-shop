@@ -68,24 +68,26 @@ function App() {
   }, [])
 
   const setCustomer = (customer) => {
-    fetch(`http://localhost:9000/store/carts/${userCart.id}`, {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        shipping_address: {
-          first_name: customer.customer.shipping_addresses[0].first_name,
-          last_name: customer.customer.shipping_addresses[0].last_name,
-          address_1: customer.customer.shipping_addresses[0].address_1,
-          city: customer.customer.shipping_addresses[0].city,
-          country_code: customer.customer.shipping_addresses[0].country_code,
-          postal_code: customer.customer.shipping_addresses[0].postal_code
-        }
+    if (userCart.id) {
+      fetch(`http://localhost:9000/store/carts/${userCart.id}`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          shipping_address: {
+            first_name: customer.customer.shipping_addresses[0].first_name,
+            last_name: customer.customer.shipping_addresses[0].last_name,
+            address_1: customer.customer.shipping_addresses[0].address_1,
+            city: customer.customer.shipping_addresses[0].city,
+            country_code: customer.customer.shipping_addresses[0].country_code,
+            postal_code: customer.customer.shipping_addresses[0].postal_code
+          }
+        })
+      }).then(res => res.json()).then(data => {
+        setUserCart(data.cart)
       })
-    }).then(res => res.json()).then(data => {
-      setUserCart(data.cart)
-    })
+    }
 
     setUserInfos(customer)
   }
@@ -163,7 +165,7 @@ function App() {
         }
       })
     }).then(res => {
-      if(res.ok){
+      if (res.ok) {
         window.location.reload()
       }
     })
@@ -179,7 +181,7 @@ function App() {
   }
 
   useEffect(() => {
-        console.log('APP');
+    console.log('APP');
     const localData = JSON.parse(localStorage.getItem('user'))
     if (localData) {
       fetch('http://localhost:9000/store/auth', {

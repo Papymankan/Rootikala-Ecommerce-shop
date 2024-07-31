@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import './DashBoardAcount.css'
+import React, { useContext, useEffect, useState } from "react";
+import './DashBoardAddress.css'
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { FaRegEdit } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
@@ -9,9 +9,9 @@ import Input from "../../../Components/Input/Input"
 import { useForm } from "../../../hooks/useForm";
 import { toast } from "react-toastify";
 
-export default function DashBoardAcount() {
+export default function DashBoardAddress() {
 
-    const [inputDisable, setInputDisable] = useState(true)
+    const [inputDisable, setInputDisable] = useState(false)
 
     const authContext = useContext(AuthContext)
 
@@ -25,14 +25,19 @@ export default function DashBoardAcount() {
                 value: '',
                 isValid: false
             },
-            phone: {
+            city: {
                 value: '',
                 isValid: false
             },
-            email: {
+            postal_code: {
                 value: '',
                 isValid: false
             },
+            address: {
+                value: '',
+                isValid: false
+            },
+
         }, false
     )
 
@@ -58,46 +63,63 @@ export default function DashBoardAcount() {
     });
 
     const updateUser = () => {
-        const localData = JSON.parse(localStorage.getItem('user'))
-        if (!formState.isFormValid) {
-            if (!formState.inputs.name.isValid) {
-                notify('نام معتبر نیست')
-            }
-            if (!formState.inputs.lastName.isValid) {
-                notify('نام خانودادگی معتبر نیست')
-            }
-            if (!formState.inputs.email.isValid) {
-                notify('ایمیل معتبر نیست')
-            }
-            if (formState.inputs.phone.value && !formState.inputs.phone.isValid) {
-                notify('شماره تماس معتبر نیست')
+        if (!inputDisable) {
+            const localData = JSON.parse(localStorage.getItem('user'))
+
+            if (!formState.isFormValid) {
+                notify('آدرس و مشخصات را کامل کنید')
                 return true
             }
-            if (!formState.inputs.email.isValid || !formState.inputs.lastName.isValid || !formState.inputs.name.isValid) {
-                return true
+
+            let obj = {
+                address: {
+                    "first_name": formState.inputs.name.value,
+                    "last_name": formState.inputs.lastName.value,
+                    "address_1": formState.inputs.address.value,
+                    "city": formState.inputs.city.value,
+                    "country_code": 'ir',
+                    "postal_code": formState.inputs.postal_code.value
+                }
             }
+
+            if (authContext.userInfos.customer.shipping_addresses.length) {
+                fetch(`http://localhost:9000/store/customers/me/addresses/${authContext.userInfos.customer.shipping_addresses[0].id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localData.token}`
+                    },
+                    body: JSON.stringify(obj.address)
+                }).then(res => res.json()).then(data => {
+                    authContext.setCustomer(data)
+                    setInputDisable(true)
+                    notify2('آدرس با موفقیت ویرایش شد')
+                })
+            } else {
+                fetch(`http://localhost:9000/store/customers/me/addresses`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localData.token}`
+                    },
+                    body: JSON.stringify(obj)
+                }).then(res => res.json()).then(data => {
+                    authContext.setCustomer(data)
+                    setInputDisable(true)
+                    notify2('آدرس با موفقیت ویرایش شد')
+                })
+            }
+
         }
-        fetch(`http://localhost:9000/store/customers/me`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localData.token}`
-            },
-            body: JSON.stringify({
-                first_name: formState.inputs.name.value,
-                last_name: formState.inputs.lastName.value,
-                email: formState.inputs.email.value,
-                phone: formState.inputs.phone.isValid ? formState.inputs.phone.value : null
-            })
-        }).then(res => {
-            if (res.ok) {
-                setInputDisable(true)
-                notify2('اطلاعات ویرایش شد')
-                window.location.reload()
-            }
-            return res.json()
-        })
     }
+
+    useEffect(() => {
+        if (authContext.userInfos.customer && authContext.userInfos.customer.shipping_addresses[0].first_name) {
+            setInputDisable(true)
+        } else {
+            setInputDisable(false)
+        }
+    }, [authContext.userInfos.customer])
 
 
     return (
@@ -105,9 +127,9 @@ export default function DashBoardAcount() {
             <div className="dashboard_account_content">
                 <div className="dashboard_content_headerTitle">
                     <div className="dashboard_content_title">
-                        اطلاعات حساب کاربری
+                        آدرس
                     </div>
-                    <button onClick={() => setInputDisable(false)}><FaRegEdit /> ویرایش اطلاعات</button>
+                    <button onClick={() => setInputDisable(false)}><FaRegEdit /> ویرایش آدرس</button>
                 </div>
                 <div className="dashboard_content_inputs">
                     <div className="dashboard_content_input" style={!inputDisable ? ({ backgroundColor: 'white' }) : ({})}>
@@ -122,7 +144,7 @@ export default function DashBoardAcount() {
                             ]}
                             onInputHandler={onInputHandler}
                             disabled={inputDisable}
-                            Value={authContext.userInfos.customer && authContext.userInfos.customer.first_name}
+                            Value={authContext.userInfos.customer && authContext.userInfos.customer.shipping_addresses[0].first_name}
                             state={formState.inputs}
                         />
                     </div>
@@ -138,47 +160,62 @@ export default function DashBoardAcount() {
                             ]}
                             onInputHandler={onInputHandler}
                             disabled={inputDisable}
-                            Value={authContext.userInfos.customer && authContext.userInfos.customer.last_name}
+                            Value={authContext.userInfos.customer && authContext.userInfos.customer.shipping_addresses[0].last_name}
                             state={formState.inputs}
                         />
                     </div>
 
                     <div className="dashboard_content_input" style={!inputDisable ? ({ backgroundColor: 'white' }) : ({})}>
                         <div>
-                            <span>شماره تماس</span>
+                            <span>شهر</span>
                             <span><FaCheck /></span>
                         </div>
-                        <Input placeholder="شماره تماس" id="phone"
+                        <Input placeholder="شهر" id="city"
                             validation={[
                                 requiredValidator(),
-                                phoneValidator()
                             ]}
                             onInputHandler={onInputHandler}
                             disabled={inputDisable}
-                            Value={authContext.userInfos.customer && authContext.userInfos.customer.phone}
+                            Value={authContext.userInfos.customer && authContext.userInfos.customer.shipping_addresses[0].city}
                             state={formState.inputs}
                         />
                     </div>
 
                     <div className="dashboard_content_input" style={!inputDisable ? ({ backgroundColor: 'white' }) : ({})}>
                         <div>
-                            <span>ایمیل</span>
+                            <span>کد پستی</span>
                             <span><FaCheck /></span>
                         </div>
-                        <Input placeholder="ایمیل" id="email"
+                        <Input placeholder="کد پستی" id="postal_code"
                             validation={[
                                 requiredValidator(),
-                                emailValidator()
                             ]}
+                            type='number'
                             onInputHandler={onInputHandler}
                             disabled={inputDisable}
-                            Value={authContext.userInfos.customer && authContext.userInfos.customer.email}
+                            Value={authContext.userInfos.customer && authContext.userInfos.customer.shipping_addresses[0].postal_code}
+                            state={formState.inputs}
+                        />
+                    </div>
+                    <div className="dashboard_content_input" id="dashboard_content_input_textarea" style={!inputDisable ? ({ backgroundColor: 'white' }) : ({})}>
+                        <div>
+                            <span>آدرس</span>
+                            <span><FaCheck /></span>
+                        </div>
+                        <Input placeholder="آدرس" id="address"
+                            validation={[
+                                requiredValidator(),
+                            ]}
+                            onInputHandler={onInputHandler}
+                            element='textarea'
+                            disabled={inputDisable}
+                            Value={authContext.userInfos.customer && authContext.userInfos.customer.shipping_addresses[0].address_1}
                             state={formState.inputs}
                         />
                     </div>
                 </div>
                 {
-                    !inputDisable && <button disabled={inputDisable} onClick={updateUser}>ثبت اطلاعات جدید</button>
+                    !inputDisable && <button disabled={inputDisable} onClick={updateUser}>ثبت آدرس جدید</button>
                 }
 
             </div>
